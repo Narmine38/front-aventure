@@ -40,8 +40,13 @@ const user = ref({
 const errors = ref({});
 const errorMessage = ref('');
 
+
 const submitForm = async () => {
   try {
+    // D'abord, obtenez le cookie CSRF:
+    await api.get('/sanctum/csrf-cookie');
+
+    // Une fois que vous avez le cookie, faites votre requête POST
     const response = await api.post('/api/register', user.value);
     console.log('Inscription réussie:', response.data);
     errorMessage.value = ''; // Reset the error message
@@ -54,6 +59,7 @@ const submitForm = async () => {
     }
   }
 };
+
 
 </script>
 
