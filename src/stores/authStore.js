@@ -11,6 +11,14 @@ export const useAuthStore = defineStore('auth', {
     }),
 
     actions: {
+
+        setAuthorizationHeader() {
+            const token = sessionStorage.getItem('auth_token');
+            if (token) {
+                api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            }
+        },
+
         async login(credentials) {
             try {
                 await api.get('/sanctum/csrf-cookie');
@@ -26,18 +34,22 @@ export const useAuthStore = defineStore('auth', {
         },
 
         async logout() {
+            this.setAuthorizationHeader();
             try {
+                // Envoi d'une requête de déconnexion au serveur.
                 const response = await api.post('/api/logout');
 
-                if (response.data.message === 'Déconnexion réussie.') {
+                // Si la réponse du serveur indique une déconnexion réussie, on efface les données d'authentification.
+                if (response.data.message === 'Logged out successfully.') {
                     this.clearAuthData();
                 } else {
-                    console.warn("Réponse inattendue lors de la déconnexion:", response.data.message);
+                    console.warn("Unexpected response during logout:", response.data.message);
                 }
             } catch (error) {
-                console.error("Erreur lors de la déconnexion:", error.response.data);
+                console.error("Error logging out:", error.response.data);
             }
         },
+
 
         setAuthData(user, roles) {
             this.isLoggedIn = true;
