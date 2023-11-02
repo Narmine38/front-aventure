@@ -23,7 +23,7 @@
 
 <script setup>
 import {computed, ref} from 'vue';
-import {useAuthStore} from '/src/stores/authStore.js'; // Si vous utilisez Vuex
+import {useAuthStore} from '/src/stores/authStore.js';
 import {useRouter} from 'vue-router';
 import IconCommunity from "@/components/icons/IconCommunity.vue";
 
@@ -32,7 +32,7 @@ const router = useRouter();
 const showDropdown = ref(false);
 
 const isLoggedIn = computed(() => store.isLoggedIn);
-const logout = computed(() => store.logout())
+const logout = store.logout
 
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value;
