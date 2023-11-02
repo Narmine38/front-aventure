@@ -11,47 +11,31 @@ export const useAuthStore = defineStore('auth', {
     }),
 
     actions: {
-        // Configure l'en-tête d'autorisation pour toutes les requêtes API en fonction du token stocké dans le sessionStorage.
-        setAuthorizationHeader() {
-            const token = sessionStorage.getItem('auth_token');
-            if (token) {
-                api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-            }
-        },
-
         async login(credentials) {
             try {
-                // Avant de se connecter, nous obtenons un cookie CSRF pour améliorer la sécurité de la requête.
                 await api.get('/sanctum/csrf-cookie');
-
-                // Envoi des identifiants (par ex. email et mot de passe) au serveur pour tentative de connexion.
                 const response = await api.post('/api/login', credentials);
 
-                // Si la connexion est réussie, on stocke les données pertinentes.
-                if (response.data.message === 'Logged in successfully.') {
+                if (response.data.message === 'Connexion réussie!') {
                     this.setAuthData(response.data.user, response.data.roles);
                 }
             } catch (error) {
-                console.error("Error logging in:", error.response.data);
-                // En cas d'erreur (par ex. mauvais identifiants), on efface les données d'authentification.
+                console.error("Erreur lors de la connexion:", error.response.data);
                 this.clearAuthData();
             }
         },
 
         async logout() {
-            this.setAuthorizationHeader();
             try {
-                // Envoi d'une requête de déconnexion au serveur.
                 const response = await api.post('/api/logout');
 
-                // Si la réponse du serveur indique une déconnexion réussie, on efface les données d'authentification.
-                if (response.data.message === 'Logged out successfully.') {
+                if (response.data.message === 'Déconnexion réussie.') {
                     this.clearAuthData();
                 } else {
-                    console.warn("Unexpected response during logout:", response.data.message);
+                    console.warn("Réponse inattendue lors de la déconnexion:", response.data.message);
                 }
             } catch (error) {
-                console.error("Error logging out:", error.response.data);
+                console.error("Erreur lors de la déconnexion:", error.response.data);
             }
         },
 
@@ -75,6 +59,9 @@ export const useAuthStore = defineStore('auth', {
             sessionStorage.removeItem('userData');
             sessionStorage.removeItem('isAdmin');
             sessionStorage.removeItem('userRole');
+
+            // Supprimez le cookie CSRF
+            document.cookie = 'XSRF-TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         }
     }
 });
