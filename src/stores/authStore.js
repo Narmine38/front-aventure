@@ -12,10 +12,22 @@ export const useAuthStore = defineStore('auth', {
 
     actions: {
 
+        getCookieValue(cookieName) {
+            const matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + cookieName.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        },
+
         setAuthorizationHeader() {
             const token = sessionStorage.getItem('auth_token');
             if (token) {
                 api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            }
+
+            const xsrfToken = this.getCookieValue('XSRF-TOKEN');
+            if (xsrfToken) {
+                api.defaults.headers.common['X-XSRF-TOKEN'] = xsrfToken;
             }
         },
 
@@ -75,5 +87,7 @@ export const useAuthStore = defineStore('auth', {
             // Supprimez le cookie CSRF
             document.cookie = 'XSRF-TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         }
+
+
     }
 });
