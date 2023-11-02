@@ -12,22 +12,12 @@ export const useAuthStore = defineStore('auth', {
 
     actions: {
 
-        getCookieValue(cookieName) {
-            const matches = document.cookie.match(new RegExp(
-                "(?:^|; )" + cookieName.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-            ));
-            return matches ? decodeURIComponent(matches[1]) : undefined;
-        },
+
 
         setAuthorizationHeader() {
             const token = sessionStorage.getItem('auth_token');
             if (token) {
                 api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-            }
-
-            const xsrfToken = this.getCookieValue('XSRF-TOKEN');
-            if (xsrfToken) {
-                api.defaults.headers.common['X-XSRF-TOKEN'] = xsrfToken;
             }
         },
 
@@ -37,7 +27,7 @@ export const useAuthStore = defineStore('auth', {
                 const response = await api.post('/api/login', credentials);
 
                 if (response.data.message === 'Connexion réussie!') {
-                    this.setAuthData(response.data.user, response.data.roles);
+                    this.setAuthData(response.data.user, response.data.roles, response.data.authToken); // Utilisation du token d'authentification ici
                 }
             } catch (error) {
                 console.error("Erreur lors de la connexion:", error.response.data);
@@ -46,6 +36,12 @@ export const useAuthStore = defineStore('auth', {
         },
 
         async logout() {
+            if (!sessionStorage.getItem('auth_token')) {
+                console.warn("No authentication token found. Logging out locally.");
+                this.clearAuthData();
+                return;
+            }
+
             this.setAuthorizationHeader();
             try {
                 // Envoi d'une requête de déconnexion au serveur.
@@ -63,16 +59,18 @@ export const useAuthStore = defineStore('auth', {
         },
 
 
-        setAuthData(user, roles) {
+        setAuthData(user, roles, authToken) {
             this.isLoggedIn = true;
             this.userRole = roles;
             this.isAdmin = roles.includes('admin');
 
             sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('auth_token', authToken); // Stockage du token d'authentification
             sessionStorage.setItem('userData', JSON.stringify(user));
             sessionStorage.setItem('userRole', JSON.stringify(roles));
             sessionStorage.setItem('isAdmin', this.isAdmin ? 'true' : 'false');
         },
+
 
         clearAuthData() {
             this.isLoggedIn = false;
