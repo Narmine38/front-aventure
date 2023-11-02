@@ -32,6 +32,9 @@ export const useAuthStore = defineStore('auth', {
 
         async logout() {
             try {
+                // Avant de se déconnecter, nous obtenons un cookie CSRF pour améliorer la sécurité de la requête.
+                await api.get('/sanctum/csrf-cookie');
+
                 // Envoi d'une requête de déconnexion au serveur.
                 const response = await api.post('/api/logout');
 
@@ -43,8 +46,11 @@ export const useAuthStore = defineStore('auth', {
                 }
             } catch (error) {
                 console.error("Error logging out:", error.response.data);
+                // Vous pouvez décider d'effacer les données d'authentification ici aussi en cas d'erreur, selon la nature de l'erreur.
+                // this.clearAuthData();
             }
         },
+
 
         setAuthData(user, roles) {
             this.isLoggedIn = true;
