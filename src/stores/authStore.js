@@ -11,6 +11,14 @@ export const useAuthStore = defineStore('auth', {
     }),
 
     actions: {
+        // Configure l'en-tête d'autorisation pour toutes les requêtes API en fonction du token stocké dans le sessionStorage.
+        setAuthorizationHeader() {
+            const token = sessionStorage.getItem('auth_token');
+            if (token) {
+                api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            }
+        },
+
         async login(credentials) {
             try {
                 // Avant de se connecter, nous obtenons un cookie CSRF pour améliorer la sécurité de la requête.
@@ -31,6 +39,7 @@ export const useAuthStore = defineStore('auth', {
         },
 
         async logout() {
+            this.setAuthorizationHeader();
             try {
                 // Envoi d'une requête de déconnexion au serveur.
                 const response = await api.post('/api/logout');
