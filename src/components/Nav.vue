@@ -2,7 +2,7 @@
   <nav class="nav">
     <!-- Logo sur la gauche -->
     <div class="logo">
-      <img src="@/assets/your-logo-path.png" alt="Mon Logo">
+      <IconCommunity/>
     </div>
 
     <!-- Dropdown "Mon Compte" sur la droite -->
@@ -25,6 +25,7 @@
 import {computed, ref} from 'vue';
 import {useAuthStore} from '/src/stores/authStore.js'; // Si vous utilisez Vuex
 import {useRouter} from 'vue-router';
+import IconCommunity from "@/components/icons/IconCommunity.vue";
 
 const store = useAuthStore();
 const router = useRouter();
