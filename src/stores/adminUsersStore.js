@@ -1,67 +1,59 @@
 // adminUsersStore.js
-import { reactive, toRefs } from 'vue';
+import { defineStore } from 'pinia';
 import axios from 'axios';
-import {useAuthStore} from "@/stores/authStore";
+import { useAuthStore } from "@/stores/authStore";
 
-export function useAdminUsersStore() {
-    // State
-    const state = reactive({
-        users: [],
-        archivedUsers: [],
-    });
+export const useAdminUsersStore = defineStore('adminUsers', {
+    state: () => ({
+        users: [],  // Liste des utilisateurs.
+        archivedUsers: [],  // Liste des utilisateurs archivés.
+        selectedArchivedUser: null,  // Détails d'un utilisateur archivé sélectionné.
+    }),
 
-    // Actions
-    const fetchUsers = async () => {
-        const authStore = useAuthStore(); // Utilisez authStore ici
-        authStore.setAuthorizationHeader();
-        try {
-            const response = await axios.get('https://api.aventure-en-adra.fr/api/users');
-            state.users = response.data;
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        }
-    };
+    actions: {
+        async fetchUsers() {
+            const authStore = useAuthStore();
+            authStore.setAuthorizationHeader();
+            try {
+                const response = await axios.get('https://api.aventure-en-adra.fr/api/users');
+                this.users = response.data;
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        },
 
-    const fetchArchivedUsers = async () => {
-        const authStore = useAuthStore(); // Utilisez authStore ici
-        authStore.setAuthorizationHeader();
-        try {
-            const response = await axios.get('https://api.aventure-en-adra.fr/api/users/archived');
-            state.archivedUsers = response.data;
-        } catch (error) {
-            console.error('Error fetching archived users:', error);
-        }
-    };
+        async fetchArchivedUsers() {
+            const authStore = useAuthStore();
+            authStore.setAuthorizationHeader();
+            try {
+                const response = await axios.get('https://api.aventure-en-adra.fr/api/users/archived');
+                this.archivedUsers = response.data;
+            } catch (error) {
+                console.error('Error fetching archived users:', error);
+            }
+        },
 
-    const archiveUser = async (id) => {
-        const authStore = useAuthStore(); // Utilisez authStore ici
-        authStore.setAuthorizationHeader();
-        try {
-            await axios.post(`https://api.aventure-en-adra.fr/api/users/${id}/archive`);
-            await fetchUsers(); // Refresh the users list
-        } catch (error) {
-            console.error('Error archiving user:', error);
-            throw error; // Rethrow to handle in the component
-        }
-    };
+        async archiveUser(id) {
+            const authStore = useAuthStore();
+            authStore.setAuthorizationHeader();
+            try {
+                await axios.post(`https://api.aventure-en-adra.fr/api/users/${id}/archive`);
+                await this.fetchUsers(); // Refresh the users list
+            } catch (error) {
+                console.error('Error archiving user:', error);
+                throw error; // Rethrow to handle in the component
+            }
+        },
 
-    const restoreUser = async (id) => {
-        const authStore = useAuthStore(); // Utilisez authStore ici
-        authStore.setAuthorizationHeader();
-        try {
-            await axios.post(`https://api.aventure-en-adra.fr/api/users/${id}/restore`);
-            await fetchArchivedUsers(); // Refresh the archived users list
-        } catch (error) {
-            console.error('Error restoring user:', error);
-        }
-    };
-
-    // Expose state and actions
-    return {
-        ...toRefs(state),
-        fetchUsers,
-        fetchArchivedUsers,
-        archiveUser,
-        restoreUser,
-    };
-}
+        async restoreUser(id) {
+            const authStore = useAuthStore();
+            authStore.setAuthorizationHeader();
+            try {
+                await axios.post(`https://api.aventure-en-adra.fr/api/users/${id}/restore`);
+                await this.fetchArchivedUsers(); // Refresh the archived users list
+            } catch (error) {
+                console.error('Error restoring user:', error);
+            }
+        },
+    }
+});
