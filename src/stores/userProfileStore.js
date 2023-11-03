@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia';
 import api from '@/services/api';
 import {useAuthStore} from "@/stores/authStore";
+import router from "@/router";
 
 export const useUserProfileStore = defineStore('userProfile', {
     state: () => ({
@@ -30,7 +31,13 @@ export const useUserProfileStore = defineStore('userProfile', {
             authStore.setAuthorizationHeader();
             try {
                 await api.post(`/api/users/${id}/archive`);
-                // Gérez la logique après l'archivage, par exemple, déconnexion
+                await router.push('/connexion')
+                this.token = '';
+                this.user = null;
+                this.roles = [];
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('user');
+                sessionStorage.removeItem('roles');
             } catch (error) {
                 this.error = "Erreur lors de l'archivage de l'utilisateur";
             }
@@ -50,7 +57,6 @@ export const useUserProfileStore = defineStore('userProfile', {
                 throw error;
             }
         },
-
 
 
     }
