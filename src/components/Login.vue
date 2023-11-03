@@ -69,6 +69,9 @@ const logout = async () => {
     });
     message.value = response.data.message;
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('roles');
+
     // Rediriger l'utilisateur ou mettre à jour l'état de l'application après la déconnexion
   } catch (error) {
     message.value = 'Failed to logout.';
