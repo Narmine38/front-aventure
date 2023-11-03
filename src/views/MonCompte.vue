@@ -4,42 +4,44 @@
     <form @submit.prevent="updateUser">
       <label>
         Nom:
-        <input type="text" v-model="editableUser.name" :placeholder="editableUser.name || 'Nom'" required />
+        <input type="text" v-model="editableUser.name" :placeholder="editableUser.name || 'Nom'" required/>
       </label>
 
       <label>
         Email:
-        <input type="email" v-model="editableUser.email" :placeholder="editableUser.email || 'Email'" required />
+        <input type="email" v-model="editableUser.email" :placeholder="editableUser.email || 'Email'" required/>
       </label>
 
       <label>
         Adresse:
-        <input type="text" v-model="editableUser.address" :placeholder="editableUser.address || 'Adresse'" required />
+        <input type="text" v-model="editableUser.address" :placeholder="editableUser.address || 'Adresse'" required/>
       </label>
 
       <label>
         Ville:
-        <input type="text" v-model="editableUser.city" :placeholder="editableUser.city || 'Ville'" required />
+        <input type="text" v-model="editableUser.city" :placeholder="editableUser.city || 'Ville'" required/>
       </label>
 
       <label>
         Pays:
-        <input type="text" v-model="editableUser.country" :placeholder="editableUser.country || 'Pays'" required />
+        <input type="text" v-model="editableUser.country" :placeholder="editableUser.country || 'Pays'" required/>
       </label>
 
       <label>
         Code postal:
-        <input type="text" v-model="editableUser.postal_code" :placeholder="editableUser.postal_code || 'Code postal'" required />
+        <input type="text" v-model="editableUser.postal_code" :placeholder="editableUser.postal_code || 'Code postal'"
+               required/>
       </label>
 
       <label>
         Numéro de téléphone:
-        <input type="text" v-model="editableUser.phone_number" :placeholder="editableUser.phone_number || 'Numéro de téléphone'" required />
+        <input type="text" v-model="editableUser.phone_number"
+               :placeholder="editableUser.phone_number || 'Numéro de téléphone'" required/>
       </label>
 
       <label>
         Mot de passe (laissez vide pour ne pas changer):
-        <input type="password" v-model="editableUser.password" placeholder="Mot de passe" />
+        <input type="password" v-model="editableUser.password" placeholder="Mot de passe"/>
       </label>
 
       <button type="submit">Mettre à jour</button>
@@ -48,47 +50,27 @@
     <button @click="confirmDeleteAccount">Supprimer mon compte</button>
   </div>
 
-  <div class="reservations-section">
-    <h3>Mes réservations</h3>
-    <ul v-if="userReservations.length">
-      <li v-for="reservation in userReservations" :key="reservation.id">
-        ID de réservation: {{ reservation.id }} <br>
-        Date d'arrivée: {{ reservation.date_arrivee }} <br>
-        Date de départ: {{ reservation.date_depart }} <br>
-        Nombre de personnes: {{ reservation.nombre_personnes }} <br>
-        Statut: {{ reservation.statut }}
-        <button @click="cancelReservation(reservation.id)">Annuler la réservation</button>
-      </li>
-    </ul>
-    <p v-else>Vous n'avez pas encore effectué de réservations.</p>
-  </div>
+
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUserProfileStore } from '@/stores/userProfileStore';
+import {computed, onMounted, ref} from 'vue';
+import {useRouter} from 'vue-router';
+import {useUserProfileStore} from '@/stores/userProfileStore';
 
 const userProfileStore = useUserProfileStore();
 const router = useRouter();
 
 const editableUser = computed(() => userProfileStore.user);
-const userReservations = computed(() => userProfileStore.userReservations);
-
-onMounted(async () => {
-  if (!editableUser.value) {
-    await router.push('/connexion');
-  } else {
-    await userProfileStore.fetchUserReservations(editableUser.value.id);
-  }
-});
+const errorMessage = ref(''); // Ajout pour afficher les messages d'erreur
 
 const updateUser = async () => {
   try {
-    await userProfileStore.updateUserProfile(editableUser.value);
-    alert('Profil mis à jour avec succès!');
+    const message = await userProfileStore.updateUserProfile(editableUser.value);
+    alert(message); // Vous pourriez vouloir utiliser un système de notifications plus avancé que alert()
+    errorMessage.value = '';
   } catch (error) {
-    alert('Erreur lors de la mise à jour du profil.');
+    errorMessage.value = 'Erreur lors de la mise à jour du profil.';
   }
 };
 
@@ -101,22 +83,25 @@ const confirmDeleteAccount = async () => {
 const archiveAccount = async () => {
   try {
     await userProfileStore.archiveUser(editableUser.value.id);
-    sessionStorage.removeItem('userData');
+    sessionStorage.clear(); // Utilisez clear() pour supprimer toutes les données de session
     await router.push('/connexion');
   } catch (error) {
-    alert('Erreur lors de la suppression du compte.');
+    errorMessage.value = 'Erreur lors de la suppression du compte.';
   }
 };
 
 /*const cancelReservation = async (reservationId) => {
-  try {
+   try {
     await userProfileStore.cancelUserReservation(reservationId);
     await userProfileStore.fetchUserReservations(editableUser.value.id);
-  } catch (error) {
-    alert('Erreur lors de l’annulation de la réservation.');
-  }
-};*/
+    } catch (error) {
+      alert('Erreur lors de l’annulation de la réservation.');
+  }};*/
 </script>
+
+/*const cancelReservation = async (reservationId) => {
+
+};*/
 
 
 <style scoped>
@@ -124,7 +109,7 @@ const archiveAccount = async () => {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
-  box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
@@ -177,7 +162,7 @@ button:hover {
   padding: 10px;
   background-color: #f7f7f7;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   list-style-type: none;
 }
 
