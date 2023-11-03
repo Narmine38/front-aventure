@@ -32,7 +32,7 @@ const message = ref('');
 // Fonction pour gérer la connexion
 const handleLogin = async () => {
   try {
-    await authStore.login({ email: email.value, password: password.value });
+    await authStore.login(email.value, password.value);
     message.value = "Logged in successfully!";
     // Rediriger l'utilisateur ou mettre à jour l'état de l'application après la connexion
     // par exemple, router.push('/');
