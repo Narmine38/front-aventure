@@ -34,14 +34,13 @@ export const useAuthStore = defineStore({
 
         async logout() {
             try {
-                await api.post('/api/logout', {}, {
-                    headers: { 'Authorization': `Bearer ${this.token}` }
-                });
+                // Appel API pour déconnecter l'utilisateur
+                await api.post('/api/logout');
 
+                // Effacer les données d'authentification du state et du sessionStorage
                 this.token = '';
                 this.user = null;
                 this.roles = [];
-
                 sessionStorage.removeItem('token');
                 sessionStorage.removeItem('user');
                 sessionStorage.removeItem('roles');
