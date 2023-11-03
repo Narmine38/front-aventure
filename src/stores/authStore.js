@@ -23,17 +23,24 @@ export const useAuthStore = defineStore('auth', {
 
         async login(credentials) {
             try {
+                // Obtention du cookie CSRF pour la sécurité des sessions
                 await api.get('/sanctum/csrf-cookie');
+                // Tentative de connexion avec les informations d'identification fournies
                 const response = await api.post('/api/login', credentials);
 
-                if (response.data.message === 'Connexion réussie!') {
-                    this.setAuthData(response.data.user, response.data.roles, response.data.authToken); // Utilisation du token d'authentification ici
+                // Vérification de la réponse et mise en place des données d'authentification
+                if (response.data.access_token) {
+                    // Enregistrement des données d'authentification dans le stockage de session
+                    this.sessionStorage.setItem(response.data.user, response.data.roles, response.data.access_token);
+                } else {
+                    console.error("La connexion a réussi mais aucune donnée d'authentification n'a été reçue.");
                 }
             } catch (error) {
                 console.error("Erreur lors de la connexion:", error.response.data);
                 this.clearAuthData();
             }
         },
+
 
         async logout() {
             if (!sessionStorage.getItem('auth_token')) {
