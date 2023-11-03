@@ -23,38 +23,38 @@ const router = createRouter({
       path: '/administration',
       name: 'administration',
       component: () => import('../views/admin/Administration.vue'),
-      /*children: [
+      children: [
         {
           path: 'usersmanagement',  // ceci est relatif à '/administration'
           name: 'usersmanagement',
           component: () => import('../views/admin/UsersManagement.vue')
-        },
-        {
-          path: 'placesmanagement',  // ceci est relatif à '/administration'
-          name: 'placesmanagement',
-          component: () => import('../views/admin/PlacesManagement.vue')
-        },
-        {
-          path: 'accommodationsmanagement',  // ceci est relatif à '/administration'
-          name: 'accommodationsmanagement',
-          component: () => import('../views/admin/AccommodationsManagement.vue')
-        },
-        {
-          path: 'activitiesmanagement',  // ceci est relatif à '/administration'
-          name: 'activitiesmanagement',
-          component: () => import('../views/admin/ActivitesManagement.vue')
-        },
-        {
-          path: 'charactersmanagement',  // ceci est relatif à '/administration'
-          name: 'charactersmanagement',
-          component: () => import('../views/admin/PersonnageManagement.vue')
-        },
-        {
-          path: 'reservationsmanagement',  // ceci est relatif à '/administration'
-          name: 'reservationsmanagement',
-          component: () => import('../views/admin/ReservationManagement.vue')
-        },
-      ]*/
+        }]
+      /*{
+        path: 'placesmanagement',  // ceci est relatif à '/administration'
+        name: 'placesmanagement',
+        component: () => import('../views/admin/PlacesManagement.vue')
+      },
+      {
+        path: 'accommodationsmanagement',  // ceci est relatif à '/administration'
+        name: 'accommodationsmanagement',
+        component: () => import('../views/admin/AccommodationsManagement.vue')
+      },
+      {
+        path: 'activitiesmanagement',  // ceci est relatif à '/administration'
+        name: 'activitiesmanagement',
+        component: () => import('../views/admin/ActivitesManagement.vue')
+      },
+      {
+        path: 'charactersmanagement',  // ceci est relatif à '/administration'
+        name: 'charactersmanagement',
+        component: () => import('../views/admin/PersonnageManagement.vue')
+      },
+      {
+        path: 'reservationsmanagement',  // ceci est relatif à '/administration'
+        name: 'reservationsmanagement',
+        component: () => import('../views/admin/ReservationManagement.vue')
+      },
+    ]*/
     },
   ]
 })
