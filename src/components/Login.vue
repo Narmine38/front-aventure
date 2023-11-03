@@ -1,37 +1,74 @@
 <template>
-  <div>
-    <input v-model="email" placeholder="Email">
-    <input v-model="password" placeholder="Password" type="password">
-    <button @click="attemptLogin">Login</button>
-    <p v-if="authStore.errorMessage">{{ authStore.errorMessage }}</p>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form @submit.prevent="login">
+      <div>
+        <label for="email">Email:</label>
+        <input id="email" type="email" v-model="email" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input id="password" type="password" v-model="password" required>
+      </div>
+      <div>
+        <button type="submit">Login</button>
+      </div>
+      <p v-if="errorMessage">{{ errorMessage }}</p>
+    </form>
   </div>
+  <button @click="logout">Logout</button>
+  <p v-if="message">{{ message }}</p>
+
 </template>
 
 <script setup>
-import {ref, watchEffect} from 'vue';
-import { useAuthStore } from '@/stores/authStore';
-import router from "@/router";
+import { ref } from 'vue';
+import axios from 'axios';
 
-const authStore = useAuthStore();
 const email = ref('');
 const password = ref('');
+const errorMessage = ref('');
+const message = ref('');
 
-const attemptLogin = async () => {
-  await authStore.login(email.value, password.value);
-  if (authStore.isLoggedIn) {
-    await router.push("/");
+
+const login = async () => {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/login', {
+      email: email.value,
+      password: password.value,
+    });
+    console.log(response.data);
+    localStorage.setItem('token', response.data.access_token);
+    // Handle your logic after successful login, like redirecting the user
+  } catch (error) {
+    if (error.response) {
+      errorMessage.value = error.response.data.error || 'Invalid credentials.';
+    } else {
+      errorMessage.value = 'The login process could not be completed.';
+    }
   }
 };
 
-// Réagir aux changements de l'état d'authentification
-watchEffect(() => {
-  if (authStore.isLoggedIn) {
-    router.push('/').catch(err => {});
+const logout = async () => {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/logout', {}, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    message.value = response.data.message;
+    localStorage.removeItem('token');
+    // Rediriger l'utilisateur ou mettre à jour l'état de l'application après la déconnexion
+  } catch (error) {
+    message.value = 'Failed to logout.';
+    console.error('Logout error:', error);
   }
-});
+};
 </script>
 
 <style scoped>
-/* Styles existants */
-/* ... */
+.login-container {
+  /* Same styling as Register.vue */
+  /* ... */
+}
 </style>
