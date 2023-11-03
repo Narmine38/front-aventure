@@ -32,6 +32,7 @@ export const useUserProfileStore = defineStore('userProfile', {
             try {
                 await api.post(`/api/users/${id}/archive`);
                 await authStore.logout();
+                window.location.reload()
                 await router.push('/connexion')
             } catch (error) {
                 this.error = "Erreur lors de l'archivage de l'utilisateur";
