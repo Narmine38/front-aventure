@@ -33,12 +33,12 @@ const message = ref('');
 
 const login = async () => {
   try {
-    const response = await axios.post('http://127.0.0.1:8000/api/login', {
+    const response = await axios.post('https://api.aventure-en-adra.fr/api/login', {
       email: email.value,
       password: password.value,
     });
     console.log(response.data);
-    localStorage.setItem('token', response.data.access_token);
+    sessionStorage.setItem('token', response.data.access_token);
     // Handle your logic after successful login, like redirecting the user
   } catch (error) {
     if (error.response) {
@@ -51,13 +51,13 @@ const login = async () => {
 
 const logout = async () => {
   try {
-    const response = await axios.post('http://127.0.0.1:8000/api/logout', {}, {
+    const response = await axios.post('https://api.aventure-en-adra.fr/api/logout', {}, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       }
     });
     message.value = response.data.message;
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     // Rediriger l'utilisateur ou mettre à jour l'état de l'application après la déconnexion
   } catch (error) {
     message.value = 'Failed to logout.';
