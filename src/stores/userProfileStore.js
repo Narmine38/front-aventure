@@ -31,13 +31,8 @@ export const useUserProfileStore = defineStore('userProfile', {
             authStore.setAuthorizationHeader();
             try {
                 await api.post(`/api/users/${id}/archive`);
+                await authStore.logout();
                 await router.push('/connexion')
-                this.token = '';
-                this.user = null;
-                this.roles = [];
-                sessionStorage.removeItem('token');
-                sessionStorage.removeItem('user');
-                sessionStorage.removeItem('roles');
             } catch (error) {
                 this.error = "Erreur lors de l'archivage de l'utilisateur";
             }
