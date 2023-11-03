@@ -1,7 +1,6 @@
 <template>
   <div class="user-management-section">
     <h2>Mon Compte</h2>
-
     <form @submit.prevent="updateUser">
       <label>
         Nom:
@@ -51,7 +50,7 @@
 
   <div class="reservations-section">
     <h3>Mes réservations</h3>
-    <ul v-if="userReservations && userReservations.length">
+    <ul v-if="userReservations.length">
       <li v-for="reservation in userReservations" :key="reservation.id">
         ID de réservation: {{ reservation.id }} <br>
         Date d'arrivée: {{ reservation.date_arrivee }} <br>
@@ -63,99 +62,60 @@
     </ul>
     <p v-else>Vous n'avez pas encore effectué de réservations.</p>
   </div>
-
 </template>
 
-<script>
+<script setup>
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserProfileStore } from '@/stores/userProfileStore';
-import { onMounted, ref } from "vue";
-import api from "@/services/api";
 
-export default {
-  setup() {
-    const userProfileStore = useUserProfileStore();
-    const router = useRouter();
+const userProfileStore = useUserProfileStore();
+const router = useRouter();
 
-    // Récupérer les données utilisateur depuis sessionStorage
-    const sessionUserData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = sessionUserData ? sessionUserData.id : null;
+const editableUser = computed(() => userProfileStore.user);
+const userReservations = computed(() => userProfileStore.userReservations);
 
-    // Utilisation de sessionUserData pour initialiser editableUser
-    const editableUser = ref({ ...sessionUserData, password: '' });
-
-    const userReservations = ref([]);
-    const fetchReservations = async () => {
-      try {
-        if (userId) {
-          console.log("Fetching reservations for user:", userId);
-          const reservations = await userProfileStore.fetchUserReservations(userId);
-
-          if (reservations && Array.isArray(reservations)) {
-            userReservations.value = reservations;
-            console.log("Reservations fetched:", reservations);
-          } else {
-            console.error("Unexpected data format received for reservations:", reservations);
-          }
-        } else {
-          console.warn("L'utilisateur n'est pas connecté ou les données de l'utilisateur ne sont pas disponibles.");
-        }
-      } catch (error) {
-        console.error("Error fetching user reservations:", error);
-      }
-    };
-
-
-    onMounted(fetchReservations);
-
-    const updateUser = async () => {
-      try {
-        await userProfileStore.updateUserProfile(editableUser.value);
-        console.log('User updated successfully!');
-        window.location.reload();
-      } catch (error) {
-        console.error('Error updating user:', error);
-      }
-    };
-
-    const confirmDeleteAccount = () => {
-      if (window.confirm("Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.")) {
-        archiveAccount();
-      }
-    };
-
-    const archiveAccount = async () => {
-      try {
-        await userProfileStore.archiveUser(userId);
-        console.log('User archived successfully!');
-        sessionStorage.removeItem('userData');  // Supprimer les données utilisateur du sessionStorage
-        await router.push('/connexion');
-        window.location.reload();
-      } catch (error) {
-        console.error('Error archiving account:', error);
-      }
-    };
-    const cancelReservation = async (reservationId) => {
-      try {
-        await api.post(`/api/reservations/${reservationId}/archive`);
-        console.log('Reservation cancelled successfully!');
-        // Refresh the reservations list after cancelling one
-        fetchReservations();
-      } catch (error) {
-        console.error('Error cancelling reservation:', error);
-      }
-    };
-
-
-    return {
-      editableUser,
-      userReservations,
-      updateUser,
-      confirmDeleteAccount,
-      cancelReservation
-    };
+onMounted(async () => {
+  if (!editableUser.value) {
+    await router.push('/connexion');
+  } else {
+    await userProfileStore.fetchUserReservations(editableUser.value.id);
   }
-}
+});
+
+const updateUser = async () => {
+  try {
+    await userProfileStore.updateUserProfile(editableUser.value);
+    alert('Profil mis à jour avec succès!');
+  } catch (error) {
+    alert('Erreur lors de la mise à jour du profil.');
+  }
+};
+
+const confirmDeleteAccount = async () => {
+  if (confirm("Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.")) {
+    await archiveAccount();
+  }
+};
+
+const archiveAccount = async () => {
+  try {
+    await userProfileStore.archiveUser(editableUser.value.id);
+    sessionStorage.removeItem('userData');
+    await router.push('/connexion');
+  } catch (error) {
+    alert('Erreur lors de la suppression du compte.');
+  }
+};
+
+/*const cancelReservation = async (reservationId) => {
+  try {
+    await userProfileStore.cancelUserReservation(reservationId);
+    await userProfileStore.fetchUserReservations(editableUser.value.id);
+  } catch (error) {
+    alert('Erreur lors de l’annulation de la réservation.');
+  }
+};*/
 </script>
 
 
@@ -225,4 +185,3 @@ button:hover {
   margin-bottom: 15px;
 }
 </style>
-
