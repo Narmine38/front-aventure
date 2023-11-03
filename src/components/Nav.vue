@@ -9,7 +9,7 @@
       </button>
       <div v-if="isLoggedIn && isDropdownOpen" class="dropdown-content">
         <a href="/mon-compte">Profil</a>
-        <a href="/admin" v-if="isAdmin">Administration</a>
+        <a href="/administration" v-if="isAdmin">Administration</a>
         <button @click="logout">Déconnexion</button>
       </div>
     </div>
