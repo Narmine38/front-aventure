@@ -22,28 +22,32 @@
 </template>
 
 <script setup>
-import {computed, ref} from 'vue';
-import {useAuthStore} from '/src/stores/authStore.js';
-import {useRouter} from 'vue-router';
+import { computed, ref } from 'vue';
+import { useAuthStore } from '/src/stores/authStore.js';
+import { useRouter } from 'vue-router';
 import IconCommunity from "@/components/icons/IconCommunity.vue";
 
-const store = useAuthStore();
+const authStore = useAuthStore();
 const router = useRouter();
 const showDropdown = ref(false);
 
-const isLoggedIn = computed(() => store.isLoggedIn);
-const logout = store.logout
+const isLoggedIn = computed(() => authStore.isLoggedIn);
 
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value;
 };
 
-const goToRegisterOrLogin = () => {
-  router.push({name: 'Connexion-inscription'});
+const logout = async () => {
+  await authStore.logout();
+  showDropdown.value = false; // Close dropdown on logout
+  await router.push({name: 'Home'}); // Redirect to home page or any other as needed
 };
 
-
+const goToRegisterOrLogin = () => {
+  router.push({ name: 'Connexion-inscription' });
+};
 </script>
+
 
 <style scoped>
 .nav {
