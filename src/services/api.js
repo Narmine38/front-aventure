@@ -7,7 +7,7 @@ const api = axios.create({
 
 // Fonction pour définir l'en-tête d'autorisation.
 function setAuthorizationHeader() {
-    const token = sessionStorage.getItem('auth_token');
+    const token = sessionStorage.getItem('token');
     if (token) {
         api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     }
