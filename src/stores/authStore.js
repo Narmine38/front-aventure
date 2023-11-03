@@ -7,6 +7,7 @@ export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
         // État initial
+        isLoggedIn: !!sessionStorage.getItem('isLoggedIn'),
         user: JSON.parse(sessionStorage.getItem('user')) || null,
         roles: JSON.parse(sessionStorage.getItem('roles')) || [],
         token: sessionStorage.getItem('token') || '',
