@@ -8,7 +8,7 @@
         Mon Compte
       </button>
       <div v-if="isLoggedIn && isDropdownOpen" class="dropdown-content">
-        <a href="/profile">Profil</a>
+        <a href="/mon-compte">Profil</a>
         <a href="/admin" v-if="isAdmin">Administration</a>
         <button @click="logout">Déconnexion</button>
       </div>
