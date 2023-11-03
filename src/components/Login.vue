@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <h2>Login</h2>
-    <form @submit.prevent="login">
+    <form @submit.prevent="handleLogin">
       <div>
         <label for="email">Email:</label>
         <input id="email" type="email" v-model="email" required>
@@ -16,73 +16,102 @@
       <p v-if="errorMessage">{{ errorMessage }}</p>
     </form>
   </div>
-  <button @click="logout">Logout</button>
-  <p v-if="message">{{ message }}</p>
-
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import axios from 'axios';
+import { useAuthStore } from '/src/stores/authStore'; // Importez votre store Pinia
+
+const authStore = useAuthStore(); // Utilisez votre store Pinia
 
 const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
 const message = ref('');
 
-
-const login = async () => {
+// Fonction pour gérer la connexion
+const handleLogin = async () => {
   try {
-    const response = await axios.post('https://api.aventure-en-adra.fr/api/login', {
-      email: email.value,
-      password: password.value,
-    });
-
-    console.log(response.data);
-    // Stockez le jeton d'accès
-    sessionStorage.setItem('token', response.data.access_token);
-
-    // Stockez également les autres informations de l'utilisateur
-    const { user, roles } = response.data;
-    sessionStorage.setItem('user', JSON.stringify(user));
-    sessionStorage.setItem('roles', JSON.stringify(roles));
-
-    // Vous pouvez maintenant rediriger l'utilisateur où vous le souhaitez après une connexion réussie
+    await authStore.login({ email: email.value, password: password.value });
+    message.value = "Logged in successfully!";
+    // Rediriger l'utilisateur ou mettre à jour l'état de l'application après la connexion
     // par exemple, router.push('/');
   } catch (error) {
-    if (error.response) {
-      // Supposons que vous avez un ref errorMessage pour afficher les erreurs de connexion
-      errorMessage.value = error.response.data.message || 'Invalid credentials.';
-    } else {
-      errorMessage.value = 'The login process could not be completed.';
-    }
+    errorMessage.value = error.message || 'Failed to login.';
   }
 };
 
 
-const logout = async () => {
-  try {
-    const response = await axios.post('https://api.aventure-en-adra.fr/api/logout', {}, {
-      headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-      }
-    });
-    message.value = response.data.message;
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('roles');
-
-    // Rediriger l'utilisateur ou mettre à jour l'état de l'application après la déconnexion
-  } catch (error) {
-    message.value = 'Failed to logout.';
-    console.error('Logout error:', error);
-  }
-};
 </script>
 
 <style scoped>
 .login-container {
-  /* Same styling as Register.vue */
-  /* ... */
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  background: #fff;
+}
+
+.login-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type=email],
+input[type=password] {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; /* Add this to include padding in input width */
+}
+
+button {
+  padding: 10px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4cae4c;
+}
+
+p {
+  color: #d9534f;
+  text-align: center;
+}
+
+/* Si vous avez d'autres boutons, donnez-leur un style différent */
+button[type=submit] {
+  margin-bottom: 10px;
+}
+
+/* Un petit style pour le bouton de déconnexion */
+button.logout-button {
+  background-color: #f0ad4e;
+  margin-top: 10px;
+}
+
+button.logout-button:hover {
+  background-color: #ec971f;
 }
 </style>
+
