@@ -37,27 +37,38 @@ const login = async () => {
       email: email.value,
       password: password.value,
     });
+
     console.log(response.data);
-    localStorage.setItem('token', response.data.access_token);
-    // Handle your logic after successful login, like redirecting the user
+    // Stockez le jeton d'accès
+    sessionStorage.setItem('token', response.data.access_token);
+
+    // Stockez également les autres informations de l'utilisateur
+    const { user, roles } = response.data;
+    sessionStorage.setItem('user', JSON.stringify(user));
+    sessionStorage.setItem('roles', JSON.stringify(roles));
+
+    // Vous pouvez maintenant rediriger l'utilisateur où vous le souhaitez après une connexion réussie
+    // par exemple, router.push('/');
   } catch (error) {
     if (error.response) {
-      errorMessage.value = error.response.data.error || 'Invalid credentials.';
+      // Supposons que vous avez un ref errorMessage pour afficher les erreurs de connexion
+      errorMessage.value = error.response.data.message || 'Invalid credentials.';
     } else {
       errorMessage.value = 'The login process could not be completed.';
     }
   }
 };
 
+
 const logout = async () => {
   try {
     const response = await axios.post('https://api.aventure-en-adra.fr/api/logout', {}, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       }
     });
     message.value = response.data.message;
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     // Rediriger l'utilisateur ou mettre à jour l'état de l'application après la déconnexion
   } catch (error) {
     message.value = 'Failed to logout.';
