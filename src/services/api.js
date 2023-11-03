@@ -5,17 +5,6 @@ const api = axios.create({
     withCredentials: true // Important pour envoyer et recevoir des cookies
 });
 
-// Fonction pour définir l'en-tête d'autorisation.
-function setAuthorizationHeader() {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-        api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    }
-}
-
-// Vous pouvez aussi choisir de définir l'en-tête immédiatement si le token existe déjà
-setAuthorizationHeader();
-
 export default api;
 
 

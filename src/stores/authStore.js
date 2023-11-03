@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import api from "@/services/api";
+import router from "@/router";
 
 export const useAuthStore = defineStore({
-    id: 'auth',
+    id: 'auth', // Correctement défini pour l'identifiant du store
     state: () => ({
         user: JSON.parse(sessionStorage.getItem('user')) || null,
         token: sessionStorage.getItem('token') || '',
@@ -13,7 +14,16 @@ export const useAuthStore = defineStore({
         isAdmin: (state) => state.roles.includes('admin')
     },
     actions: {
+        setAuthorizationHeader() { // Suppression du mot-clé 'function' dans une action de store
+            const token = this.token; // Utilisation de this.token qui est réactif
+            if (token) {
+                api.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            }
+        },
+
         async login(email, password) {
+
+
             try {
                 const response = await api.post('/api/login', { email, password });
                 this.token = response.data.access_token;
@@ -24,8 +34,8 @@ export const useAuthStore = defineStore({
                 sessionStorage.setItem('user', JSON.stringify(this.user));
                 sessionStorage.setItem('roles', JSON.stringify(this.roles));
 
-                // Rediriger l'utilisateur après connexion, si nécessaire
-                // this.router.push('/dashboard');
+
+                await router.push('/');
             } catch (error) {
                 // Gérer les erreurs de connexion ici, si nécessaire
                 console.error('Login error:', error);
@@ -33,6 +43,9 @@ export const useAuthStore = defineStore({
         },
 
         async logout() {
+
+            this.setAuthorizationHeader();
+
             try {
                 // Appel API pour déconnecter l'utilisateur
                 await api.post('/api/logout');
@@ -44,6 +57,9 @@ export const useAuthStore = defineStore({
                 sessionStorage.removeItem('token');
                 sessionStorage.removeItem('user');
                 sessionStorage.removeItem('roles');
+
+                // Suppression de l'entête d'autorisation après la déconnexion
+                delete api.defaults.headers.common['Authorization'];
 
                 // Rediriger l'utilisateur après déconnexion, si nécessaire
                 // this.router.push('/login');
