@@ -13,36 +13,35 @@
       <div>
         <button type="submit">Login</button>
       </div>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
     </form>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '/src/stores/authStore'; // Importez votre store Pinia
+import { useAuthStore } from '/src/stores/authStore';
+import router from "@/router";
 
-const authStore = useAuthStore(); // Utilisez votre store Pinia
+const authStore = useAuthStore();
 
 const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
-const message = ref('');
 
-// Fonction pour gérer la connexion
+
 const handleLogin = async () => {
   try {
     await authStore.login(email.value, password.value);
-    message.value = "Logged in successfully!";
-    // Rediriger l'utilisateur ou mettre à jour l'état de l'application après la connexion
-    // par exemple, router.push('/');
+    // Rediriger l'utilisateur vers la page d'accueil après la connexion réussie
+    router.push('/');
   } catch (error) {
-    errorMessage.value = error.message || 'Failed to login.';
+    // Si la logique de gestion des erreurs est déjà dans le store, vous n'avez pas besoin de la catcher ici.
+    // Vous pouvez simplement utiliser une computed property pour réagir aux changements d'état du store.
+    errorMessage.value = "Erreur de connexion"; // Message d'erreur générique
   }
 };
-
-
 </script>
+
 
 <style scoped>
 .login-container {

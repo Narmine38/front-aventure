@@ -1,49 +1,44 @@
 <template>
   <nav class="navbar">
     <div class="nav-logo">
-      <IconCommunity/>
+      <IconCommunity />
     </div>
     <div class="nav-items">
-      <!-- Ici, nous utilisons une condition pour vérifier si l'utilisateur est connecté -->
       <button @click="isLoggedIn ? toggleDropdown() : goToLogin()" class="dropdown-button">
         Mon Compte
       </button>
-      <!-- Le menu déroulant ne s'affiche que si l'utilisateur est connecté -->
       <div v-if="isLoggedIn && isDropdownOpen" class="dropdown-content">
         <a href="/profile">Profil</a>
-        <a href="/settings">Paramètres</a>
-        <a href="/logout">Déconnexion</a>
+        <a href="/admin" v-if="isAdmin">Administration</a>
+        <button @click="logout">Déconnexion</button>
       </div>
     </div>
   </nav>
 </template>
 
-<script>
-import {ref, computed} from 'vue';
-import {useAuthStore} from '/src/stores/authStore';
+<script setup>
+import { ref, computed } from 'vue';
+import { useAuthStore } from '/src/stores/authStore';
 import IconCommunity from "@/components/icons/IconCommunity.vue";
-import router from "@/router"; // Importez votre store d'authentification
+import router from "@/router";
 
-export default {
-  components: {IconCommunity},
-  setup() {
-    const authStore = useAuthStore(); // Utilisez le store d'authentification
-    const isDropdownOpen = ref(false);
+const authStore = useAuthStore();
+const isDropdownOpen = ref(false);
 
-    // Computed property pour déterminer si l'utilisateur est connecté
-    const isLoggedIn = computed(() => authStore.isLoggedIn);
+const isLoggedIn = computed(() => authStore.isLoggedIn);
+const isAdmin = computed(() => authStore.isAdmin);
 
-    function toggleDropdown() {
-      isDropdownOpen.value = !isDropdownOpen.value;
-    }
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
 
-    function goToLogin() {
-      // Redirigez l'utilisateur vers la page de connexion
-      router.push('/LoginRegister')
-    }
+const goToLogin = () => {
+  router.push('/LoginRegister');
+};
 
-    return {isLoggedIn, isDropdownOpen, toggleDropdown, goToLogin};
-  },
+const logout = async () => {
+  await authStore.logout();
+  await router.push('/');
 };
 </script>
 
