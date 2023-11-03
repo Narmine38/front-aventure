@@ -33,7 +33,7 @@ const message = ref('');
 
 const login = async () => {
   try {
-    const response = await axios.post('http://127.0.0.1:8000/api/login', {
+    const response = await axios.post('https://api.aventure-en-adra.fr/api/login', {
       email: email.value,
       password: password.value,
     });
@@ -51,7 +51,7 @@ const login = async () => {
 
 const logout = async () => {
   try {
-    const response = await axios.post('http://127.0.0.1:8000/api/logout', {}, {
+    const response = await axios.post('https://api.aventure-en-adra.fr/api/logout', {}, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
