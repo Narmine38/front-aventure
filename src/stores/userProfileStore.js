@@ -5,7 +5,7 @@ export const useUserProfileStore = defineStore('userProfile', {
     // Initialisation de l'état du store avec des valeurs par défaut ou des valeurs stockées dans le sessionStorage.
     state: () => ({
         // Récupère les données de l'utilisateur depuis le sessionStorage.
-        userData: JSON.parse(sessionStorage.getItem('userData') || '{}'),
+        user: JSON.parse(sessionStorage.getItem('user')) || null,
         users: [],  // Liste des utilisateurs.
         archivedUsers: [],  // Liste des utilisateurs archivés.
         selectedArchivedUser: null,  // Détails d'un utilisateur archivé sélectionné.
