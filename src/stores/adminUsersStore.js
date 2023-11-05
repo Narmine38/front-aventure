@@ -14,7 +14,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             authStore.setAuthorizationHeader();
             try {
                 const response = await api.get('/api/users');
-                this.users = response.data;
+                this.users = response.data.data;
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
