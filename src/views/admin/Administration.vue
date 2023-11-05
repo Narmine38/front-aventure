@@ -1,27 +1,27 @@
 <template>
   <div class="admin-container">
-    <h1>Administration</h1>
+    <h1 class="admin-title">Administration</h1>
 
     <!-- Sous-navigation -->
-    <nav>
-      <ul>
-        <li>
-          <RouterLink to="/administration/usersmanagement">Gestion des utilisateurs</RouterLink>
+    <nav class="admin-nav">
+      <ul class="admin-nav-list">
+        <li class="admin-nav-item">
+          <RouterLink class="admin-nav-link" to="/administration/usersmanagement">Gestion des utilisateurs</RouterLink>
         </li>
         <li>
-          <RouterLink to="/administration/placesmanagement">Gestion des lieux</RouterLink>
+          <RouterLink class="admin-nav-link" to="/administration/placesmanagement">Gestion des lieux</RouterLink>
         </li>
         <li>
-          <RouterLink to="/administration/accommodationsmanagement">Gestion des hébergements</RouterLink>
+          <RouterLink class="admin-nav-link" to="/administration/accommodationsmanagement">Gestion des hébergements</RouterLink>
         </li>
         <li>
-          <RouterLink to="/administration/activitiesmanagement">Gestion des activités</RouterLink>
+          <RouterLink class="admin-nav-link" to="/administration/activitiesmanagement">Gestion des activités</RouterLink>
         </li>
         <li>
-          <RouterLink to="/administration/charactersmanagement">Gestion des personnages</RouterLink>
+          <RouterLink class="admin-nav-link" to="/administration/charactersmanagement">Gestion des personnages</RouterLink>
         </li>
         <li>
-          <RouterLink to="/administration/reservationsmanagement">Gestion des réservations</RouterLink>
+          <RouterLink class="admin-nav-link" to="/administration/reservationsmanagement">Gestion des réservations</RouterLink>
         </li>
       </ul>
     </nav>
@@ -42,67 +42,60 @@ import {RouterView} from 'vue-router'
 .admin-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  font-family: 'Times New Roman', Times, serif;
-  background-color: #f4e9d8; /* couleur parchemin */
-  border: 2px solid #7b6c49;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
 }
 
-h1 {
-  text-align: center;
+.admin-title {
+  font-size: 2.5rem;
+  color: #333;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #eee;
   margin-bottom: 2rem;
-  color: #3e3224;
-  font-weight: bold;
-  border-bottom: 2px solid #7b6c49;
+}
+
+.admin-nav {
+  margin-bottom: 2rem;
+}
+
+.admin-nav-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  border-bottom: 1px solid #eee;
   padding-bottom: 1rem;
 }
 
-/* Style pour la sous-navigation */
-nav ul {
-  display: flex;
-  justify-content: space-between;
-  list-style-type: none;
-  padding: 0;
-  background-color: #7b6c49; /* couleur bois sombre */
-  border: 2px solid #3e3224;
-  border-radius: 10px;
-}
+.admin-nav-item {}
 
-nav li {
-  flex: 1;
-  text-align: center;
-  padding: 1rem 0;
-  background: linear-gradient(#a89f7d, #7b6c49);
-}
-
-nav li:not(:last-child) {
-  border-right: 2px solid #3e3224;
-}
-
-router-link {
+.admin-nav-link {
   text-decoration: none;
-  color: #f4e9d8; /* couleur parchemin */
-  transition: background-color 0.3s, color 0.3s;
+  color: #555;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
 }
 
-router-link-active {
-  color: #7b6c49;
-  background-color: #f4e9d8;
+.admin-nav-link:hover,
+.admin-nav-link.router-link-exact-active {
+  color: #007bff;
 }
 
-nav li:hover router-link {
-  color: #7b6c49;
-  background-color: #f4e9d8;
-}
-
-/* Contenu */
 .admin-content {
-  margin-top: 2rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  padding: 2rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .admin-nav-list {
+    flex-direction: column;
+  }
+
+  .admin-nav-link {
+    margin-bottom: 0.5rem;
+  }
 }
 </style>
