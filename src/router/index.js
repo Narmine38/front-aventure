@@ -28,13 +28,13 @@ const router = createRouter({
           path: 'usersmanagement',  // ceci est relatif à '/administration'
           name: 'usersmanagement',
           component: () => import('../views/admin/UsersManagement.vue')
-        }]
-      /*{
+        },
+      {
         path: 'placesmanagement',  // ceci est relatif à '/administration'
         name: 'placesmanagement',
         component: () => import('../views/admin/PlacesManagement.vue')
-      },
-      {
+      }]
+      /*{
         path: 'accommodationsmanagement',  // ceci est relatif à '/administration'
         name: 'accommodationsmanagement',
         component: () => import('../views/admin/AccommodationsManagement.vue')
