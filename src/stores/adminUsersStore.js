@@ -20,7 +20,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             }
         },
 
-       /* async fetchArchivedUsers() {
+        async fetchArchivedUsers() {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
             try {
@@ -46,11 +46,11 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
             try {
-                await axios.post(`/api/users/${id}/restore`);
+                await api.post(`/api/users/${id}/restore`);
                 await this.fetchArchivedUsers(); // Refresh the archived users list
             } catch (error) {
                 console.error('Error restoring user:', error);
             }
-        },*/
+        },
     }
 });
