@@ -15,7 +15,7 @@ export const usePlacesStore = defineStore('places', {
             authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
             try {
                 const response = await api.get('/api/place');
-                this.places = response.data.data;
+                this.places = response.data;
             } catch (error) {
                 console.error("Erreur lors de la récupération des lieux:", error.response.data);
             }
@@ -63,7 +63,7 @@ export const usePlacesStore = defineStore('places', {
             authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
             try {
                 const response = await api.get('/api/archived-place');
-                this.archivedPlaces = response.data.data;
+                this.archivedPlaces = response.data;
             } catch (error) {
                 console.error("Erreur lors de la récupération des lieux archivés:", error.response.data);
             }

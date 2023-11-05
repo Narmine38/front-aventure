@@ -58,7 +58,7 @@
         </label>
         <label>
           Description Courte:
-          <textarea v-model="selectedPlace.shortDescription" placeholder="Description courte du lieu" required></textarea>
+          <input v-model="selectedPlace.shortDescription" placeholder="Description courte du lieu" required/>
         </label>
         <button type="submit">Mettre à jour</button>
       </form>
