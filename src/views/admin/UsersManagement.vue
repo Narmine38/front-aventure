@@ -35,6 +35,7 @@
           <th>Nom</th>
           <th>Email</th>
           <th>Actions</th>
+          <th>Actions Définitive</th>
         </tr>
         </thead>
         <tbody>
