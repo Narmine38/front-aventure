@@ -30,7 +30,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import api from '@/services/api';
+import { useAuthStore } from '/src/stores/authStore'; // Import your auth store
 
 const user = ref({
   name: '',
@@ -40,18 +40,14 @@ const user = ref({
 const errors = ref({});
 const errorMessage = ref('');
 
+const authStore = useAuthStore(); // Use the auth store
 
 const submitForm = async () => {
   try {
-    // D'abord, obtenez le cookie CSRF:
-    await api.get('/sanctum/csrf-cookie');
-
-    // Une fois que vous avez le cookie, faites votre requête POST
-    const response = await api.post('/api/register', user.value);
-    console.log('Inscription réussie:', response.data);
-    errorMessage.value = ''; // Reset the error message
+    await authStore.register(user.value); // Use the register action from the auth store
+    errorMessage.value = ''; // Reset the error message if successful
   } catch (error) {
-    console.error("Erreur lors de l'inscription:", error.response.data);
+    // If the action throws, handle the error here
     if (error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;
     } else {
@@ -59,9 +55,10 @@ const submitForm = async () => {
     }
   }
 };
-
-
 </script>
+
+
+
 
 <style scoped>
 /* Container style for both login and register */
