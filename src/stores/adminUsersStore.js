@@ -52,5 +52,21 @@ export const useAdminUsersStore = defineStore('adminUsers', {
                 console.error('Error restoring user:', error);
             }
         },
+
+        async destroyUser(id) {
+            const authStore = useAuthStore();
+            authStore.setAuthorizationHeader(); // Ceci configure le header d'autorisation pour la requête
+
+            try {
+                // Envoi de la requête DELETE à la route spécifique avec l'ID de l'utilisateur
+                const response = await api.delete(`/users/${id}`);
+
+                // Traitez la réponse ici, si nécessaire
+                console.log(response.data.message); // Affiche le message de réussite
+            } catch (error) {
+                // Gérez les erreurs ici
+                console.error(error.response ? error.response.data : error.message);
+            }
+        },
     }
 });

@@ -45,6 +45,9 @@
           <td>
             <button @click="restoreUser(user.id)">Restaurer</button>
           </td>
+          <td>
+            <button @click="destroyUser(user.id)"></button>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -73,7 +76,14 @@ const archiveUser = async (id) => {
 
 const restoreUser = async (id) => {
   await adminUsersStore.restoreUser(id);
+  window.location.reload();
+
 };
+
+const destroyUser = async (id) => {
+  await adminUsersStore.destroyUser(id);
+  window.location.reload();
+}
 </script>
 
 <style scoped>
