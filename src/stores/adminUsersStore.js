@@ -6,8 +6,6 @@ import api from "@/services/api";
 export const useAdminUsersStore = defineStore('adminUsers', {
     state: () => ({
         users: [],  // Liste des utilisateurs.
-        archivedUsers: [],  // Liste des utilisateurs archivés.
-        selectedArchivedUser: null,  // Détails d'un utilisateur archivé sélectionné.
     }),
 
     actions: {
