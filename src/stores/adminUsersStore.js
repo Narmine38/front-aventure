@@ -1,6 +1,5 @@
 // adminUsersStore.js
 import { defineStore } from 'pinia';
-import axios from 'axios';
 import { useAuthStore } from "@/stores/authStore";
 import api from "@/services/api";
 
@@ -23,7 +22,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             }
         },
 
-        async fetchArchivedUsers() {
+       /* async fetchArchivedUsers() {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
             try {
@@ -54,6 +53,6 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             } catch (error) {
                 console.error('Error restoring user:', error);
             }
-        },
+        },*/
     }
 });

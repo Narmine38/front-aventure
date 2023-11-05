@@ -17,34 +17,6 @@
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          <td>
-            <button @click="archiveUser(user.id)">Archiver</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Liste des utilisateurs archivés -->
-    <div class="archived-users-list" v-if="adminUsersStore.archivedUsers.length">
-      <h3>Utilisateurs archivés</h3>
-      <table>
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Email</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="user in adminUsersStore.archivedUsers" :key="user.id">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            <button @click="restoreUser(user.id)">Restaurer</button>
-          </td>
         </tr>
         </tbody>
       </table>
@@ -53,27 +25,12 @@
 </template>
 
 <script setup>
-import {useAdminUsersStore} from "@/stores/adminUsersStore";
+import {useAdminUsersStore} from "/src/stores/adminUsersStore";
 
 const adminUsersStore = useAdminUsersStore();
 adminUsersStore.fetchUsers();
-adminUsersStore.fetchArchivedUsers();
 
-/*const archiveUser = async (id) => {
-  try {
-    await adminUsersStore.archiveUser(id);
-    // Rafraîchir la liste des lieux après l'archivage
-    await adminUsersStore.fetchUsers();
-    window.location.reload();
 
-  } catch (error) {
-    console.error("Erreur lors de l'archivage de l'utilisateur:", error);
-  }
-};
-
-const restoreUser = async (id) => {
-  await adminUsersStore.restoreUser(id);
-};*/
 </script>
 
 <style scoped>
