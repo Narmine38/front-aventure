@@ -59,7 +59,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
 
             try {
                 // Envoi de la requête DELETE à la route spécifique avec l'ID de l'utilisateur
-                const response = await api.delete(`/users/${id}`);
+                const response = await api.delete(`/users/${id}/destroy`);
 
                 // Traitez la réponse ici, si nécessaire
                 console.log(response.data.message); // Affiche le message de réussite

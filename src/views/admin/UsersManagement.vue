@@ -46,7 +46,7 @@
             <button @click="restoreUser(user.id)">Restaurer</button>
           </td>
           <td>
-            <button @click="destroyUser(user.id)"></button>
+            <button @click="destroyUser(user.id)">Supprimer</button>
           </td>
         </tr>
         </tbody>
