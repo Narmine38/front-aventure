@@ -28,7 +28,7 @@
 import {useAdminUsersStore} from "/src/stores/adminUsersStore";
 
 const adminUsersStore = useAdminUsersStore();
-
+adminUsersStore.fetchUsers();
 </script>
 
 <style scoped>
