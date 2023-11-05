@@ -82,7 +82,6 @@ const restoreUser = async (id) => {
 
 const destroyUser = async (id) => {
   await adminUsersStore.destroyUser(id);
-  window.location.reload();
 }
 </script>
 
