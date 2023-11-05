@@ -93,55 +93,65 @@
 
 
 <script setup>
-import { usePlacesStore } from '/src/stores/PlacesStore';
 import { ref } from 'vue';
+import { usePlacesStore } from '/src/stores/PlacesStore';
 
+// Initiate the store and fetch necessary data on component mount
 const placesStore = usePlacesStore();
 placesStore.fetchPlaces();
 placesStore.fetchArchivedPlaces();
 
+// New place data structure that matches your Place model
 const newPlace = ref({
-  nom: '',
-  description: ''
+  name: '',
+  shortDescription: '',
+  longDescription: '', // Add other fields as necessary for your form
+  locationType: '',
+  restrictions: '',
+  travelAdvice: '',
+  picture: '',
+  story: ''
 });
 
+// Methods to handle form submissions and actions
 const addPlace = async () => {
+  // Add the new place using the store method
   await placesStore.addPlace(newPlace.value);
-  newPlace.value = {
-    nom: '',
-    description: '',
-    photo: ''
-  };
+  // Reset the newPlace object after submission
+  newPlace.value = { ...newPlace.value, name: '', shortDescription: '', picture: '' }; // Reset other fields as needed
 };
 
 const selectedPlace = ref(null);
 
 const selectPlaceForUpdate = (place) => {
-  selectedPlace.value = Object.assign({}, place);
+  // Clone the selected place to avoid direct state mutation
+  selectedPlace.value = { ...place };
 };
 
 const updateSelectedPlace = async () => {
   if (!selectedPlace.value || !selectedPlace.value.id) return;
+  // Update the place using the store method
   await placesStore.updatePlace(selectedPlace.value.id, selectedPlace.value);
+  // Clear the selection after update
   selectedPlace.value = null;
 };
 
 const archivePlace = async (id) => {
   try {
     await placesStore.archivePlace(id);
-    // Rafraîchir la liste des lieux après l'archivage
-    await placesStore.fetchPlaces();
-    window.location.reload();
-
+    // Refresh the places list after archiving
   } catch (error) {
     console.error("Erreur lors de l'archivage du lieu:", error);
   }
 };
 
 const restoreArchivedPlace = async (id) => {
-  await placesStore.restoreArchivedPlace(id);
-  await placesStore.fetchPlaces();
-  await placesStore.fetchArchivedPlaces();
+  try {
+    await placesStore.restoreArchivedPlace(id);
+    // Refresh both active and archived places lists after restoring
+  } catch (error) {
+    console.error("Erreur lors de la restauration du lieu archivé:", error);
+  }
 };
 </script>
 
