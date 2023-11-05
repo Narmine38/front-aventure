@@ -38,7 +38,7 @@
         </label>
         <label>
           Description Courte:
-          <textarea v-model="newPlace.shortDescription" placeholder="Description courte du lieu" required></textarea>
+          <input v-model="newPlace.shortDescription" placeholder="Description courte du lieu" required/>
         </label>
         <label>
           URL de l'image:
