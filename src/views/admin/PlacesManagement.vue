@@ -4,21 +4,21 @@
 
     <!-- Liste des lieux -->
     <div class="places-list">
-      <h3>Lieux</h3>
+      <h3>Liste des lieux</h3>
       <table>
         <thead>
         <tr>
           <th>ID</th>
           <th>Nom</th>
-          <th>Description</th>
+          <th>Description Courte</th>
           <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="place in placesStore.places" :key="place.id">
           <td>{{ place.id }}</td>
-          <td>{{ place.nom }}</td>
-          <td>{{ place.description }}</td>
+          <td>{{ place.name }}</td>
+          <td>{{ place.shortDescription }}</td>
           <td>
             <button @click="archivePlace(place.id)">Archiver</button>
             <button @click="selectPlaceForUpdate(place)">Modifier</button>
@@ -30,36 +30,35 @@
 
     <!-- Ajouter un nouveau lieu -->
     <div class="add-place">
-      <h3>Ajouter un lieu</h3>
+      <h3>Ajouter un nouveau lieu</h3>
       <form @submit.prevent="addPlace">
         <label>
           Nom:
-          <input v-model="newPlace.nom" placeholder="Nom du lieu" required />
+          <input v-model="newPlace.name" placeholder="Nom du lieu" required />
         </label>
         <label>
-          Description:
-          <input v-model="newPlace.description" placeholder="Description du lieu" required />
+          Description Courte:
+          <textarea v-model="newPlace.shortDescription" placeholder="Description courte du lieu" required></textarea>
         </label>
         <label>
-          URL de la photo:
-          <input v-model="newPlace.photo" placeholder="URL de la photo" required />
+          URL de l'image:
+          <input v-model="newPlace.picture" placeholder="URL de l'image" required />
         </label>
         <button type="submit">Ajouter</button>
       </form>
     </div>
 
-
     <!-- Modifier un lieu existant -->
     <div class="update-place" v-if="selectedPlace">
-      <h3>Modifier un lieu</h3>
+      <h3>Modifier un lieu existant</h3>
       <form @submit.prevent="updateSelectedPlace">
         <label>
           Nom:
-          <input v-model="selectedPlace.nom" placeholder="Nom du lieu" required />
+          <input v-model="selectedPlace.name" placeholder="Nom du lieu" required />
         </label>
         <label>
-          Description:
-          <input v-model="selectedPlace.description" placeholder="Description du lieu" required />
+          Description Courte:
+          <textarea v-model="selectedPlace.shortDescription" placeholder="Description courte du lieu" required></textarea>
         </label>
         <button type="submit">Mettre à jour</button>
       </form>
@@ -73,15 +72,15 @@
         <tr>
           <th>ID</th>
           <th>Nom</th>
-          <th>Description</th>
+          <th>Description Courte</th>
           <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="place in placesStore.archivedPlaces" :key="place.id">
           <td>{{ place.id }}</td>
-          <td>{{ place.nom }}</td>
-          <td>{{ place.description }}</td>
+          <td>{{ place.name }}</td>
+          <td>{{ place.shortDescription }}</td>
           <td>
             <button @click="restoreArchivedPlace(place.id)">Restaurer</button>
           </td>
@@ -91,6 +90,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { usePlacesStore } from '/src/stores/PlacesStore';

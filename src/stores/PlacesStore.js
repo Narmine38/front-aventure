@@ -15,7 +15,7 @@ export const usePlacesStore = defineStore('places', {
             authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
             try {
                 const response = await api.get('/api/place');
-                this.places = response.data;
+                this.places = response.data.data;
             } catch (error) {
                 console.error("Erreur lors de la récupération des lieux:", error.response.data);
             }
