@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { useAuthStore } from "@/stores/authStore";
+import api from "@/services/api";
 
 export const useAdminUsersStore = defineStore('adminUsers', {
     state: () => ({
@@ -15,7 +16,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
             try {
-                const response = await axios.get('https://api.aventure-en-adra.fr/api/users');
+                const response = await api.get('/api/users');
                 this.users = response.data;
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -26,7 +27,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
             try {
-                const response = await axios.get('https://api.aventure-en-adra.fr/api/archived-users');
+                const response = await api.get('/api/archived-users');
                 this.archivedUsers = response.data;
             } catch (error) {
                 console.error('Error fetching archived users:', error);
@@ -36,7 +37,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
             try {
-                await axios.post(`https://api.aventure-en-adra.fr/api/users/${id}/archive`);
+                await api.post(`/api/users/${id}/archive`);
                 await this.fetchUsers(); // Refresh the users list
             } catch (error) {
                 console.error('Error archiving user:', error);
@@ -48,7 +49,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
             try {
-                await axios.post(`https://api.aventure-en-adra.fr/api/users/${id}/restore`);
+                await axios.post(`/api/users/${id}/restore`);
                 await this.fetchArchivedUsers(); // Refresh the archived users list
             } catch (error) {
                 console.error('Error restoring user:', error);
