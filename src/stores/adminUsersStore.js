@@ -26,7 +26,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
             try {
-                const response = await axios.get('https://api.aventure-en-adra.fr/api/users/archived');
+                const response = await axios.get('https://api.aventure-en-adra.fr/api/archived-users');
                 this.archivedUsers = response.data;
             } catch (error) {
                 console.error('Error fetching archived users:', error);

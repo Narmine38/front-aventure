@@ -59,7 +59,7 @@ const adminUsersStore = useAdminUsersStore();
 adminUsersStore.fetchUsers();
 adminUsersStore.fetchArchivedUsers();
 
-const archiveUser = async (id) => {
+/*const archiveUser = async (id) => {
   try {
     await adminUsersStore.archiveUser(id);
     // Rafraîchir la liste des lieux après l'archivage
@@ -73,7 +73,7 @@ const archiveUser = async (id) => {
 
 const restoreUser = async (id) => {
   await adminUsersStore.restoreUser(id);
-};
+};*/
 </script>
 
 <style scoped>

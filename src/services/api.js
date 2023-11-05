@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://api.aventure-en-adra.fr', // URL de base de votre API Laravel
+    baseURL: 'http://127.0.0.1:8000', // URL de base de votre API Laravel
     withCredentials: true // Important pour envoyer et recevoir des cookies
 });
 export default api;
