@@ -25,7 +25,7 @@ export const useAdminUsersStore = defineStore('adminUsers', {
             authStore.setAuthorizationHeader();
             try {
                 const response = await api.get('/api/archived-users');
-                this.archivedUsers = response.data;
+                this.archivedUsers = response.data.data;
             } catch (error) {
                 console.error('Error fetching archived users:', error);
             }
