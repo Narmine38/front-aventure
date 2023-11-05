@@ -32,7 +32,6 @@ export const useAdminUsersStore = defineStore('adminUsers', {
                 console.error('Error fetching archived users:', error);
             }
         },
-
         async archiveUser(id) {
             const authStore = useAuthStore();
             authStore.setAuthorizationHeader();
