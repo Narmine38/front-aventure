@@ -148,7 +148,7 @@ const newAccommodation = ref({
   description: '',
   price: null,
   picture: '',
-  tyoe: ''
+  type: ''
 });
 
 const addAccommodation = async () => {

@@ -22,6 +22,7 @@ export const useAccommodationStore = defineStore('accommodation', {
 
         async addAccommodation(accommodation) {
             const authStore = useAuthStore();
+            await authStore.prepareForAuthRequest(); // Préparation de la requête authentifiée
             authStore.setAuthorizationHeader();
             try {
                 await api.post('/api/accommodation', accommodation);
@@ -33,6 +34,7 @@ export const useAccommodationStore = defineStore('accommodation', {
 
         async updateAccommodation(id, updatedAccommodation) {
             const authStore = useAuthStore();
+            await authStore.prepareForAuthRequest(); // Préparation de la requête authentifiée
             authStore.setAuthorizationHeader();
             try {
                 await api.put(`/api/accommodation/${id}`, updatedAccommodation);
@@ -44,6 +46,7 @@ export const useAccommodationStore = defineStore('accommodation', {
 
         async archiveAccommodation(id) {
             const authStore = useAuthStore();
+            await authStore.prepareForAuthRequest(); // Préparation de la requête authentifiée
             authStore.setAuthorizationHeader();
             try {
                 await api.post(`/api/accommodation/${id}/archive`);
@@ -66,6 +69,7 @@ export const useAccommodationStore = defineStore('accommodation', {
 
         async restoreArchivedAccommodation(id) {
             const authStore = useAuthStore();
+            await authStore.prepareForAuthRequest(); // Préparation de la requête authentifiée
             authStore.setAuthorizationHeader();
             try {
                 await api.post(`/api/accommodation/${id}/restore`);

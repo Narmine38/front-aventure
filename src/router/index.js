@@ -38,13 +38,13 @@ const router = createRouter({
         path: 'accommodationsmanagement',  // ceci est relatif à '/administration'
         name: 'accommodationsmanagement',
         component: () => import('../views/admin/AccommodationsManagement.vue')
-      }]
-      /*{
+      },
+      {
         path: 'activitiesmanagement',  // ceci est relatif à '/administration'
         name: 'activitiesmanagement',
         component: () => import('../views/admin/ActivitesManagement.vue')
-      },
-      {
+      }],
+     /* {
         path: 'charactersmanagement',  // ceci est relatif à '/administration'
         name: 'charactersmanagement',
         component: () => import('../views/admin/PersonnageManagement.vue')
