@@ -53,7 +53,7 @@
         </label>
         <label>
           Tranche age:
-          <input v-model="newActivite.age_range" placeholder="Tranche age de l'activité" required/>
+          <input v-model="newActivite.age_rang" placeholder="Tranche age de l'activité" required/>
         </label>
         <label>
           URL de la photo:
@@ -75,27 +75,27 @@
       <form @submit.prevent="updateSelectedActivite">
         <label>
           Nom:
-          <input v-model="selectActiviteForUpdate.name" placeholder="Nom de l'activité" required/>
+          <input v-model="selectedActivite.name" placeholder="Nom de l'activité" required/>
         </label>
         <label>
           Description:
-          <input v-model="selectActiviteForUpdate.description" placeholder="Description de l'activité" required/>
+          <input v-model="selectedActivite.description" placeholder="Description de l'activité" required/>
         </label>
         <label>
           Type:
-          <input v-model="selectActiviteForUpdate.type" placeholder="Type de l'activité" required/>
+          <input v-model="selectedActivite.type" placeholder="Type de l'activité" required/>
         </label>
         <label>
           Tranche age:
-          <input v-model="selectActiviteForUpdate.age_range" placeholder="Tranche age de l'activité" required/>
+          <input v-model="selectedActivite.age_rang" placeholder="Tranche age de l'activité" required/>
         </label>
         <label>
           URL de la photo:
-          <input v-model="selectActiviteForUpdate.picture" placeholder="URL de la photo" required/>
+          <input v-model="selectedActivite.picture" placeholder="URL de la photo" required/>
         </label>
         <label>
           Lieu:
-          <select v-model="selectActiviteForUpdate.place_id" required>
+          <select v-model="selectedActivite.place_id" required>
             <option v-for="place in places" :key="place.id" :value="place.id">{{ place.name }}</option>
           </select>
         </label>
@@ -152,7 +152,7 @@ const newActivite = ref({
   description: '',
   picture: '',   // Correct field name for photo
   type: '',
-  age_range: '', // Correct field name for age range
+  age_rang: '', // Correct field name for age range
   place_id: ''   // Correct field name for place ID
 });
 
@@ -163,7 +163,7 @@ const addActivite = async () => {
     description: '',
     picture: '',   // champ photo ajouté
     type: '',
-    age_range: '',
+    age_rang: '',
     place_id: ''  // champ lieu_id ajouté
     };
   };
