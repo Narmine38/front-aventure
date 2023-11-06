@@ -14,7 +14,7 @@ export const useCharactersStore = defineStore('characters', {
             authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
             try {
                 const response = await api.get('/api/characters');
-                this.personnages = response.data;
+                this.characters = response.data;
             } catch (error) {
                 console.error("Erreur lors de la récupération des personnages:", error.response.data);
             }
@@ -61,7 +61,7 @@ export const useCharactersStore = defineStore('characters', {
             authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
             try {
                 const response = await api.get('/api/characters-archived');
-                this.archivedPersonnages = response.data.data;
+                this.archivedCharacters = response.data;
             } catch (error) {
                 console.error("Erreur lors de la récupération des personnages archivés:", error.response.data);
             }
