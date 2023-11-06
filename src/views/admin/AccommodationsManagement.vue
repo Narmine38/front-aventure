@@ -1,15 +1,17 @@
 <template>
-  <div class="accommodation-management-section">
-    <!-- Accommodation List -->
-    <div class="accommodation-list">
-      <h3>Accommodations</h3>
+  <div class="hebergements-management-section">
+    <h2>Gestion des hébergements</h2>
+
+    <!-- Liste des hébergements -->
+    <div class="hebergements-list">
+      <h3>Hébergements</h3>
       <table>
         <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
+          <th>Nom</th>
           <th>Description</th>
-          <th>Location</th> <!-- Corrected column name -->
+          <th>Lieu</th> <!-- Nouvelle colonne -->
           <th>Actions</th>
         </tr>
         </thead>
@@ -18,114 +20,109 @@
           <td>{{ accommodation.id }}</td>
           <td>{{ accommodation.name }}</td>
           <td>{{ accommodation.description }}</td>
-          <td>{{ accommodation.place.name }}</td> <!-- Corrected property access -->
+          <td>{{ accommodation.place.name }}</td> <!-- Nouvelle cellule pour afficher le lieu -->
+
           <td>
-            <button @click="archiveAccommodation(accommodation.id)">Archive</button>
-            <button @click="selectAccommodationForUpdate(accommodation)">Edit</button>
+            <button @click="archiveAccomodation(accommodation.id)">Archiver</button>
+            <button @click="selectAccommodationForUpdate(accommodation)">Modifier</button>
           </td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Add New Accommodation Form -->
-    <div class="add-accommodation">
-      <h3>Add Accommodation</h3>
+    <!-- Ajouter un nouvel hébergement -->
+    <div class="add-hebergement">
+      <h3>Ajouter un hébergement</h3>
       <form @submit.prevent="addAccommodation">
-        <!-- Form fields -->
         <label>
-          Name:
-          <input type="text" v-model="newAccommodation.name" required>
+          Nom:
+          <input v-model="newAccommodation.name" placeholder="Nom de l'hébergement" required />
         </label>
         <label>
           Description:
-          <textarea v-model="newAccommodation.description" required></textarea>
+          <input v-model="newAccommodation.description" placeholder="Description de l'hébergement" required />
         </label>
         <label>
-          Price:
-          <input type="number" v-model.number="newAccommodation.price" required>
+          Prix:
+          <input type="number" v-model="newAccommodation.price" placeholder="Prix de l'hébergement" required />
         </label>
         <label>
-          Photo URL:
-          <input type="text" v-model="newAccommodation.photo" required>
+          URL de la photo:
+          <input v-model="newAccommodation.picture" placeholder="URL de la photo" required />
         </label>
         <label>
-          Place:
+          Lieu:
           <select v-model="newAccommodation.place_id" required>
-            <option v-for="place in places" :value="place.id">{{ place.name }}</option>
+            <option v-for="place in places" :key="place.id" :value="place.id">{{ place.nom }}</option>
           </select>
         </label>
-        <button type="submit">Add</button>
+        <button type="submit">Ajouter</button>
       </form>
     </div>
 
-    <!-- Edit Accommodation Form -->
-    <div class="edit-accommodation" v-if="selectedAccommodation">
-      <h3>Edit Accommodation</h3>
+    <!-- Modifier un hébergement existant -->
+    <div class="update-hebergement" v-if="selectedAccommodation">
+      <h3>Modifier un hébergement</h3>
       <form @submit.prevent="updateSelectedAccommodation">
         <label>
-          Name:
-          <input type="text" v-model="selectedAccommodation.name" required>
+          Nom:
+          <input v-model="selectedAccommodation.name" placeholder="Nom de l'hébergement" required />
         </label>
         <label>
           Description:
-          <textarea v-model="selectedAccommodation.description" required></textarea>
+          <input v-model="selectedAccommodation.description" placeholder="Description de l'hébergement" required />
         </label>
         <label>
-          Price:
-          <input type="number" v-model.number="selectedAccommodation.price" required>
+          Prix:
+          <input type="number" v-model="selectedAccommodation.price" placeholder="Prix de l'hébergement" required />
         </label>
         <label>
-          Photo URL:
-          <input type="text" v-model="selectedAccommodation.photo" required>
+          URL de la photo:
+          <input v-model="selectedAccommodation.picture" placeholder="URL de la photo" required />
         </label>
         <label>
-          Place:
+          Lieu:
           <select v-model="selectedAccommodation.place_id" required>
-            <option v-for="place in places" :value="place.id">{{ place.name }}</option>
+            <option v-for="place in places" :key="place.id" :value="place.id">{{ place.name }}</option>
           </select>
         </label>
-        <button type="submit">Update</button>
+
+        <button type="submit">Mettre à jour</button>
       </form>
     </div>
 
-
-    <!-- Archived Accommodations List -->
-    <div class="archived-accommodations" v-if="accommodationStore.archivedAccommodations.length">
-      <h3>Archived Accommodations</h3>
+    <!-- Liste des hébergements archivés -->
+    <div class="archived-hebergements-list" v-if="accommodationStore.archivedAccommodations.length">
+      <h3>Hébergements archivés</h3>
       <table>
         <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
+          <th>Nom</th>
           <th>Description</th>
-          <th>Price</th>
-          <th>Photo</th>
-          <th>Place</th>
+          <th>Lieu</th> <!-- Ajouté pour afficher le lieu -->
           <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="archived in accommodationStore.archivedAccommodations" :key="archived.id">
-          <td>{{ archived.id }}</td>
-          <td>{{ archived.name }}</td>
-          <td>{{ archived.description }}</td>
-          <td>{{ archived.price }}</td>
-          <td><img :src="archived.photo" alt="Accommodation" class="accommodation-photo"></td>
-          <td>{{ findPlaceNameById(archived.place_id) }}</td>
+        <tr v-for="accommodation in accommodationStore.archivedAccommodations" :key="accommodation.id">
+          <td>{{ accommodation.id }}</td>
+          <td>{{ accommodation.name }}</td>
+          <td>{{ accommodation.description }}</td>
+          <td>{{ accommodation.place.name }}</td> <!-- Affiche le nom du lieu associé -->
           <td>
-            <button @click="restoreArchivedAccommodation(archived.id)">Restore</button>
+            <button @click="restoreArchivedAccommodation(accommodation.id)">Restaurer</button>
           </td>
         </tr>
         </tbody>
       </table>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import { useAccommodationStore } from '/src/stores/AccommodationsStore'; // Corrected the import
+import { useAccommodationStore } from '/src/stores/AccommodationsStore';
 import { ref } from 'vue';
 import api from "@/services/api";
 const places = ref([]);
@@ -137,13 +134,17 @@ const newAccommodation = ref({
   name: '',
   description: '',
   price: null,
-  photo: '',
-  place_id: '',
+  picture: ''
 });
 
 const addAccommodation = async () => {
   await accommodationStore.addAccommodation(newAccommodation.value);
-  newAccommodation.value = { name: '', description: '', price: null, photo: '', place_id: '' };
+  newAccommodation.value = {
+    name: '',
+    description: '',
+    price: null,
+    picture: ''
+  };
 };
 
 const selectedAccommodation = ref(null);
@@ -158,10 +159,11 @@ const updateSelectedAccommodation = async () => {
   selectedAccommodation.value = null;
 };
 
-const archiveAccommodation = async (id) => {
+const archiveAccomodation = async (id) => {
   try {
     await accommodationStore.archiveAccommodation(id);
     await accommodationStore.fetchAccommodations();
+    window.location.reload();
   } catch (error) {
     console.error("Erreur lors de l'archivage de l'hébergement:", error);
   }
@@ -175,22 +177,21 @@ const restoreArchivedAccommodation = async (id) => {
 
 const fetchPlaces = async () => {
   try {
-    const response = await api.get('/api/places'); // Corrected the endpoint
+    const response = await api.get('/api/places');
     places.value = response.data;
   } catch (error) {
     console.error("Erreur lors de la récupération des lieux:", error);
   }
 };
 
-const findPlaceNameById = (placeId) => {
-  const place = places.value.find((p) => p.id === placeId);
-  return place ? place.name : 'Unknown';
-};
-
 fetchPlaces();
 </script>
 
 <style scoped>
+/* Votre CSS sera probablement similaire à celui de PlaceManagement. */
+.hebergements-management-section {
+  padding: 20px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -198,6 +199,12 @@ table {
 th, td {
   padding: 8px 12px;
   border: 1px solid #e0e0e0;
+}
+.add-hebergement, .update-hebergement {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
 }
 label {
   display: block;
