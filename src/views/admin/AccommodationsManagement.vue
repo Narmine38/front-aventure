@@ -37,19 +37,19 @@
       <form @submit.prevent="addAccommodation">
         <label>
           Nom:
-          <input v-model="newAccommodation.name" placeholder="Nom de l'hébergement" required />
+          <input v-model="newAccommodation.name" placeholder="Nom de l'hébergement" required/>
         </label>
         <label>
           Description:
-          <input v-model="newAccommodation.description" placeholder="Description de l'hébergement" required />
+          <input v-model="newAccommodation.description" placeholder="Description de l'hébergement" required/>
         </label>
         <label>
           Prix:
-          <input type="number" v-model="newAccommodation.price" placeholder="Prix de l'hébergement" required />
+          <input type="number" v-model="newAccommodation.price" placeholder="Prix de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
-          <input v-model="newAccommodation.picture" placeholder="URL de la photo" required />
+          <input v-model="newAccommodation.picture" placeholder="URL de la photo" required/>
         </label>
         <label>
           Lieu:
@@ -67,19 +67,19 @@
       <form @submit.prevent="updateSelectedAccommodation">
         <label>
           Nom:
-          <input v-model="selectedAccommodation.name" placeholder="Nom de l'hébergement" required />
+          <input v-model="selectedAccommodation.name" placeholder="Nom de l'hébergement" required/>
         </label>
         <label>
           Description:
-          <input v-model="selectedAccommodation.description" placeholder="Description de l'hébergement" required />
+          <input v-model="selectedAccommodation.description" placeholder="Description de l'hébergement" required/>
         </label>
         <label>
           Prix:
-          <input type="number" v-model="selectedAccommodation.price" placeholder="Prix de l'hébergement" required />
+          <input type="number" v-model="selectedAccommodation.price" placeholder="Prix de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
-          <input v-model="selectedAccommodation.picture" placeholder="URL de la photo" required />
+          <input v-model="selectedAccommodation.picture" placeholder="URL de la photo" required/>
         </label>
         <label>
           Lieu:
@@ -122,9 +122,10 @@
 </template>
 
 <script setup>
-import { useAccommodationStore } from '/src/stores/AccommodationsStore';
-import { ref } from 'vue';
-import api from "@/services/api";
+import {useAccommodationStore} from '/src/stores/AccommodationsStore';
+import {ref} from 'vue';
+import {usePlacesStore} from "/src/stores/PlacesStore";
+
 const places = ref([]);
 const accommodationStore = useAccommodationStore();
 accommodationStore.fetchAccommodations();
@@ -176,12 +177,8 @@ const restoreArchivedAccommodation = async (id) => {
 };
 
 const fetchPlaces = async () => {
-  try {
-    const response = await api.get('/api/places');
-    places.value = response.data;
-  } catch (error) {
-    console.error("Erreur lors de la récupération des lieux:", error);
-  }
+  const PlaceStore = usePlacesStore(); // Accès aux méthodes du store d'authentification
+  await PlaceStore.fetchPlaces();
 };
 
 fetchPlaces();
@@ -192,24 +189,29 @@ fetchPlaces();
 .hebergements-management-section {
   padding: 20px;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
 }
+
 th, td {
   padding: 8px 12px;
   border: 1px solid #e0e0e0;
 }
+
 .add-hebergement, .update-hebergement {
   margin-top: 20px;
   padding: 15px;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
 }
+
 label {
   display: block;
   margin-bottom: 10px;
 }
+
 input {
   padding: 8px;
   border: 1px solid #e0e0e0;
