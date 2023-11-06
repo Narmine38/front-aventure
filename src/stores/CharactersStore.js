@@ -61,7 +61,7 @@ export const useCharactersStore = defineStore('characters', {
             authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
             try {
                 const response = await api.get('/api/characters-archived');
-                this.archivedCharacters = response.data;
+                this.archivedCharacters = response.data.data;
             } catch (error) {
                 console.error("Erreur lors de la récupération des personnages archivés:", error.response.data);
             }
