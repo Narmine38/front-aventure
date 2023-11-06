@@ -163,7 +163,7 @@ const addActivite = async () => {
     description: '',
     picture: '',   // champ photo ajouté
     type: '',
-    age_range: '',
+    age_rang: '',
     place_id: ''  // champ lieu_id ajouté
     };
   };
