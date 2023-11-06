@@ -14,9 +14,9 @@
           <th>Description Long</th>
           <th>Type</th>
           <th>Réstriction</th>
-          <th>Description Courte</th>
           <th>Conseille</th>
           <th>Anecdote</th>
+          <th>Illustration</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -30,6 +30,7 @@
           <td>{{ place.restrictions }}</td>
           <td>{{ place.travelAdvice }}</td>
           <td>{{ place.story }}</td>
+          <td>{{ place.picture }}</td>
           <td>
             <button @click="archivePlace(place.id)">Archiver</button>
             <button @click="selectPlaceForUpdate(place)">Modifier</button>
@@ -128,6 +129,12 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Description Courte</th>
+          <th>Description Long</th>
+          <th>Type</th>
+          <th>Réstriction</th>
+          <th>Conseille</th>
+          <th>Anecdote</th>
+          <th>Illustration</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -141,6 +148,8 @@
           <td>{{ place.restrictions }}</td>
           <td>{{ place.travelAdvice }}</td>
           <td>{{ place.story }}</td>
+          <td>{{ place.picture }}</td>
+
           <td>
             <button @click="restoreArchivedPlace(place.id)">Restaurer</button>
           </td>
