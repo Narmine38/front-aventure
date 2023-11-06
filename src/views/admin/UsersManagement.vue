@@ -14,9 +14,9 @@
         </thead>
         <tbody>
         <tr v-for="user in adminUsersStore.users" :key="user.id">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
+          <td data-label="ID">{{ user.id }}</td>
+          <td data-label="Nom">{{ user.name }}</td>
+          <td data-label="Email">{{ user.email }}</td>
           <td>
             <button @click="archiveUser(user.id)">Archiver</button>
           </td>
@@ -40,9 +40,9 @@
         </thead>
         <tbody>
         <tr v-for="user in adminUsersStore.archivedUsers" :key="user.id">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
+          <td data-label="ID">{{ user.id }}</td>
+          <td data-label="Nom">{{ user.name }}</td>
+          <td data-label="Email">{{ user.email }}</td>
           <td>
             <button @click="restoreUser(user.id)">Restaurer</button>
           </td>
@@ -114,6 +114,46 @@ input {
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* CSS pour les appareils mobiles */
+@media (max-width: 768px) {
+  .user-management-section table {
+    width: 100%;
+    border: 0;
+  }
+
+  .user-management-section thead {
+    display: none; /* Masquer l'en-tête sur les appareils mobiles */
+  }
+
+  .user-management-section tr {
+    margin-bottom: 10px;
+    display: block;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .user-management-section td {
+    display: block;
+    text-align: right;
+    padding-left: 50%; /* Assurez-vous que le contenu ne chevauche pas les titres de données */
+    position: relative;
+  }
+
+  .user-management-section td::before {
+    /* Ajouter un titre de données pour chaque td via le pseudo-élément before */
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .users-list, .archived-users-list {
+    overflow-x: auto; /* Permettre le défilement horizontal si nécessaire */
+  }
 }
 </style>
 
