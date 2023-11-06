@@ -150,10 +150,10 @@ activiteStore.fetchArchivedActivites();
 const newActivite = ref({
   name: '',
   description: '',
-  picture: '',   // champ photo ajouté
+  picture: '',   // Correct field name for photo
   type: '',
-  age_range: '',
-  place_id: ''  // champ lieu_id ajouté
+  age_range: '', // Correct field name for age range
+  place_id: ''   // Correct field name for place ID
 });
 
 const addActivite = async () => {
