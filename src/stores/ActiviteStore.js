@@ -13,7 +13,7 @@ export const useActiviteStore = defineStore('activites', {
             const authStore = useAuthStore(); // Accès aux méthodes du store d'authentification
             authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
             try {
-                const response = await api.get('/api/activity');
+                const response = await api.get('/api/activities');
                 this.activites = response.data;
             } catch (error) {
                 console.error("Erreur lors de la récupération des activités:", error.response.data);
