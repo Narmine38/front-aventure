@@ -82,5 +82,4 @@ export const useCharactersStore = defineStore('characters', {
     }
 });
 
-export class useCharactersStore {
-}
+
