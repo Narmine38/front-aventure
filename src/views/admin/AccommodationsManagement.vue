@@ -20,7 +20,8 @@
           <td>{{ accommodation.id }}</td>
           <td>{{ accommodation.name }}</td>
           <td>{{ accommodation.description }}</td>
-          <td>{{ accommodation.place.name }}</td> <!-- Nouvelle cellule pour afficher le lieu -->
+          <td>{{ accommodation.place.name }}</td>
+          <td>{{ accommodation.type }}</td><!-- Nouvelle cellule pour afficher le lieu -->
 
           <td>
             <button @click="archiveAccomodation(accommodation.id)">Archiver</button>
@@ -46,6 +47,10 @@
         <label>
           Prix:
           <input type="number" v-model="newAccommodation.price" placeholder="Prix de l'hébergement" required/>
+        </label>
+        <label>
+          Type:
+          <input type="number" v-model="newAccommodation.type" placeholder="Prix de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
@@ -76,6 +81,10 @@
         <label>
           Prix:
           <input type="number" v-model="selectedAccommodation.price" placeholder="Prix de l'hébergement" required/>
+        </label>
+        <label>
+          Type:
+          <input type="number" v-model="selectedAccommodation.type" placeholder="Prix de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
@@ -110,7 +119,8 @@
           <td>{{ accommodation.id }}</td>
           <td>{{ accommodation.name }}</td>
           <td>{{ accommodation.description }}</td>
-          <td>{{ accommodation.place.name }}</td> <!-- Affiche le nom du lieu associé -->
+          <td>{{ accommodation.place.name }}</td><!-- Affiche le nom du lieu associé -->
+          <td>{{ accommodation.type }}</td>
           <td>
             <button @click="restoreArchivedAccommodation(accommodation.id)">Restaurer</button>
           </td>
@@ -135,7 +145,8 @@ const newAccommodation = ref({
   name: '',
   description: '',
   price: null,
-  picture: ''
+  picture: '',
+  tyoe: ''
 });
 
 const addAccommodation = async () => {
@@ -144,7 +155,8 @@ const addAccommodation = async () => {
     name: '',
     description: '',
     price: null,
-    picture: ''
+    picture: '',
+    type: ''
   };
 };
 

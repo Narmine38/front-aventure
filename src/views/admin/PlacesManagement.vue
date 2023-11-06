@@ -19,6 +19,11 @@
           <td>{{ place.id }}</td>
           <td>{{ place.name }}</td>
           <td>{{ place.shortDescription }}</td>
+          <td>{{ place.longDescription }}</td>
+          <td>{{ place.locationType }}</td>
+          <td>{{ place.restrictions }}</td>
+          <td>{{ place.travelAdvice }}</td>
+          <td>{{ place.story }}</td>
           <td>
             <button @click="archivePlace(place.id)">Archiver</button>
             <button @click="selectPlaceForUpdate(place)">Modifier</button>
@@ -34,7 +39,7 @@
       <form @submit.prevent="addPlace">
         <label>
           Nom:
-          <input v-model="newPlace.name" placeholder="Nom du lieu" required />
+          <input v-model="newPlace.name" placeholder="Nom du lieu" required/>
         </label>
         <label>
           Description Courte:
@@ -42,7 +47,7 @@
         </label>
         <label>
           URL de l'image:
-          <input v-model="newPlace.picture" placeholder="URL de l'image" required />
+          <input v-model="newPlace.picture" placeholder="URL de l'image" required/>
         </label>
         <button type="submit">Ajouter</button>
       </form>
@@ -54,7 +59,7 @@
       <form @submit.prevent="updateSelectedPlace">
         <label>
           Nom:
-          <input v-model="selectedPlace.name" placeholder="Nom du lieu" required />
+          <input v-model="selectedPlace.name" placeholder="Nom du lieu" required/>
         </label>
         <label>
           Description Courte:
@@ -81,6 +86,11 @@
           <td>{{ place.id }}</td>
           <td>{{ place.name }}</td>
           <td>{{ place.shortDescription }}</td>
+          <td>{{ place.longDescription }}</td>
+          <td>{{ place.locationType }}</td>
+          <td>{{ place.restrictions }}</td>
+          <td>{{ place.travelAdvice }}</td>
+          <td>{{ place.story }}</td>
           <td>
             <button @click="restoreArchivedPlace(place.id)">Restaurer</button>
           </td>
@@ -93,8 +103,8 @@
 
 
 <script setup>
-import { ref } from 'vue';
-import { usePlacesStore } from '/src/stores/PlacesStore';
+import {ref} from 'vue';
+import {usePlacesStore} from '/src/stores/PlacesStore';
 
 // Initiate the store and fetch necessary data on component mount
 const placesStore = usePlacesStore();
@@ -118,14 +128,14 @@ const addPlace = async () => {
   // Add the new place using the store method
   await placesStore.addPlace(newPlace.value);
   // Reset the newPlace object after submission
-  newPlace.value = { ...newPlace.value, name: '', shortDescription: '', picture: '' }; // Reset other fields as needed
+  newPlace.value = {...newPlace.value, name: '', shortDescription: '', picture: ''}; // Reset other fields as needed
 };
 
 const selectedPlace = ref(null);
 
 const selectPlaceForUpdate = (place) => {
   // Clone the selected place to avoid direct state mutation
-  selectedPlace.value = { ...place };
+  selectedPlace.value = {...place};
 };
 
 const updateSelectedPlace = async () => {
@@ -139,6 +149,8 @@ const updateSelectedPlace = async () => {
 const archivePlace = async (id) => {
   try {
     await placesStore.archivePlace(id);
+    await placesStore.fetchPlaces();
+    await placesStore.fetchArchivedPlaces();
     // Refresh the places list after archiving
   } catch (error) {
     console.error("Erreur lors de l'archivage du lieu:", error);
@@ -159,24 +171,29 @@ const restoreArchivedPlace = async (id) => {
 .places-management-section {
   padding: 20px;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
 }
+
 th, td {
   padding: 8px 12px;
   border: 1px solid #e0e0e0;
 }
+
 .add-place, .update-place {
   margin-top: 20px;
   padding: 15px;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
 }
+
 label {
   display: block;
   margin-bottom: 10px;
 }
+
 input {
   padding: 8px;
   border: 1px solid #e0e0e0;
