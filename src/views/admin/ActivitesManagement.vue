@@ -75,27 +75,27 @@
       <form @submit.prevent="updateSelectedActivite">
         <label>
           Nom:
-          <input v-model="newActivite.name" placeholder="Nom de l'activité" required/>
+          <input v-model="selectActiviteForUpdate.name" placeholder="Nom de l'activité" required/>
         </label>
         <label>
           Description:
-          <input v-model="newActivite.description" placeholder="Description de l'activité" required/>
+          <input v-model="selectActiviteForUpdate.description" placeholder="Description de l'activité" required/>
         </label>
         <label>
           Type:
-          <input v-model="newActivite.type" placeholder="Type de l'activité" required/>
+          <input v-model="selectActiviteForUpdate.type" placeholder="Type de l'activité" required/>
         </label>
         <label>
           Tranche age:
-          <input v-model="newActivite.age_range" placeholder="Tranche age de l'activité" required/>
+          <input v-model="selectActiviteForUpdate.age_range" placeholder="Tranche age de l'activité" required/>
         </label>
         <label>
           URL de la photo:
-          <input v-model="newActivite.picture" placeholder="URL de la photo" required/>
+          <input v-model="selectActiviteForUpdate.picture" placeholder="URL de la photo" required/>
         </label>
         <label>
           Lieu:
-          <select v-model="newActivite.place_id" required>
+          <select v-model="selectActiviteForUpdate.place_id" required>
             <option v-for="place in places" :key="place.id" :value="place.id">{{ place.name }}</option>
           </select>
         </label>
