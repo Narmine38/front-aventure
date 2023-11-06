@@ -11,6 +11,12 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Description Courte</th>
+          <th>Description Long</th>
+          <th>Type</th>
+          <th>Réstriction</th>
+          <th>Description Courte</th>
+          <th>Conseille</th>
+          <th>Anecdote</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -46,6 +52,26 @@
           <input v-model="newPlace.shortDescription" placeholder="Description courte du lieu" required/>
         </label>
         <label>
+          Description Long:
+          <input v-model="newPlace.longDescription" placeholder="Description long du lieu" required/>
+        </label>
+        <label>
+          Type:
+          <input v-model="newPlace.locationType" placeholder="Type du lieu" required/>
+        </label>
+        <label>
+          Réstriction:
+          <input v-model="newPlace.restrictions" placeholder="Réstriction du lieu" required/>
+        </label>
+        <label>
+          Conseille:
+          <input v-model="newPlace.travelAdvice" placeholder="Conseille de lieu" required/>
+        </label>
+        <label>
+          Anecdote:
+          <input v-model="newPlace.story" placeholder="Anecdote sur le lieu" required/>
+        </label>
+        <label>
           URL de l'image:
           <input v-model="newPlace.picture" placeholder="URL de l'image" required/>
         </label>
@@ -64,6 +90,30 @@
         <label>
           Description Courte:
           <input v-model="selectedPlace.shortDescription" placeholder="Description courte du lieu" required/>
+        </label>
+        <label>
+          Description Long:
+          <input v-model="newPlace.longDescription" placeholder="Description long du lieu" required/>
+        </label>
+        <label>
+          Type:
+          <input v-model="newPlace.locationType" placeholder="Type du lieu" required/>
+        </label>
+        <label>
+          Réstriction:
+          <input v-model="newPlace.restrictions" placeholder="Réstriction du lieu" required/>
+        </label>
+        <label>
+          Conseille:
+          <input v-model="newPlace.travelAdvice" placeholder="Conseille de lieu" required/>
+        </label>
+        <label>
+          Anecdote:
+          <input v-model="newPlace.story" placeholder="Anecdote sur le lieu" required/>
+        </label>
+        <label>
+          URL de l'image:
+          <input v-model="newPlace.picture" placeholder="URL de l'image" required/>
         </label>
         <button type="submit">Mettre à jour</button>
       </form>
