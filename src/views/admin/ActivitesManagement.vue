@@ -53,7 +53,7 @@
         </label>
         <label>
           Tranche age:
-          <input v-model="newActivite.age_rang" placeholder="Tranche age de l'activité" required/>
+          <input v-model="newActivite.age_range" placeholder="Tranche age de l'activité" required/>
         </label>
         <label>
           URL de la photo:
@@ -87,7 +87,7 @@
         </label>
         <label>
           Tranche age:
-          <input v-model="selectedActivite.age_rang" placeholder="Tranche age de l'activité" required/>
+          <input v-model="selectedActivite.age_range" placeholder="Tranche age de l'activité" required/>
         </label>
         <label>
           URL de la photo:
@@ -152,7 +152,7 @@ const newActivite = ref({
   description: '',
   picture: '',   // Correct field name for photo
   type: '',
-  age_rang: '', // Correct field name for age range
+  age_range: '', // Correct field name for age range
   place_id: ''   // Correct field name for place ID
 });
 
@@ -163,7 +163,7 @@ const addActivite = async () => {
     description: '',
     picture: '',   // champ photo ajouté
     type: '',
-    age_rang: '',
+    age_range: '',
     place_id: ''  // champ lieu_id ajouté
     };
   };
