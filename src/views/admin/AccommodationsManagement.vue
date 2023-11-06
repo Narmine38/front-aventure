@@ -12,6 +12,7 @@
           <th>Nom</th>
           <th>Description</th>
           <th>Lieu</th> <!-- Nouvelle colonne -->
+          <th>Type</th> <!-- Nouvelle colonne -->
           <th>Actions</th>
         </tr>
         </thead>
@@ -50,7 +51,7 @@
         </label>
         <label>
           Type:
-          <input type="number" v-model="newAccommodation.type" placeholder="Prix de l'hébergement" required/>
+          <input type="number" v-model="newAccommodation.type" placeholder="Type de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
@@ -84,7 +85,7 @@
         </label>
         <label>
           Type:
-          <input type="number" v-model="selectedAccommodation.type" placeholder="Prix de l'hébergement" required/>
+          <input type="number" v-model="selectedAccommodation.type" placeholder="Type de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
@@ -111,6 +112,7 @@
           <th>Nom</th>
           <th>Description</th>
           <th>Lieu</th> <!-- Ajouté pour afficher le lieu -->
+          <th>Type</th> <!-- Ajouté pour afficher le lieu -->
           <th>Actions</th>
         </tr>
         </thead>
