@@ -54,7 +54,7 @@
         <label>
           Lieu:
           <select v-model="newAccommodation.place_id" required>
-            <option v-for="place in places" :key="place.id" :value="place.id">{{ place.nom }}</option>
+            <option v-for="place in places" :key="place.id" :value="place.id">{{ place.name }}</option>
           </select>
         </label>
         <button type="submit">Ajouter</button>
@@ -177,8 +177,10 @@ const restoreArchivedAccommodation = async (id) => {
 };
 
 const fetchPlaces = async () => {
-  const PlaceStore = usePlacesStore(); // Accès aux méthodes du store d'authentification
-  await PlaceStore.fetchPlaces();
+  const placeStore = usePlacesStore(); // Accès aux méthodes du store d'authentification
+  await placeStore.fetchPlaces();
+  places.value = placeStore.places; // Assuming 'places' is the array within your store
+
 };
 
 fetchPlaces();
