@@ -51,7 +51,7 @@
         </label>
         <label>
           Type:
-          <input type="number" v-model="newAccommodation.type" placeholder="Type de l'hébergement" required/>
+          <input v-model="newAccommodation.type" placeholder="Type de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
@@ -85,7 +85,7 @@
         </label>
         <label>
           Type:
-          <input type="number" v-model="selectedAccommodation.type" placeholder="Type de l'hébergement" required/>
+          <input v-model="selectedAccommodation.type" placeholder="Type de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
