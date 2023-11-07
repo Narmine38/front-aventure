@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <video autoplay muted loop class="header-video">
-      <source src="https://video-previews.elements.envatousercontent.com/e0793d02-be7e-4cfc-b230-1681c2bf5988/watermarked_preview/watermarked_preview.mp4" type="video/mp4">
+      <source src="https://video-previews.elements.envatousercontent.com/h264-video-previews/fde11520-3fe7-4287-a8a3-e9517b55680d/43525384.mp4" type="video/mp4">
     </video>
     <div class="overlay"></div>
     <Nav/>
@@ -15,7 +15,7 @@ import Nav from "/src/components/Nav.vue"
 <style scoped>
 .header-container {
   position: relative;
-  height: 50vh; /* ou la hauteur que vous souhaitez pour votre en-tête */
+  height: 70vh; /* ou la hauteur que vous souhaitez pour votre en-tête */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,9 +35,5 @@ import Nav from "/src/components/Nav.vue"
   /* Un overlay si vous voulez assombrir votre vidéo pour mieux lire le texte */
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
 }
 </style>
