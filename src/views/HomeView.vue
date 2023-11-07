@@ -52,19 +52,21 @@ import { usePlacesStore } from '/src/stores/PlacesStore';
 import { useAccommodationStore } from '/src/stores/AccommodationsStore';
 import { useActiviteStore } from '/src/stores/ActiviteStore';
 import { useReservationStore } from '/src/stores/ReservationsStore';
-import { useCharactersStore } from "@/stores/CharactersStore";
-import {useAuthStore} from "@/stores/authStore";
+import { useCharactersStore } from "/src/stores/CharactersStore";
+import {useAuthStore} from "/src/stores/authStore";
 
 // Références réactives pour la sélection de l'utilisateur
 const selectedPlace = ref(null);
 const newReservation = ref({
+  user_id: authStore.user?.id || null, // Utilisez l'ID de l'utilisateur connecté
   place_id: null,
   accommodation_id: null,
   activity_id: null,
   character_id: null,
   arrival_date: '',
-  starting_date: '',
+  departure_date: '',
   number_of_people: 1,
+  statut: 'pending', // Statut initial pour la nouvelle réservation
 });
 
 // Stores
@@ -73,6 +75,7 @@ const accommodationsStore = useAccommodationStore();
 const activitiesStore = useActiviteStore();
 const reservationStore = useReservationStore();
 const charactersStore = useCharactersStore();
+const authStore = useAuthStore();
 
 placesStore.fetchPlaces();
 accommodationsStore.fetchAccommodations();
