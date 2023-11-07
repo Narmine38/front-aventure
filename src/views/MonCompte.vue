@@ -122,13 +122,13 @@ const archiveAccount = async () => {
   }
 };
 
-/*const cancelReservation = async (reservationId) => {
+const cancelReservation = async (reservationId) => {
    try {
-    await userProfileStore.cancelUserReservation(reservationId);
-    await userProfileStore.fetchUserReservations(editableUser.value.id);
+    await reservationStore.archiveReservation(reservationId);
+    await reservationStore.fetchUserReservations(editableUser.value.id);
     } catch (error) {
       alert('Erreur lors de l’annulation de la réservation.');
-  }};*/
+  }};
 </script>
 
 /*const cancelReservation = async (reservationId) => {
