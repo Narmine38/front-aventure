@@ -73,7 +73,7 @@
 
 
 <script setup>
-import {computed, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import {useRouter} from 'vue-router';
 import {useUserProfileStore} from '@/stores/userProfileStore';
 import { useReservationStore } from '/src/stores/ReservationsStore';
@@ -85,9 +85,16 @@ const router = useRouter();
 const editableUser = computed(() => userProfileStore.user);
 const errorMessage = ref(''); // Ajout pour afficher les messages d'erreur
 
-const userID = userProfileStore.user.id
-reservationStore.fetchUserReservations(userID);
-const userReservations = reservationStore.reservations
+
+// Fonction pour charger les réservations de l'utilisateur dès que le composant est monté
+onMounted(() => {
+  if (editableUser.value && editableUser.value.id) {
+    reservationStore.fetchUserReservations(editableUser.value.id);
+  }
+});
+
+// Les réservations chargées seront réactives si elles sont déclarées comme une référence calculée
+const userReservations = computed(() => reservationStore.reservations);
 
 const updateUser = async () => {
   try {
