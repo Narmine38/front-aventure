@@ -77,6 +77,18 @@ export const useReservationStore = defineStore('reservations', {
             } catch (error) {
                 console.error("Erreur lors de la restauration de la réservation archivée:", error.response.data);
             }
-        }
+        },
+
+        async fetchUserReservations(userId) {
+            const authStore = useAuthStore();
+            authStore.setAuthorizationHeader(); // Assurez-vous que l'en-tête d'autorisation est correctement configuré
+            try {
+                const response = await api.get(`/api/reservations/user/${userId}`);
+                // Mettez à jour l'état local avec les réservations récupérées
+                this.reservations = response.data; // Assurez-vous que votre état 'reservations' peut contenir ces données
+            } catch (error) {
+                console.error("Erreur lors de la récupération des réservations de l'utilisateur:", error.response.data);
+            }
+        },
     }
 });

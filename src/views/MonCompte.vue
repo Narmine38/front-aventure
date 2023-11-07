@@ -50,20 +50,37 @@
     <button @click="confirmDeleteAccount">Supprimer mon compte</button>
   </div>
 
+  <div class="reservations-section">
+    <h3>Mes Réservations</h3>
+    <ul>
+      <li v-for="reservation in userReservations" :key="reservation.id">
+        <!-- Formattez l'affichage de la réservation comme vous le souhaitez ici -->
+        <p><strong>Lieu:</strong> {{ reservation.place.name }}</p>
+        <p><strong>Activité:</strong> {{ reservation.activity.name }}</p>
+        <p><strong>Date d'arrivée:</strong> {{ reservation.arrival_date }}</p>
+        <p><strong>Date de départ:</strong> {{ reservation.departure_date }}</p>
+        <!-- Ajoutez d'autres détails de réservation que vous souhaitez afficher -->
+      </li>
+    </ul>
+  </div>
+
 
 </template>
 
 <script setup>
-import {computed, onMounted, ref} from 'vue';
+import {computed, ref} from 'vue';
 import {useRouter} from 'vue-router';
 import {useUserProfileStore} from '@/stores/userProfileStore';
+import { useReservationStore } from '/src/stores/ReservationsStore';
 
+const reservationStore = useReservationStore();
 const userProfileStore = useUserProfileStore();
 const router = useRouter();
 
 const editableUser = computed(() => userProfileStore.user);
 const errorMessage = ref(''); // Ajout pour afficher les messages d'erreur
 
+reservationStore.fetchArchivedReservations();
 const updateUser = async () => {
   try {
     const message = await userProfileStore.updateUserProfile(editableUser.value);
