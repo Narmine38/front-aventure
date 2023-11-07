@@ -1,82 +1,84 @@
 <template>
-  <div class="user-management-section">
-    <h2>Mon Compte</h2>
-    <form @submit.prevent="updateUser">
-      <label>
-        Nom:
-        <input type="text" v-model="editableUser.name" :placeholder="editableUser.name || 'Nom'" required/>
-      </label>
+  <div class="management-container">
 
-      <label>
-        Email:
-        <input type="email" v-model="editableUser.email" :placeholder="editableUser.email || 'Email'" required/>
-      </label>
+    <div class="user-management-section">
+      <h2>Mon Compte</h2>
+      <form @submit.prevent="updateUser">
+        <label>
+          Nom:
+          <input type="text" v-model="editableUser.name" :placeholder="editableUser.name || 'Nom'" required/>
+        </label>
 
-      <label>
-        Adresse:
-        <input type="text" v-model="editableUser.address" :placeholder="editableUser.address || 'Adresse'" required/>
-      </label>
+        <label>
+          Email:
+          <input type="email" v-model="editableUser.email" :placeholder="editableUser.email || 'Email'" required/>
+        </label>
 
-      <label>
-        Ville:
-        <input type="text" v-model="editableUser.city" :placeholder="editableUser.city || 'Ville'" required/>
-      </label>
+        <label>
+          Adresse:
+          <input type="text" v-model="editableUser.address" :placeholder="editableUser.address || 'Adresse'" required/>
+        </label>
 
-      <label>
-        Pays:
-        <input type="text" v-model="editableUser.country" :placeholder="editableUser.country || 'Pays'" required/>
-      </label>
+        <label>
+          Ville:
+          <input type="text" v-model="editableUser.city" :placeholder="editableUser.city || 'Ville'" required/>
+        </label>
 
-      <label>
-        Code postal:
-        <input type="text" v-model="editableUser.postal_code" :placeholder="editableUser.postal_code || 'Code postal'"
-               required/>
-      </label>
+        <label>
+          Pays:
+          <input type="text" v-model="editableUser.country" :placeholder="editableUser.country || 'Pays'" required/>
+        </label>
 
-      <label>
-        Numéro de téléphone:
-        <input type="text" v-model="editableUser.phone_number"
-               :placeholder="editableUser.phone_number || 'Numéro de téléphone'" required/>
-      </label>
+        <label>
+          Code postal:
+          <input type="text" v-model="editableUser.postal_code" :placeholder="editableUser.postal_code || 'Code postal'"
+                 required/>
+        </label>
 
-      <label>
-        Mot de passe (laissez vide pour ne pas changer):
-        <input type="password" v-model="editableUser.password" placeholder="Mot de passe"/>
-      </label>
+        <label>
+          Numéro de téléphone:
+          <input type="text" v-model="editableUser.phone_number"
+                 :placeholder="editableUser.phone_number || 'Numéro de téléphone'" required/>
+        </label>
 
-      <button type="submit">Mettre à jour</button>
-    </form>
+        <label>
+          Mot de passe (laissez vide pour ne pas changer):
+          <input type="password" v-model="editableUser.password" placeholder="Mot de passe"/>
+        </label>
 
-    <button @click="confirmDeleteAccount">Supprimer mon compte</button>
-  </div>
+        <button type="submit">Mettre à jour</button>
+      </form>
 
-  <div class="reservations-section">
-    <h3>Mes Réservations</h3>
-    <ul>
-      <li v-for="reservation in userReservations" :key="reservation.id">
-        <div>
-          <h4>Réservation #{{ reservation.id }}</h4>
-          <p><strong>Date d'arrivée:</strong> {{ reservation.arrival_date }}</p>
-          <p><strong>Date de départ:</strong> {{ reservation.starting_date }}</p>
-          <p><strong>Nombre de personnes:</strong> {{ reservation.number_of_people }}</p>
-          <p><strong>Prix:</strong> {{ reservation.price }}</p>
-          <p><strong>Statut:</strong> {{ reservation.statut }}</p>
-          <!-- Ajoutez d'autres informations que vous souhaitez afficher -->
-          <!-- Bouton pour annuler la réservation, si nécessaire -->
-          <button @click="cancelReservation(reservation.id)">Annuler la réservation</button>
-        </div>
-      </li>
-    </ul>
+      <button @click="confirmDeleteAccount">Supprimer mon compte</button>
+    </div>
+
+    <div class="reservations-section">
+      <h3>Mes Réservations</h3>
+      <ul>
+        <li v-for="reservation in userReservations" :key="reservation.id">
+          <div>
+            <h4>Réservation #{{ reservation.id }}</h4>
+            <p><strong>Date d'arrivée:</strong> {{ reservation.arrival_date }}</p>
+            <p><strong>Date de départ:</strong> {{ reservation.starting_date }}</p>
+            <p><strong>Nombre de personnes:</strong> {{ reservation.number_of_people }}</p>
+            <p><strong>Prix:</strong> {{ reservation.price }}</p>
+            <p><strong>Statut:</strong> {{ reservation.statut }}</p>
+            <!-- Ajoutez d'autres informations que vous souhaitez afficher -->
+            <!-- Bouton pour annuler la réservation, si nécessaire -->
+            <button @click="cancelReservation(reservation.id)">Annuler la réservation</button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
-
 
 
 <script setup>
 import {computed, onMounted, ref} from 'vue';
 import {useRouter} from 'vue-router';
 import {useUserProfileStore} from '@/stores/userProfileStore';
-import { useReservationStore } from '/src/stores/ReservationsStore';
+import {useReservationStore} from '/src/stores/ReservationsStore';
 
 const reservationStore = useReservationStore();
 const userProfileStore = useUserProfileStore();
@@ -123,12 +125,13 @@ const archiveAccount = async () => {
 };
 
 const cancelReservation = async (reservationId) => {
-   try {
+  try {
     await reservationStore.archiveReservation(reservationId);
     await reservationStore.fetchUserReservations(editableUser.value.id);
-    } catch (error) {
-      alert('Erreur lors de l’annulation de la réservation.');
-  }};
+  } catch (error) {
+    alert('Erreur lors de l’annulation de la réservation.');
+  }
+};
 </script>
 
 /*const cancelReservation = async (reservationId) => {
@@ -200,5 +203,13 @@ button:hover {
 
 .reservations-section li:not(:last-child) {
   margin-bottom: 15px;
+}
+
+.management-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: auto;
+  max-width: 1200px; /* Ajustez selon la largeur maximale désirée */
 }
 </style>
