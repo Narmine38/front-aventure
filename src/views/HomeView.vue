@@ -73,6 +73,11 @@ const activitiesStore = useActiviteStore();
 const reservationStore = useReservationStore();
 const charactersStore = useCharactersStore();
 
+placesStore.fetchPlaces();
+accommodationsStore.fetchAccommodations();
+activitiesStore.fetchActivites();
+charactersStore.fetchCharaters();
+
 // Chargement des hébergements et des activités pour un lieu sélectionné
 const loadAccommodationsAndActivities = async () => {
   if (selectedPlace.value) {
@@ -106,5 +111,4 @@ const createReservation = async () => {
   }
 };
 
-loadAccommodationsAndActivities();
 </script>
