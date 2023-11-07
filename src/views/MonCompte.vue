@@ -53,19 +53,24 @@
   <div class="reservations-section">
     <h3>Mes Réservations</h3>
     <ul>
-      <li v-for="reservation in userResevation" :key="reservation.id">
-        <!-- Formattez l'affichage de la réservation comme vous le souhaitez ici -->
-        <p><strong>Lieu:</strong> {{ reservation.place.name }}</p>
-        <p><strong>Activité:</strong> {{ reservation.activity.name }}</p>
-        <p><strong>Date d'arrivée:</strong> {{ reservation.arrival_date }}</p>
-        <p><strong>Date de départ:</strong> {{ reservation.departure_date }}</p>
-        <!-- Ajoutez d'autres détails de réservation que vous souhaitez afficher -->
+      <li v-for="reservation in userReservations" :key="reservation.id">
+        <div>
+          <h4>Réservation #{{ reservation.id }}</h4>
+          <p><strong>Date d'arrivée:</strong> {{ reservation.arrival_date }}</p>
+          <p><strong>Date de départ:</strong> {{ reservation.starting_date }}</p>
+          <p><strong>Nombre de personnes:</strong> {{ reservation.number_of_people }}</p>
+          <p><strong>Prix:</strong> {{ reservation.price }}</p>
+          <p><strong>Statut:</strong> {{ reservation.statut }}</p>
+          <!-- Ajoutez d'autres informations que vous souhaitez afficher -->
+          <!-- Bouton pour annuler la réservation, si nécessaire -->
+          <button @click="cancelReservation(reservation.id)">Annuler la réservation</button>
+        </div>
       </li>
     </ul>
   </div>
-
-
 </template>
+
+
 
 <script setup>
 import {computed, ref} from 'vue';
@@ -82,7 +87,7 @@ const errorMessage = ref(''); // Ajout pour afficher les messages d'erreur
 
 const userID = userProfileStore.user.id
 reservationStore.fetchUserReservations(userID);
-const userResevation = reservationStore.reservations
+const userReservations = reservationStore.reservations
 
 const updateUser = async () => {
   try {
