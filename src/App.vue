@@ -1,6 +1,5 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import Nav from "@/components/Nav.vue";
 import Header from "@/components/Header.vue";
 </script>
 
