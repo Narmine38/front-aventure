@@ -13,14 +13,14 @@
       <label for="accommodation">Hébergement:</label>
       <select id="accommodation" v-model="newReservation.accommodation_id">
         <option value="" disabled>Sélectionnez un hébergement</option>
-        <option v-for="accommodation in accommodationStore.accommodations" :key="accommodation.id" :value="accommodation.id">{{ accommodation.name }}</option>
+        <option v-for="accommodation in accommodationsStore.accommodations" :key="accommodation.id" :value="accommodation.id">{{ accommodation.name }}</option>
       </select>
 
       <!-- Sélection de l'activité -->
       <label for="activity">Activité:</label>
       <select id="activity" v-model="newReservation.activity_id">
         <option value="" disabled>Sélectionnez une activité</option>
-        <option v-for="activity in activiteStore.activites" :key="activity.id" :value="activity.id">{{ activity.name }}</option>
+        <option v-for="activity in activitiesStore.activites" :key="activity.id" :value="activity.id">{{ activity.name }}</option>
       </select>
 
       <!-- Sélection du personnage -->
@@ -48,10 +48,11 @@
 
 <script setup>
 import { ref } from 'vue';
-import { usePlacesStore } from '/src/stores/placesStore';
+import { usePlacesStore } from '/src/stores/PlacesStore';
 import { useAccommodationStore } from '/src/stores/AccommodationsStore';
-import { useActiviteStore } from '/src/stores/activiteStore';
+import { useActiviteStore } from '/src/stores/ActiviteStore';
 import { useReservationStore } from '/src/stores/ReservationsStore';
+import { useCharactersStore } from "@/stores/CharactersStore";
 
 // Références réactives pour la sélection de l'utilisateur
 const selectedPlace = ref(null);
@@ -70,6 +71,7 @@ const placesStore = usePlacesStore();
 const accommodationsStore = useAccommodationStore();
 const activitiesStore = useActiviteStore();
 const reservationStore = useReservationStore();
+const charactersStore = useCharactersStore();
 
 // Chargement des hébergements et des activités pour un lieu sélectionné
 const loadAccommodationsAndActivities = async () => {
