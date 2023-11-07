@@ -53,6 +53,7 @@ import { useAccommodationStore } from '/src/stores/AccommodationsStore';
 import { useActiviteStore } from '/src/stores/ActiviteStore';
 import { useReservationStore } from '/src/stores/ReservationsStore';
 import { useCharactersStore } from "@/stores/CharactersStore";
+import {useAuthStore} from "@/stores/authStore";
 
 // Références réactives pour la sélection de l'utilisateur
 const selectedPlace = ref(null);
@@ -101,6 +102,9 @@ const loadAccommodationsAndActivities = async () => {
 
 // Méthode pour créer une nouvelle réservation
 const createReservation = async () => {
+  const authStore = useAuthStore(); // Accès aux méthodes du store d'authentification
+  await authStore.prepareForAuthRequest(); // Préparation de la requête authentifiée
+  authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
   try {
     // Appel API pour créer une réservation
     await reservationStore.addReservation(newReservation.value);
