@@ -55,6 +55,8 @@ import { useReservationStore } from '/src/stores/ReservationsStore';
 import { useCharactersStore } from "/src/stores/CharactersStore";
 import {useAuthStore} from "/src/stores/authStore";
 
+const authStore = useAuthStore();
+
 // Références réactives pour la sélection de l'utilisateur
 const selectedPlace = ref(null);
 const newReservation = ref({
@@ -75,7 +77,6 @@ const accommodationsStore = useAccommodationStore();
 const activitiesStore = useActiviteStore();
 const reservationStore = useReservationStore();
 const charactersStore = useCharactersStore();
-const authStore = useAuthStore();
 
 placesStore.fetchPlaces();
 accommodationsStore.fetchAccommodations();
