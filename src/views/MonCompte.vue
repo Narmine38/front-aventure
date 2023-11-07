@@ -53,7 +53,7 @@
   <div class="reservations-section">
     <h3>Mes Réservations</h3>
     <ul>
-      <li v-for="reservation in userReservations" :key="reservation.id">
+      <li v-for="reservation in userResevation" :key="reservation.id">
         <!-- Formattez l'affichage de la réservation comme vous le souhaitez ici -->
         <p><strong>Lieu:</strong> {{ reservation.place.name }}</p>
         <p><strong>Activité:</strong> {{ reservation.activity.name }}</p>
@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import {computed, onMounted, ref} from 'vue';
+import {computed, ref} from 'vue';
 import {useRouter} from 'vue-router';
 import {useUserProfileStore} from '@/stores/userProfileStore';
 import { useReservationStore } from '/src/stores/ReservationsStore';
@@ -80,14 +80,7 @@ const router = useRouter();
 const editableUser = computed(() => userProfileStore.user);
 const errorMessage = ref(''); // Ajout pour afficher les messages d'erreur
 
-const userReservations = ref([]);
-const userId = editableUser.value.id;
-
-onMounted(async () => {
-  // Supposons que editableUser.value.id est l'ID de l'utilisateur connecté
-  await reservationStore.fetchUserReservations(userId);
-  userReservations.value = reservationStore.reservations; // Assurez-vous que cette ligne est synchronisée avec la façon dont votre store retourne les données
-});
+const userResevation = reservationStore.fetchUserReservations();
 const updateUser = async () => {
   try {
     const message = await userProfileStore.updateUserProfile(editableUser.value);
