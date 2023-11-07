@@ -79,7 +79,7 @@ const router = useRouter();
 
 const editableUser = computed(() => userProfileStore.user);
 const errorMessage = ref(''); // Ajout pour afficher les messages d'erreur
-reservationStore.fetchUserReservations();
+reservationStore.fetchUserReservations(editableUser.id);
 const userResevation = reservationStore.reservations
 const updateUser = async () => {
   try {
