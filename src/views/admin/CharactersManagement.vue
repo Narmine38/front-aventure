@@ -102,7 +102,6 @@
           <td>{{ character.id }}</td>
           <td>{{ character.name }}</td>
           <td>{{ character.story }}</td>
-          <td>{{ character.place.name }}</td> <!-- Affiche le nom du lieu associé -->
           <td>
             <button @click="restoreArchivedCharacter(character.id)">Restaurer</button>
           </td>
