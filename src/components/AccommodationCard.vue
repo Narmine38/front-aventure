@@ -6,7 +6,7 @@
     <div class="card-info">
       <h2 class="card-name">{{ accommodation.name }}</h2>
       <p class="card-type">{{ accommodation.type }}</p>
-      <p class="card-price">{{ formatPrice(accommodation.price) }}</p>
+      <p class="card-price">{{ accommodation.price }}</p>
       <p class="card-description">{{ accommodation.description }}</p>
       <p class="card-story">{{ accommodation.story }}</p>
       <p class="card-place-name">{{ accommodation.place.name }}</p>
@@ -25,8 +25,6 @@ defineProps({
   }
 });
 
-// A method to format the price to include a currency symbol and two decimal places
-const formatPrice = (price) => `$${parseFloat(price).toFixed(2)}`;
 </script>
 
 <style scoped>
