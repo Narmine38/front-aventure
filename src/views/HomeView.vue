@@ -40,7 +40,6 @@
 </template>
 
 <script setup>
-// Ajoutez ici votre logique de script Vue
 </script>
 
 <style scoped>
@@ -105,53 +104,48 @@
 }
 
 .explore-button {
-  background-color: rgba(0, 0, 0, 0.81); /* ou toute autre couleur de fond que vous préférez */
-  color: #ffffff; /* pour le texte du bouton */
-  border: none; /* pas de bordure ou ajustez selon votre besoin */
-  border-radius: 4px; /* pour des coins arrondis */
-  padding: 0.8rem 1.6rem; /* plus de padding pour un aspect de bouton */
-  font-weight: bold; /* texte en gras */
-  white-space: nowrap; /* empêche le texte de passer à la ligne */
-  display: inline-block; /* s'assure que le padding est pris en compte */
-  margin: 0; /* enlève les marges par défaut du bouton si nécessaire */
+  background-color: rgba(0, 0, 0, 0.81);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.8rem 1.6rem;
+  font-weight: bold;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 0;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
-  /* Section héroïque */
   .hero-section h1 {
-    font-size: 2rem; /* Taille de police plus petite pour les petits écrans */
+    font-size: 2rem;
   }
   .hero-section p {
-    font-size: 1rem; /* Taille de police plus petite pour les petits écrans */
+    font-size: 1rem;
   }
   .hero-section {
-    padding: 2rem 1rem; /* Padding plus petit pour les petits écrans */
+    padding: 2rem 1rem;
   }
 
-  /* Section de fonctionnalités */
   .features-section {
-    flex-direction: column; /* Empiler les fonctionnalités verticalement */
-    padding: 1rem; /* Padding plus petit pour les petits écrans */
+    flex-direction: column;
+    padding: 1rem;
   }
   .feature {
-    margin-bottom: 1rem; /* Ajouter un espace entre les fonctionnalités */
+    margin-bottom: 1rem;
   }
 
-  /* Section des témoignages */
   .testimonials-section {
-    padding: 1rem; /* Padding plus petit pour les petits écrans */
+    padding: 1rem;
   }
 
-  /* Bouton d'exploration */
   .explore-button {
-    padding: 0.5rem 1rem; /* Padding plus petit pour le bouton */
-    font-size: 0.9rem; /* Taille de police plus petite pour le bouton */
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
 
-  /* Pied de page */
+
   .footer {
-    padding: 0.5rem; /* Padding plus petit pour les petits écrans */
+    padding: 0.5rem;
   }
 }
 </style>

@@ -63,8 +63,6 @@
             <p><strong>Nombre de personnes:</strong> {{ reservation.number_of_people }}</p>
             <p><strong>Prix:</strong> {{ reservation.price }}</p>
             <p><strong>Statut:</strong> {{ reservation.statut }}</p>
-            <!-- Ajoutez d'autres informations que vous souhaitez afficher -->
-            <!-- Bouton pour annuler la réservation, si nécessaire -->
             <button @click="cancelReservation(reservation.id)">Annuler la réservation</button>
           </div>
         </li>
@@ -85,23 +83,21 @@ const userProfileStore = useUserProfileStore();
 const router = useRouter();
 
 const editableUser = computed(() => userProfileStore.user);
-const errorMessage = ref(''); // Ajout pour afficher les messages d'erreur
+const errorMessage = ref('');
 
 
-// Fonction pour charger les réservations de l'utilisateur dès que le composant est monté
 onMounted(() => {
   if (editableUser.value && editableUser.value.id) {
     reservationStore.fetchUserReservations(editableUser.value.id);
   }
 });
 
-// Les réservations chargées seront réactives si elles sont déclarées comme une référence calculée
 const userReservations = computed(() => reservationStore.reservations);
 
 const updateUser = async () => {
   try {
     const message = await userProfileStore.updateUserProfile(editableUser.value);
-    alert(message); // Vous pourriez vouloir utiliser un système de notifications plus avancé que alert()
+    alert(message);
     errorMessage.value = '';
   } catch (error) {
     errorMessage.value = 'Erreur lors de la mise à jour du profil.';
@@ -117,7 +113,7 @@ const confirmDeleteAccount = async () => {
 const archiveAccount = async () => {
   try {
     await userProfileStore.archiveUser(editableUser.value.id);
-    sessionStorage.clear(); // Utilisez clear() pour supprimer toutes les données de session
+    sessionStorage.clear();
     await router.push('/connexion');
   } catch (error) {
     errorMessage.value = 'Erreur lors de la suppression du compte.';
@@ -133,10 +129,6 @@ const cancelReservation = async (reservationId) => {
   }
 };
 </script>
-
-/*const cancelReservation = async (reservationId) => {
-
-};*/
 
 
 <style scoped>
@@ -210,6 +202,6 @@ button:hover {
   flex-wrap: wrap;
   gap: 20px;
   margin: auto;
-  max-width: 1200px; /* Ajustez selon la largeur maximale désirée */
+  max-width: 1200px;
 }
 </style>

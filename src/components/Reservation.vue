@@ -75,10 +75,9 @@ import {useAuthStore} from "/src/stores/authStore";
 
 const authStore = useAuthStore();
 
-// Références réactives pour la sélection de l'utilisateur
 const selectedPlace = ref(null);
 const newReservation = ref({
-  user_id: authStore.user?.id || null, // Utilisez l'ID de l'utilisateur connecté
+  user_id: authStore.user?.id || null,
   place_id: null,
   accommodation_id: null,
   activity_id: null,
@@ -86,7 +85,7 @@ const newReservation = ref({
   arrival_date: '',
   starting_date: '',
   number_of_people: 1,
-  statut: 'pending', // Statut initial pour la nouvelle réservation
+  statut: 'pending',
 });
 
 // Stores
@@ -101,39 +100,27 @@ accommodationsStore.fetchAccommodations();
 activitiesStore.fetchActivites();
 charactersStore.fetchCharaters();
 
-// Chargement des hébergements et des activités pour un lieu sélectionné
 const loadAccommodationsAndActivities = async () => {
   if (selectedPlace.value) {
-    newReservation.value.place_id = selectedPlace.value; // Assurez-vous que l'ID du lieu est mis à jour dans newReservation
+    newReservation.value.place_id = selectedPlace.value;
 
-    // Charger les hébergements pour ce lieu spécifique
     await accommodationsStore.fetchAccommodations();
-    // Filtrer les hébergements par lieu
     accommodationsStore.accommodations = accommodationsStore.accommodations.filter(
         (acc) => acc.place_id === selectedPlace.value
     );
 
-    // Charger les activités pour ce lieu spécifique
     await activitiesStore.fetchActivites();
-    // Filtrer les activités par lieu
     activitiesStore.activites = activitiesStore.activites.filter(
         (act) => act.place_id === selectedPlace.value
     );
   }
 };
 
-// Méthode pour créer une nouvelle réservation
 const createReservation = async () => {
-  const authStore = useAuthStore(); // Accès aux méthodes du store d'authentification
-  await authStore.prepareForAuthRequest(); // Préparation de la requête authentifiée
-  authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
   try {
-    // Appel API pour créer une réservation
     await reservationStore.addReservation(newReservation.value);
-    // Ici, vous pouvez gérer la logique post-création, comme réinitialiser le formulaire ou afficher un message
   } catch (error) {
     console.error("Erreur lors de la création de la réservation", error);
-    // Gérer les erreurs ici, comme montrer un message à l'utilisateur
   }
 };
 

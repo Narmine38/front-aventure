@@ -116,7 +116,6 @@ input {
   box-sizing: border-box;
 }
 
-/* CSS pour les appareils mobiles */
 @media (max-width: 768px) {
   .user-management-section table {
     width: 100%;
@@ -124,7 +123,7 @@ input {
   }
 
   .user-management-section thead {
-    display: none; /* Masquer l'en-tête sur les appareils mobiles */
+    display: none;
   }
 
   .user-management-section tr {
@@ -136,12 +135,11 @@ input {
   .user-management-section td {
     display: block;
     text-align: right;
-    padding-left: 50%; /* Assurez-vous que le contenu ne chevauche pas les titres de données */
+    padding-left: 50%;
     position: relative;
   }
 
   .user-management-section td::before {
-    /* Ajouter un titre de données pour chaque td via le pseudo-élément before */
     content: attr(data-label);
     position: absolute;
     left: 0;
@@ -152,7 +150,7 @@ input {
   }
 
   .users-list, .archived-users-list {
-    overflow-x: auto; /* Permettre le défilement horizontal si nécessaire */
+    overflow-x: auto;
   }
 }
 </style>

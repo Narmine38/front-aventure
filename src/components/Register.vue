@@ -46,7 +46,7 @@
 <script setup>
 import {computed, ref} from 'vue';
 import { useAuthStore } from '/src/stores/authStore';
-import router from "@/router"; // Import your auth store
+import router from "@/router";
 
 const user = ref({
   name: '',
@@ -56,14 +56,13 @@ const user = ref({
 const errors = ref({});
 const errorMessage = ref('');
 
-const authStore = useAuthStore(); // Use the auth store
+const authStore = useAuthStore();
 
 const submitForm = async () => {
   try {
-    await authStore.register(user.value); // Use the register action from the auth store
-    errorMessage.value = ''; // Reset the error message if successful
+    await authStore.register(user.value);
+    errorMessage.value = '';
   } catch (error) {
-    // If the action throws, handle the error here
     if (error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;
     } else {
@@ -171,9 +170,8 @@ button:focus {
 }
 
 .login-prompt button {
-  background-color: #5cb85c; /* Different color to distinguish actions */
+  background-color: #5cb85c;
   margin-top: 1rem;
-  /* Rest of the button styles */
 }
 
 .error {
@@ -194,37 +192,37 @@ button:focus {
   font-size: 0.85em;
 }
 
-/* Styles for responsive design */
+
 @media (max-width: 992px) {
   .form-container {
-    max-width: none; /* Allow the container to be wider on medium screens */
-    width: 80%; /* Width based on viewport size */
+    max-width: none;
+    width: 80%;
   }
 }
 
 @media (max-width: 768px) {
   .form-container {
-    width: 90%; /* Allow the container to fill more space on small screens */
-    margin: 20px auto; /* Adjust margin for smaller screens */
+    width: 90%;
+    margin: 20px auto;
   }
 
   label, input[type=text], input[type=email], input[type=password], button {
-    font-size: 14px; /* Smaller font size for small screens */
+    font-size: 14px;
   }
 
   input[type=text], input[type=email], input[type=password] {
-    margin-bottom: 15px; /* Less space below inputs on small screens */
+    margin-bottom: 15px;
   }
 
   button {
-    padding: 12px; /* Larger padding for easier clicking on touch devices */
+    padding: 12px;
   }
 }
 
 @media (max-width: 576px) {
-  /* Adjustments for extra small screens */
+
   .form-container {
-    width: 95%; /* Fill even more space for very small screens */
+    width: 95%;
   }
 }
 </style>

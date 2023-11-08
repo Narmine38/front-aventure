@@ -1,7 +1,6 @@
 <template>
   <div class="character-card">
     <div class="character-image">
-      <!-- Assurez-vous que le lien vers la photo est complet et valide -->
       <img :src="character.picture" :alt="character.name" />
     </div>
     <div class="character-info">
@@ -28,24 +27,23 @@ defineProps({
 
 <style scoped>
 .character-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
+  max-width: 340px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  margin: 1rem;
   background: white;
-  margin-bottom: 1rem;
 }
 
 .character-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-10px);
 }
 
 .character-image img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 200px;
+  object-fit: cover;
 }
 
 .character-info {

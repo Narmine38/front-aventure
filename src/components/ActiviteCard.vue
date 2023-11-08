@@ -1,7 +1,6 @@
 <template>
   <div class="activity-card">
     <div class="activity-image">
-      <!-- Assuming you have a method to get the full URL for the picture -->
       <img :src="activity.picture" :alt="activity.name" />
     </div>
     <div class="activity-info">
@@ -32,24 +31,23 @@ defineProps({
 
 <style scoped>
 .activity-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
+  max-width: 340px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  margin: 1rem;
   background: white;
-  margin-bottom: 1rem;
 }
 
 .activity-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-10px);
 }
 
 .activity-image img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 200px;
+  object-fit: cover;
 }
 
 .activity-info {
@@ -62,8 +60,9 @@ defineProps({
 }
 
 .activity-type {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 0.5rem;
 }
 

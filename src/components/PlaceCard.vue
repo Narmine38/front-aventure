@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-// Props peut être passé si vous utilisez ce composant dans une liste en boucle avec v-for par exemple
+
 defineProps({
   place: {
     type: Object,

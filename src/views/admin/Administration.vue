@@ -59,7 +59,6 @@ import {RouterView} from 'vue-router'
 
 .admin-nav-list {
   list-style: none;
-  padding: 0;
   display: flex;
   gap: 1rem;
   margin: 0;
@@ -78,7 +77,7 @@ import {RouterView} from 'vue-router'
 }
 
 .admin-nav-link:hover,
-.admin-nav-link.router-link-exact-active {
+.admin-nav-link {
   color: #007bff;
 }
 

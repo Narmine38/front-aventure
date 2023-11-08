@@ -1,6 +1,5 @@
 <template>
   <section class="characters-section">
-    <h1>Rencontrez les personnages de la Terre du Milieu</h1>
     <div class="characters-container">
       <CharacterCard
           v-for="character in characters" :key="character.id" :character="character"
@@ -24,24 +23,4 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.characters-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.characters-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-
-@media (max-width: 768px) {
-  .characters-container {
-    flex-direction: column;
-    align-items: center;
-  }
-}
 </style>

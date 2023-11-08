@@ -141,7 +141,6 @@ const restoreArchivedReservation = async (id) => {
 </script>
 
 <style scoped>
-/* ... vos styles pour ReservationManagement ici ... */
 .reservations-management-section {
   padding: 20px;
 }

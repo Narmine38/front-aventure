@@ -11,9 +11,9 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Description</th>
-          <th>Lieu</th> <!-- Nouvelle colonne -->
-          <th>Type</th> <!-- Nouvelle colonne -->
-          <th>age_range</th> <!-- Nouvelle colonne -->
+          <th>Lieu</th>
+          <th>Type</th>
+          <th>age_range</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -22,7 +22,7 @@
           <td>{{ activite.id }}</td>
           <td>{{ activite.name }}</td>
           <td>{{ activite.description }}</td>
-          <td>{{ activite.place.name }}</td> <!-- Nouvelle cellule pour afficher le lieu -->
+          <td>{{ activite.place.name }}</td>
           <td>{{ activite.type }}</td>
           <td>{{ activite.age_range }}</td>
 
@@ -112,9 +112,9 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Description</th>
-          <th>Lieu</th> <!-- Nouvelle colonne -->
-          <th>Type</th> <!-- Nouvelle colonne -->
-          <th>age_range</th> <!-- Nouvelle colonne -->
+          <th>Lieu</th>
+          <th>Type</th>
+          <th>age_range</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -123,7 +123,7 @@
           <td>{{ activite.id }}</td>
           <td>{{ activite.name }}</td>
           <td>{{ activite.description }}</td>
-          <td>{{ activite.place.name }}</td> <!-- Nouvelle cellule pour afficher le lieu -->
+          <td>{{ activite.place.name }}</td>
           <td>{{ activite.type }}</td>
           <td>{{ activite.age_range }}</td>
 
@@ -150,10 +150,10 @@ activiteStore.fetchArchivedActivites();
 const newActivite = ref({
   name: '',
   description: '',
-  picture: '',   // Correct field name for photo
+  picture: '',
   type: '',
-  age_range: '', // Correct field name for age range
-  place_id: ''   // Correct field name for place ID
+  age_range: '',
+  place_id: ''
 });
 
 const addActivite = async () => {
@@ -161,10 +161,10 @@ const addActivite = async () => {
   newActivite.value = {
     name: '',
     description: '',
-    picture: '',   // champ photo ajouté
+    picture: '',
     type: '',
     age_range: '',
-    place_id: ''  // champ lieu_id ajouté
+    place_id: ''
     };
   };
 
@@ -197,16 +197,15 @@ const addActivite = async () => {
   };
 
   const fetchPlaces = async () => {
-    const placeStore = usePlacesStore(); // Accès aux méthodes du store d'authentification
+    const placeStore = usePlacesStore();
     await placeStore.fetchPlaces();
-    places.value = placeStore.places; // Assuming 'places' is the array within your store
+    places.value = placeStore.places;
   };
 
   fetchPlaces();
 </script>
 
 <style scoped>
-/* Votre CSS sera probablement similaire à celui de HebergementsManagement. */
 .activites-management-section {
   padding: 20px;
 }

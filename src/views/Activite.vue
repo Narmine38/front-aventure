@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Utilisez :activity pour lier l'objet d'activité au composant ActiviteCard -->
     <ActiviteCard v-for="activity in activites" :key="activity.id" v-if="activites.length" :activity="activity"/>
     <div v-else>Chargement des destinations...</div>
   </div>

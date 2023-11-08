@@ -55,9 +55,9 @@ const redirectToRegister = () => {
   margin: 50px auto;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); /* Plus subtile shadow */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   background: #fff;
-  border: 1px solid #eaeaea; /* Light border for some definition */
+  border: 1px solid #eaeaea;
 }
 
 .login-container h2,
@@ -78,7 +78,7 @@ const redirectToRegister = () => {
 }
 
 .registration-prompt h4 {
-  margin-top: 2rem; /* More space before "Pas encore de compte?" */
+  margin-top: 2rem;
   margin-bottom: 1rem;
   font-size: 1rem;
   color: #666;
@@ -104,30 +104,30 @@ input[type=password] {
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
-  transition: border-color 0.3s; /* Smooth transition for the border */
+  transition: border-color 0.3s;
 }
 
 input[type=email]:focus,
 input[type=password]:focus {
-  border-color: #3C54B4; /* Highlight color when focused */
-  outline: none; /* Remove default focus outline */
+  border-color: #3C54B4;
+  outline: none;
 }
 
 button {
   width: 100%;
   padding: 12px;
-  background-color: #3C54B4; /* Button color */
+  background-color: #3C54B4;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s; /* Smooth color transition and transform */
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover,
 button:focus {
-  background-color: #2a3c8b; /* Darker color on hover */
-  transform: translateY(-2px); /* Slight raise effect on hover */
+  background-color: #2a3c8b;
+  transform: translateY(-2px);
 }
 
 @media (max-width: 992px) {
@@ -145,12 +145,12 @@ button:focus {
   }
 
   label, input[type=email], input[type=password], button {
-    font-size: 14px; /* Adjust font size */
-    padding: 8px; /* Adjust padding */
+    font-size: 14px;
+    padding: 8px;
   }
 
   button {
-    padding: 12px; /* Larger padding for better touch interaction */
+    padding: 12px;
   }
 }
 
@@ -160,7 +160,7 @@ button:focus {
   }
 
   label {
-    font-size: 1rem; /* Adjust label size for smaller devices */
+    font-size: 1rem;
   }
 }
 </style>

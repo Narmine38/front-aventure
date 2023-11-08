@@ -11,8 +11,10 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Description</th>
-          <th>Lieu</th> <!-- Nouvelle colonne -->
-          <th>Type</th> <!-- Nouvelle colonne -->
+          <th>Lieu</th>
+          <th>Type</th>
+          <th>Anecdote</th>
+          <th>Prix</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -22,7 +24,9 @@
           <td>{{ accommodation.name }}</td>
           <td>{{ accommodation.description }}</td>
           <td>{{ accommodation.place.name }}</td>
-          <td>{{ accommodation.type }}</td><!-- Nouvelle cellule pour afficher le lieu -->
+          <td>{{ accommodation.type }}</td>
+          <td>{{ accommodation.story}}</td>
+          <td>{{ accommodation.price}}</td>
 
           <td>
             <button @click="archiveAccomodation(accommodation.id)">Archiver</button>
@@ -52,6 +56,10 @@
         <label>
           Type:
           <input v-model="newAccommodation.type" placeholder="Type de l'hébergement" required/>
+        </label>
+        <label>
+          Anecdote:
+          <input v-model="newAccommodation.story" placeholder="Anecdote de l'hébergement" required/>
         </label>
         <label>
           URL de la photo:
@@ -88,6 +96,10 @@
           <input v-model="selectedAccommodation.type" placeholder="Type de l'hébergement" required/>
         </label>
         <label>
+          Anecdote:
+          <input v-model="selectedAccommodation.story" placeholder="Anecdote de l'hébergement" required/>
+        </label>
+        <label>
           URL de la photo:
           <input v-model="selectedAccommodation.picture" placeholder="URL de la photo" required/>
         </label>
@@ -111,8 +123,10 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Description</th>
-          <th>Lieu</th> <!-- Ajouté pour afficher le lieu -->
-          <th>Type</th> <!-- Ajouté pour afficher le lieu -->
+          <th>Lieu</th>
+          <th>Type</th>
+          <th>Anecdote</th>
+          <th>Prix</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -121,8 +135,10 @@
           <td>{{ accommodation.id }}</td>
           <td>{{ accommodation.name }}</td>
           <td>{{ accommodation.description }}</td>
-          <td>{{ accommodation.place.name }}</td><!-- Affiche le nom du lieu associé -->
+          <td>{{ accommodation.place.name }}</td>
           <td>{{ accommodation.type }}</td>
+          <td>{{ accommodation.story}}</td>
+          <td>{{ accommodation.price}}</td>
           <td>
             <button @click="restoreArchivedAccommodation(accommodation.id)">Restaurer</button>
           </td>
@@ -148,7 +164,8 @@ const newAccommodation = ref({
   description: '',
   price: null,
   picture: '',
-  type: ''
+  type: '',
+  story: ''
 });
 
 const addAccommodation = async () => {
@@ -191,9 +208,9 @@ const restoreArchivedAccommodation = async (id) => {
 };
 
 const fetchPlaces = async () => {
-  const placeStore = usePlacesStore(); // Accès aux méthodes du store d'authentification
+  const placeStore = usePlacesStore();
   await placeStore.fetchPlaces();
-  places.value = placeStore.places; // Assuming 'places' is the array within your store
+  places.value = placeStore.places;
 
 };
 
@@ -201,7 +218,6 @@ fetchPlaces();
 </script>
 
 <style scoped>
-/* Votre CSS sera probablement similaire à celui de PlaceManagement. */
 .hebergements-management-section {
   padding: 20px;
 }

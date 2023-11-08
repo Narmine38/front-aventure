@@ -25,49 +25,49 @@
   text-decoration: none;
   margin: 0 1rem;
   padding: 0.5rem 1rem;
-  font-family: 'Cinzel', serif; /* une police qui évoque une esthétique médiévale */
+  font-family: 'Cinzel', serif;
   font-size: 1.2rem;
-  color: #f4e4d3; /* Une couleur crème pour le contraste */
+  color: #f4e4d3;
   transition: color 0.3s ease;
 }
 
 .button-link {
-  background-color: rgba(0, 0, 0, 0.81); /* ou toute autre couleur de fond que vous préférez */
-  color: #ffffff; /* pour le texte du bouton */
-  border: none; /* pas de bordure ou ajustez selon votre besoin */
-  border-radius: 4px; /* pour des coins arrondis */
-  padding: 0.8rem 1.6rem; /* plus de padding pour un aspect de bouton */
-  font-weight: bold; /* texte en gras */
-  white-space: nowrap; /* empêche le texte de passer à la ligne */
-  display: inline-block; /* s'assure que le padding est pris en compte */
-  margin: 0; /* enlève les marges par défaut du bouton si nécessaire */
+  background-color: rgba(0, 0, 0, 0.81);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.8rem 1.6rem;
+  font-weight: bold;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 0;
 }
 
 
 @media (max-width: 768px) {
   .route_link {
-    justify-content: space-around; /* Ajuster selon les besoins pour une meilleure apparence */
+    justify-content: space-around;
     flex-wrap: wrap;
   }
 
-  /* Cacher les liens secondaires sur les petits écrans */
+
   .nav-link:not(.always-visible) {
     display: none;
   }
 
-  /* S'assurer que les liens importants sont toujours visibles */
+
   .nav-link.always-visible, .button-link {
-    display: block; /* ou 'inline-block' selon le comportement souhaité */
-    margin-bottom: 10px; /* Ajouter un peu d'espace si les liens sont sur des lignes séparées */
+    display: block;
+    margin-bottom: 10px;
   }
 
-  /* Styler spécifiquement le bouton pour qu'il soit plus facile à cliquer */
+
   .button-link {
     padding: 10px 20px;
-    margin: 0; /* Ajuster si vous avez un design spécifique en tête */
+    margin: 0;
   }
 }
-/* Change the background color on hover for button-link */
+
 
 
 

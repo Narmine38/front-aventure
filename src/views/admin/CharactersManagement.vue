@@ -11,7 +11,8 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Description</th>
-          <th>Lieu</th> <!-- Nouvelle colonne -->
+          <th>Lieu</th>
+          <th>Photo</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -20,7 +21,7 @@
           <td>{{ character.id }}</td>
           <td>{{ character.name }}</td>
           <td>{{ character.story }}</td>
-
+          <td> {{ character.place.name}}</td>
           <td>{{ character.picture }}</td>
 
           <td>
@@ -93,7 +94,7 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Description</th>
-          <th>Lieu</th> <!-- Ajouté pour afficher le lieu -->
+          <th>Lieu</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -125,8 +126,7 @@ characterStore.fetchArchivedCharacters();
 const newCharacter = ref({
   name: '',
   story: '',
-  picture: '',   // champ photo ajouté
-  place_id: ''  // champ lieu_id ajouté
+  picture: '',
 });
 
 const addCharacter = async () => {
@@ -134,8 +134,7 @@ const addCharacter = async () => {
   newCharacter.value = {
     name: '',
     story: '',
-    picture: '',   // champ photo ajouté
-    place_id: ''  // champ lieu_id ajouté
+    picture: '',
   };
 };
 
@@ -168,7 +167,7 @@ const restoreArchivedCharacter = async (id) => {
 };
 
 const fetchPlaces = async () => {
-  const placeStore = usePlacesStore(); // Accès aux méthodes du store d'authentification
+  const placeStore = usePlacesStore();
   await placeStore.fetchPlaces();
   places.value = placeStore.places;
 
@@ -178,7 +177,6 @@ fetchPlaces();
 </script>
 
 <style scoped>
-/* Les styles CSS seront probablement similaires à ceux des autres composants de gestion. */
 .personnages-management-section {
   padding: 20px;
 }
