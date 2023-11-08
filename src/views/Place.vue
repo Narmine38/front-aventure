@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <PlaceCard v-for="place in places" :key="place.id" :place="place" v-if="places.length"/>
     <div v-else>Loading destinations...</div>
   </div>
@@ -20,4 +20,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.content{
+  display: flex;
+justify-content: center}
 </style>
