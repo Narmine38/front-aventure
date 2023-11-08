@@ -1,22 +1,18 @@
+
 <script setup>
 import { RouterView } from 'vue-router'
-import Header from "@/components/Header.vue";
+import ComponanteNav from "@/components/HeaderComponante.vue";
 </script>
 
 <template>
-    <Header/>
-
-  <RouterView />
+  <header>
+    <ComponanteNav/>
+  </header>
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
 
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-}
 </style>
