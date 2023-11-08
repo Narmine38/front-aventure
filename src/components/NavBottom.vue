@@ -1,11 +1,11 @@
 <template>
   <nav class="route_link">
-    <RouterLink to="/" class="nav-link">Accueil</RouterLink>
+    <RouterLink to="/" class="nav-link always-visible">Accueil</RouterLink>
     <RouterLink to="/destinations" class="nav-link">Destinations</RouterLink>
     <RouterLink to="/heberements" class="nav-link">Hébergements</RouterLink>
     <RouterLink to="/activites" class="nav-link">Activities</RouterLink>
     <RouterLink to="/personnages" class="nav-link">Personnages</RouterLink>
-    <RouterLink to="/reservation" class="nav-link button-link">Réservez vos billets</RouterLink>
+    <RouterLink to="/reservation" class="nav-link button-link always-visible">Réservez vos billets</RouterLink>
 
   </nav>
 </template>
@@ -45,13 +45,26 @@
 
 
 @media (max-width: 768px) {
-  .nav-link{
-    font-size: 0.5rem;
-    padding: 0.2rem 0.5rem;
-    margin: 0 0.5rem;
+  .route_link {
+    justify-content: space-around; /* Ajuster selon les besoins pour une meilleure apparence */
+    flex-wrap: wrap;
+  }
 
+  /* Cacher les liens secondaires sur les petits écrans */
+  .nav-link:not(.always-visible) {
+    display: none;
+  }
 
+  /* S'assurer que les liens importants sont toujours visibles */
+  .nav-link.always-visible, .button-link {
+    display: block; /* ou 'inline-block' selon le comportement souhaité */
+    margin-bottom: 10px; /* Ajouter un peu d'espace si les liens sont sur des lignes séparées */
+  }
 
+  /* Styler spécifiquement le bouton pour qu'il soit plus facile à cliquer */
+  .button-link {
+    padding: 10px 20px;
+    margin: 0; /* Ajuster si vous avez un design spécifique en tête */
   }
 }
 /* Change the background color on hover for button-link */
