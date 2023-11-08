@@ -21,7 +21,6 @@
           <td>{{ character.name }}</td>
           <td>{{ character.story }}</td>
           <td>{{ character.picture }}</td>
-          <td>{{ character.places.name }}</td>
 
           <td>
             <button @click="archiveCharacter(character.id)">Archiver</button>
@@ -170,7 +169,7 @@ const restoreArchivedCharacter = async (id) => {
 const fetchPlaces = async () => {
   const placeStore = usePlacesStore(); // Accès aux méthodes du store d'authentification
   await placeStore.fetchPlaces();
-  places.value = placeStore.places; // Assuming 'places' is the array within your store
+  places.value = placeStore.places;
 
 };
 
