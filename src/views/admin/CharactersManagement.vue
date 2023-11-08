@@ -21,6 +21,7 @@
           <td>{{ character.name }}</td>
           <td>{{ character.story }}</td>
           <td>{{ character.picture }}</td>
+          <td>{{ character.places.name }}</td>
 
           <td>
             <button @click="archiveCharacter(character.id)">Archiver</button>
