@@ -33,7 +33,7 @@ const toggleDropdown = () => {
 };
 
 const goToLogin = () => {
-  router.push('/LoginRegister');
+  router.push('/Login');
 };
 
 const logout = async () => {

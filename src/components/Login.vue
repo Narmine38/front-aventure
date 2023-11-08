@@ -1,6 +1,7 @@
 <template>
   <div class="login-container">
-    <h2>Login</h2>
+    <h2>Connectez-vous</h2>
+    <h3>en utilisant votre e-mail</h3>
     <form @submit.prevent="handleLogin">
       <div>
         <label for="email">Email:</label>
@@ -11,7 +12,11 @@
         <input id="password" type="password" v-model="password" required>
       </div>
       <div>
-        <button type="submit">Login</button>
+        <button type="submit">Connexion</button>
+      </div>
+      <div class="registration-prompt">
+        <h4>Pas encore de compte ?</h4>
+        <button type="button" @click="redirectToRegister">Je créé mon compte</button>
       </div>
     </form>
   </div>
@@ -32,13 +37,14 @@ const errorMessage = ref('');
 const handleLogin = async () => {
   try {
     await authStore.login(email.value, password.value);
-    // Rediriger l'utilisateur vers la page d'accueil après la connexion réussie
-    router.push('/');
+    await router.push('/');
   } catch (error) {
-    // Si la logique de gestion des erreurs est déjà dans le store, vous n'avez pas besoin de la catcher ici.
-    // Vous pouvez simplement utiliser une computed property pour réagir aux changements d'état du store.
-    errorMessage.value = "Erreur de connexion"; // Message d'erreur générique
+    errorMessage.value = "Erreur de connexion";
   }
+};
+
+const redirectToRegister = () => {
+  router.push('/register');
 };
 </script>
 
@@ -49,14 +55,33 @@ const handleLogin = async () => {
   margin: 50px auto;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); /* Plus subtile shadow */
   background: #fff;
+  border: 1px solid #eaeaea; /* Light border for some definition */
+}
+
+.login-container h2,
+.login-container h3,
+.registration-prompt h4 {
+  text-align: center;
+  color: #333;
 }
 
 .login-container h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.login-container h3 {
+  font-weight: normal;
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+.registration-prompt h4 {
+  margin-top: 2rem; /* More space before "Pas encore de compte?" */
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #666;
 }
 
 form {
@@ -66,51 +91,79 @@ form {
 
 label {
   font-weight: bold;
-  margin-bottom: 5px;
+  display: block;
+  margin-bottom: 0.5rem;
   color: #555;
 }
 
 input[type=email],
 input[type=password] {
+  width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-sizing: border-box; /* Add this to include padding in input width */
+  box-sizing: border-box;
+  transition: border-color 0.3s; /* Smooth transition for the border */
+}
+
+input[type=email]:focus,
+input[type=password]:focus {
+  border-color: #3C54B4; /* Highlight color when focused */
+  outline: none; /* Remove default focus outline */
 }
 
 button {
-  padding: 10px;
-  background-color: #5cb85c;
+  width: 100%;
+  padding: 12px;
+  background-color: #3C54B4; /* Button color */
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth color transition and transform */
 }
 
-button:hover {
-  background-color: #4cae4c;
+button:hover,
+button:focus {
+  background-color: #2a3c8b; /* Darker color on hover */
+  transform: translateY(-2px); /* Slight raise effect on hover */
 }
 
-p {
-  color: #d9534f;
-  text-align: center;
+@media (max-width: 992px) {
+  .login-container {
+    max-width: none;
+    width: 80%;
+    margin: 30px auto;
+  }
 }
 
-/* Si vous avez d'autres boutons, donnez-leur un style différent */
-button[type=submit] {
-  margin-bottom: 10px;
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%;
+    margin: 20px auto;
+  }
+
+  label, input[type=email], input[type=password], button {
+    font-size: 14px; /* Adjust font size */
+    padding: 8px; /* Adjust padding */
+  }
+
+  button {
+    padding: 12px; /* Larger padding for better touch interaction */
+  }
 }
 
-/* Un petit style pour le bouton de déconnexion */
-button.logout-button {
-  background-color: #f0ad4e;
-  margin-top: 10px;
-}
+@media (max-width: 576px) {
+  .login-container {
+    width: 95%;
+  }
 
-button.logout-button:hover {
-  background-color: #ec971f;
+  label {
+    font-size: 1rem; /* Adjust label size for smaller devices */
+  }
 }
 </style>
+
+
 
