@@ -21,7 +21,6 @@
           <td>{{ character.name }}</td>
           <td>{{ character.story }}</td>
           <td>{{ character.picture }}</td>
-          <td>{{ character.place.name }}</td> <!-- Nouvelle cellule pour afficher le lieu -->
 
           <td>
             <button @click="archiveCharacter(character.id)">Archiver</button>
