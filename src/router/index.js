@@ -20,6 +20,31 @@ const router = createRouter({
             component: () => import('../views/MonCompte.vue')
         },
         {
+            path: '/destinations',
+            name: 'destionations',
+            component: () => import('../views/Place.vue')
+        },
+        {
+            path: '/heberements',
+            name: 'heberements',
+            component: () => import('../views/Accommodation.vue')
+        },
+        {
+            path: '/activites',
+            name: 'activites',
+            component: () => import('../views/Activite.vue')
+        },
+        {
+            path: '/personnages',
+            name: 'personnages',
+            component: () => import('../views/Charater.vue')
+        },
+        {
+            path: '/reservation',
+            name: 'reservation',
+            component: () => import('../components/Reservation.vue')
+        },
+        {
             path: '/administration',
             name: 'administration',
             component: () => import('../views/admin/Administration.vue'),
