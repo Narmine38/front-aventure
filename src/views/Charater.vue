@@ -1,11 +1,10 @@
 <template>
-  <section class="characters-section">
-    <div class="characters-container">
+    <div class="content">
       <CharacterCard
           v-for="character in characters" :key="character.id" :character="character"
       />
     </div>
-  </section>
+
 </template>
 
 <script setup>
@@ -23,4 +22,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.content{
+  display: flex;
+  justify-content: center}
 </style>

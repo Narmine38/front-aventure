@@ -31,12 +31,13 @@ defineProps({
 
 <style scoped>
 .activity-card {
-  max-width: 340px;
-  border-radius: 8px;
-  overflow: hidden;
+  width: 100%;
+  max-width: 800px;
+  margin: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
-  margin: 1rem;
+  overflow: hidden;
+  border-radius: 8px;
   background: white;
 }
 
@@ -46,7 +47,7 @@ defineProps({
 
 .activity-image img {
   width: 100%;
-  height: 200px;
+  height: 600px;
   object-fit: cover;
 }
 
@@ -60,7 +61,7 @@ defineProps({
 }
 
 .activity-type {
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 0.5rem;
@@ -68,7 +69,7 @@ defineProps({
 
 .activity-description,
 .activity-age-range {
-  font-size: 0.8rem;
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
@@ -84,7 +85,7 @@ defineProps({
 }
 
 .place-description {
-  font-size: 0.8rem;
+  font-size: 1.5rem;
   color: #666;
 }
 </style>

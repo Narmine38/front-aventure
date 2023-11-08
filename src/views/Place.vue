@@ -7,8 +7,8 @@
 
 <script setup>
 import PlaceCard from "@/components/PlaceCard.vue";
-import { onMounted, ref } from 'vue';
-import { usePlacesStore } from "@/stores/PlacesStore";
+import {onMounted, ref} from 'vue';
+import {usePlacesStore} from "@/stores/PlacesStore";
 
 const placesStore = usePlacesStore();
 const places = ref([]);
@@ -20,7 +20,8 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.content{
+.content {
   display: flex;
-justify-content: center}
+  justify-content: center
+}
 </style>

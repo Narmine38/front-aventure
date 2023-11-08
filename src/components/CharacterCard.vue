@@ -27,12 +27,13 @@ defineProps({
 
 <style scoped>
 .character-card {
-  max-width: 340px;
-  border-radius: 8px;
-  overflow: hidden;
+  width: 100%;
+  max-width: 800px;
+  margin: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
-  margin: 1rem;
+  overflow: hidden;
+  border-radius: 8px;
   background: white;
 }
 
@@ -42,7 +43,7 @@ defineProps({
 
 .character-image img {
   width: 100%;
-  height: 200px;
+  height: 600px;
   object-fit: cover;
 }
 
@@ -51,12 +52,13 @@ defineProps({
 }
 
 .character-name {
+  font-size: 2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
 .character-story {
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   color: #666;
   margin-bottom: 0.5rem;
 }
@@ -73,7 +75,7 @@ defineProps({
 }
 
 .place-description {
-  font-size: 0.8rem;
+  font-size: 1.5rem;
   color: #666;
 }
 </style>

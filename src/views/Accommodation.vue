@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="content">
     <AccommodationCard v-for="accommodation in accommodations" :key="accommodation.id" :accommodation="accommodation"/>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import {useAccommodationStore} from "@/stores/AccommodationsStore";
 import AccommodationCard from "@/components/AccommodationCard.vue";
 
@@ -19,4 +19,8 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.content {
+  display: flex;
+  justify-content: center
+}
 </style>
