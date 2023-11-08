@@ -115,4 +115,43 @@
   display: inline-block; /* s'assure que le padding est pris en compte */
   margin: 0; /* enlève les marges par défaut du bouton si nécessaire */
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  /* Section héroïque */
+  .hero-section h1 {
+    font-size: 2rem; /* Taille de police plus petite pour les petits écrans */
+  }
+  .hero-section p {
+    font-size: 1rem; /* Taille de police plus petite pour les petits écrans */
+  }
+  .hero-section {
+    padding: 2rem 1rem; /* Padding plus petit pour les petits écrans */
+  }
+
+  /* Section de fonctionnalités */
+  .features-section {
+    flex-direction: column; /* Empiler les fonctionnalités verticalement */
+    padding: 1rem; /* Padding plus petit pour les petits écrans */
+  }
+  .feature {
+    margin-bottom: 1rem; /* Ajouter un espace entre les fonctionnalités */
+  }
+
+  /* Section des témoignages */
+  .testimonials-section {
+    padding: 1rem; /* Padding plus petit pour les petits écrans */
+  }
+
+  /* Bouton d'exploration */
+  .explore-button {
+    padding: 0.5rem 1rem; /* Padding plus petit pour le bouton */
+    font-size: 0.9rem; /* Taille de police plus petite pour le bouton */
+  }
+
+  /* Pied de page */
+  .footer {
+    padding: 0.5rem; /* Padding plus petit pour les petits écrans */
+  }
+}
 </style>
