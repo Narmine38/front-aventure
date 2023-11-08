@@ -49,7 +49,7 @@
       </div>
 
       <!-- Sélection du nombre de personnes -->
-      <div v-if="newReservation.arrival_date && newReservation.departure_date">
+      <div v-if="newReservation.arrival_date && newReservation.starting_date">
         <label for="number_of_people">Nombre de personnes:</label>
         <input type="number" id="number_of_people" v-model="newReservation.number_of_people" min="1" required>
       </div>
