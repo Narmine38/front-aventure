@@ -20,6 +20,7 @@
           <td>{{ character.id }}</td>
           <td>{{ character.name }}</td>
           <td>{{ character.story }}</td>
+
           <td>{{ character.picture }}</td>
 
           <td>
