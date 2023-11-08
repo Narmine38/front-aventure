@@ -1,20 +1,22 @@
 <template>
   <div>
-    <ActiviteCard v-for="activty in activites" :key="activty.id" v-if="activites.length" activity="activty"/>
-    <div v-else>Loading destinations...</div>
+    <!-- Utilisez :activity pour lier l'objet d'activité au composant ActiviteCard -->
+    <ActiviteCard v-for="activity in activites" :key="activity.id" v-if="activites.length" :activity="activity"/>
+    <div v-else>Chargement des destinations...</div>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import {useActiviteStore} from "/src/stores/ActiviteStore";
+import { useActiviteStore } from "/src/stores/ActiviteStore";
 import ActiviteCard from "@/components/ActiviteCard.vue";
-const activtie = useActiviteStore();
+
+const activteStore = useActiviteStore();
 const activites = ref([]);
 
 onMounted(async () => {
-  await activtie.fetchActivites();
-  activites.value = activtie.activites;
+  await activteStore.fetchActivites();
+  activites.value = activteStore.activites;
 });
 </script>
 
