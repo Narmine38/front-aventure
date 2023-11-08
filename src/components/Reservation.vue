@@ -1,122 +1,221 @@
 <template>
-    <div>
-        <h1>Nouvelle réservation</h1>
-        <form @submit.prevent="createReservation">
-        <!-- Sélection du lieu -->
+  <div>
+    <h1>Nouvelle réservation</h1>
+    <form @submit.prevent="createReservation">
+
+      <!-- Sélection du lieu -->
+      <div>
         <label for="place">Lieu:</label>
-        <select id="place" v-model="newReservation.place_id" @change="loadAccommodationsAndActivities">
-        <option value="" disabled>Sélectionnez un lieu</option>
-        <option v-for="place in placesStore.places" :key="place.id" :value="place.id">{{ place.name }}</option>
-</select>
+        <select id="place" v-model="selectedPlace" @change="loadAccommodationsAndActivities">
+          <option value="" disabled selected>Sélectionnez un lieu</option>
+          <option v-for="place in placesStore.places" :key="place.id" :value="place.id">{{ place.name }}</option>
+        </select>
+      </div>
 
-<!-- Sélection de l'hébergement -->
-<label for="accommodation">Hébergement:</label>
-<select id="accommodation" v-model="newReservation.accommodation_id">
-    <option value="" disabled>Sélectionnez un hébergement</option>
-    <option v-for="accommodation in accommodationsStore.accommodations" :key="accommodation.id" :value="accommodation.id">{{ accommodation.name }}</option>
-</select>
+      <!-- Sélection de l'hébergement -->
+      <div v-if="selectedPlace">
+        <label for="accommodation">Hébergement:</label>
+        <select id="accommodation" v-model="newReservation.accommodation_id">
+          <option value="" disabled selected>Sélectionnez un hébergement</option>
+          <option v-for="accommodation in accommodationsStore.accommodations" :key="accommodation.id" :value="accommodation.id">{{ accommodation.name }}</option>
+        </select>
+      </div>
 
-<!-- Sélection de l'activité -->
-<label for="activity">Activité:</label>
-<select id="activity" v-model="newReservation.activity_id">
-    <option value="" disabled>Sélectionnez une activité</option>
-    <option v-for="activity in activitiesStore.activites" :key="activity.id" :value="activity.id">{{ activity.name }}</option>
-</select>
+      <!-- Sélection de l'activité -->
+      <div v-if="newReservation.accommodation_id">
+        <label for="activity">Activité:</label>
+        <select id="activity" v-model="newReservation.activity_id">
+          <option value="" disabled selected>Sélectionnez une activité</option>
+          <option v-for="activity in activitiesStore.activites" :key="activity.id" :value="activity.id">{{ activity.name }}</option>
+        </select>
+      </div>
 
-<!-- Sélection du personnage -->
-<label for="character">Rencontre avec le personnage:</label>
-<select id="character" v-model="newReservation.character_id">
-    <option value="" disabled>Sélectionnez un personnage</option>
-    <option v-for="character in charactersStore.characters" :key="character.id" :value="character.id">{{ character.name }}</option>
-</select>
+      <!-- Sélection du personnage -->
+      <div v-if="newReservation.activity_id">
+        <label for="character">Rencontre avec le personnage:</label>
+        <select id="character" v-model="newReservation.character_id">
+          <option value="" disabled selected>Sélectionnez un personnage</option>
+          <option v-for="character in charactersStore.characters" :key="character.id" :value="character.id">{{ character.name }}</option>
+        </select>
+      </div>
 
-<!-- Sélection des dates -->
-<label for="arrival_date">Date d'arrivée:</label>
-<input type="date" id="arrival_date" v-model="newReservation.arrival_date" required>
+      <!-- Sélection des dates -->
+      <div v-if="newReservation.character_id">
+        <label for="arrival_date">Date d'arrivée:</label>
+        <input type="date" id="arrival_date" v-model="newReservation.arrival_date" required>
 
-    <label for="departure_date">Date de départ:</label>
-    <input type="date" id="departure_date" v-model="newReservation.starting_date" required>
+        <label for="departure_date">Date de départ:</label>
+        <input type="date" id="departure_date" v-model="newReservation.departure_date" required>
+      </div>
 
-        <!-- Sélection du nombre de personnes -->
+      <!-- Sélection du nombre de personnes -->
+      <div v-if="newReservation.arrival_date && newReservation.departure_date">
         <label for="number_of_people">Nombre de personnes:</label>
         <input type="number" id="number_of_people" v-model="newReservation.number_of_people" min="1" required>
+      </div>
 
-            <button type="submit">Créer la réservation</button>
-        </form>
-    </div>
+      <!-- Bouton de soumission -->
+      <div v-if="newReservation.number_of_people > 0">
+        <button type="submit">Créer la réservation</button>
+      </div>
+
+    </form>
+  </div>
 </template>
 
+
 <script setup>
-    import { ref } from 'vue';
-    import { usePlacesStore } from '/src/stores/PlacesStore';
-    import { useAccommodationStore } from '/src/stores/AccommodationsStore';
-    import { useActiviteStore } from '/src/stores/ActiviteStore';
-    import { useReservationStore } from '/src/stores/ReservationsStore';
-    import { useCharactersStore } from "/src/stores/CharactersStore";
-    import {useAuthStore} from "/src/stores/authStore";
+import { ref } from 'vue';
+import { usePlacesStore } from '/src/stores/PlacesStore';
+import { useAccommodationStore } from '/src/stores/AccommodationsStore';
+import { useActiviteStore } from '/src/stores/ActiviteStore';
+import { useReservationStore } from '/src/stores/ReservationsStore';
+import { useCharactersStore } from "/src/stores/CharactersStore";
+import {useAuthStore} from "/src/stores/authStore";
 
-    const authStore = useAuthStore();
+const authStore = useAuthStore();
 
-    // Références réactives pour la sélection de l'utilisateur
-    const selectedPlace = ref(null);
-    const newReservation = ref({
-    user_id: authStore.user?.id || null, // Utilisez l'ID de l'utilisateur connecté
-    place_id: null,
-    accommodation_id: null,
-    activity_id: null,
-    character_id: null,
-    arrival_date: '',
-    departure_date: '',
-    number_of_people: 1,
-    statut: 'pending', // Statut initial pour la nouvelle réservation
+// Références réactives pour la sélection de l'utilisateur
+const selectedPlace = ref(null);
+const newReservation = ref({
+  user_id: authStore.user?.id || null, // Utilisez l'ID de l'utilisateur connecté
+  place_id: null,
+  accommodation_id: null,
+  activity_id: null,
+  character_id: null,
+  arrival_date: '',
+  departure_date: '',
+  number_of_people: 1,
+  statut: 'pending', // Statut initial pour la nouvelle réservation
 });
 
-    // Stores
-    const placesStore = usePlacesStore();
-    const accommodationsStore = useAccommodationStore();
-    const activitiesStore = useActiviteStore();
-    const reservationStore = useReservationStore();
-    const charactersStore = useCharactersStore();
+// Stores
+const placesStore = usePlacesStore();
+const accommodationsStore = useAccommodationStore();
+const activitiesStore = useActiviteStore();
+const reservationStore = useReservationStore();
+const charactersStore = useCharactersStore();
 
-    placesStore.fetchPlaces();
-    accommodationsStore.fetchAccommodations();
-    activitiesStore.fetchActivites();
-    charactersStore.fetchCharaters();
+placesStore.fetchPlaces();
+accommodationsStore.fetchAccommodations();
+activitiesStore.fetchActivites();
+charactersStore.fetchCharaters();
 
-    // Chargement des hébergements et des activités pour un lieu sélectionné
-    const loadAccommodationsAndActivities = async () => {
-    if (selectedPlace.value) {
+// Chargement des hébergements et des activités pour un lieu sélectionné
+const loadAccommodationsAndActivities = async () => {
+  if (selectedPlace.value) {
     newReservation.value.place_id = selectedPlace.value; // Assurez-vous que l'ID du lieu est mis à jour dans newReservation
 
     // Charger les hébergements pour ce lieu spécifique
     await accommodationsStore.fetchAccommodations();
     // Filtrer les hébergements par lieu
     accommodationsStore.accommodations = accommodationsStore.accommodations.filter(
-    (acc) => acc.place_id === selectedPlace.value
+        (acc) => acc.place_id === selectedPlace.value
     );
 
     // Charger les activités pour ce lieu spécifique
     await activitiesStore.fetchActivites();
     // Filtrer les activités par lieu
     activitiesStore.activites = activitiesStore.activites.filter(
-    (act) => act.place_id === selectedPlace.value
+        (act) => act.place_id === selectedPlace.value
     );
-}
+  }
 };
 
-    // Méthode pour créer une nouvelle réservation
-    const createReservation = async () => {
-    const authStore = useAuthStore(); // Accès aux méthodes du store d'authentification
-    await authStore.prepareForAuthRequest(); // Préparation de la requête authentifiée
-    authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
-    try {
+// Méthode pour créer une nouvelle réservation
+const createReservation = async () => {
+  const authStore = useAuthStore(); // Accès aux méthodes du store d'authentification
+  await authStore.prepareForAuthRequest(); // Préparation de la requête authentifiée
+  authStore.setAuthorizationHeader(); // Configuration de l'entête d'autorisation
+  try {
     // Appel API pour créer une réservation
     await reservationStore.addReservation(newReservation.value);
     // Ici, vous pouvez gérer la logique post-création, comme réinitialiser le formulaire ou afficher un message
-} catch (error) {
+  } catch (error) {
     console.error("Erreur lors de la création de la réservation", error);
     // Gérer les erreurs ici, comme montrer un message à l'utilisateur
-}
+  }
 };
 
 </script>
+
+<style scoped>
+div {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  margin-bottom: .5rem;
+  color: #666;
+  font-weight: bold;
+}
+
+input[type=date],
+input[type=number],
+select {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+input[type=date]::placeholder,
+input[type=number]::placeholder {
+  color: #888;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #5cb85c;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4cae4c;
+}
+
+button:active {
+  background-color: #449d44;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4cae4c;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #5cb85c;
+  box-shadow: 0 0 0 1px #5cb85c;
+}
+
+@media (max-width: 768px) {
+  div {
+    padding: 15px;
+  }
+}
+</style>
