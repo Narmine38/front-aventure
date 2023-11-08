@@ -43,6 +43,15 @@
   margin: 0; /* enlève les marges par défaut du bouton si nécessaire */
 }
 
+
+@media (max-width: 768px) {
+  .nav-link{
+    font-size: 0.5rem;
+    padding: 0.2rem 0.5rem;
+
+
+  }
+}
 /* Change the background color on hover for button-link */
 
 
