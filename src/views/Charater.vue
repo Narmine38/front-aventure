@@ -3,9 +3,7 @@
     <h1>Rencontrez les personnages de la Terre du Milieu</h1>
     <div class="characters-container">
       <CharacterCard
-          v-for="character in characters"
-          :key="character.id"
-          :character="character"
+          v-for="character in characters" :key="character.id" :character="character"
       />
     </div>
   </section>
@@ -15,6 +13,7 @@
 import CharacterCard from "@/components/CharacterCard.vue";
 import { ref, onMounted } from 'vue';
 import { useCharactersStore } from "/src/stores/CharactersStore";
+
 const charactersStore = useCharactersStore();
 const characters = ref([]);
 

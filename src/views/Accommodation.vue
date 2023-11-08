@@ -1,14 +1,14 @@
 <template>
   <div>
-    <PlaceCard v-for="accommodation in accommodations" :key="accommodation.id" :place="accommodation" v-if="accommodations.length"/>
-    <div v-else>Loading destinations...</div>
+    <AccommodationCard v-for="accommodation in accommodations" :key="accommodation.id" :accommodation="accommodation"/>
   </div>
 </template>
 
 <script setup>
-import PlaceCard from "@/components/PlaceCard.vue";
 import { onMounted, ref } from 'vue';
 import {useAccommodationStore} from "@/stores/AccommodationsStore";
+import AccommodationCard from "@/components/AccommodationCard.vue";
+
 const accommodationStore = useAccommodationStore();
 const accommodations = ref([]);
 
