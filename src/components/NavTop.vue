@@ -48,7 +48,6 @@ const logout = async () => {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0.5rem 1rem;
 }
 
 .nav-logo img {
@@ -62,7 +61,7 @@ const logout = async () => {
 .dropdown-button {
   background: none;
   border: none;
-  color: black;
+  color: #ffffff;
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
