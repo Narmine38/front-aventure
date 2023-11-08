@@ -45,7 +45,7 @@
         <input type="date" id="arrival_date" v-model="newReservation.arrival_date" required>
 
         <label for="departure_date">Date de départ:</label>
-        <input type="date" id="departure_date" v-model="newReservation.departure_date" required>
+        <input type="date" id="departure_date" v-model="newReservation.starting_date" required>
       </div>
 
       <!-- Sélection du nombre de personnes -->
@@ -84,7 +84,7 @@ const newReservation = ref({
   activity_id: null,
   character_id: null,
   arrival_date: '',
-  departure_date: '',
+  starting_date: '',
   number_of_people: 1,
   statut: 'pending', // Statut initial pour la nouvelle réservation
 });
