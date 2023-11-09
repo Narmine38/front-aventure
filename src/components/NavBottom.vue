@@ -2,7 +2,7 @@
   <nav class="route_link">
     <RouterLink to="/" class="nav-link always-visible">Accueil</RouterLink>
     <RouterLink to="/destinations" class="nav-link">Destinations</RouterLink>
-    <RouterLink to="/heberements" class="nav-link">Hébergements</RouterLink>
+    <RouterLink to="/hebergements" class="nav-link">Hébergements</RouterLink>
     <RouterLink to="/activites" class="nav-link">Activities</RouterLink>
     <RouterLink to="/personnages" class="nav-link">Personnages</RouterLink>
     <RouterLink to="/reservation" class="nav-link button-link always-visible">Réservez vos billets</RouterLink>

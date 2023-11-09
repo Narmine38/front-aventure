@@ -11,15 +11,15 @@
     <!-- Section des fonctionnalités -->
     <section class="features-section">
       <div class="feature">
-        <h3>Destinations</h3>
+        <h3> <a href="/destinations"> Destinations </a> </h3>
         <p>Explorez les endroits les plus étonnants d'Adra</p>
       </div>
       <div class="feature">
-        <h3>Hébergements</h3>
+        <h3> <a href="/hebergements"> Hébergements </a> </h3>
         <p>Trouvez le lieu de séjour idéal pour votre voyage</p>
       </div>
       <div class="feature">
-        <h3>Activités</h3>
+        <h3> <a href="/activites"> Activités </a> </h3>
         <p>Découvrez des activités passionnantes pour enrichir votre séjour</p>
       </div>
     </section>
@@ -43,6 +43,11 @@
 </script>
 
 <style scoped>
+a{
+  text-decoration: none;
+  color: black;
+}
+
 .home-container {
   font-family: 'Open Sans', sans-serif;
 }
