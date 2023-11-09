@@ -55,7 +55,7 @@
       </div>
 
       <!-- Bouton de soumission -->
-      <div v-if="newReservation.number_of_people > 0">
+      <div v-if="isLoggedIn ? newReservation.number_of_people > 0 : goToLogin ">
         <button type="submit">Créer la réservation</button>
       </div>
 
@@ -65,17 +65,21 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 import { usePlacesStore } from '/src/stores/PlacesStore';
 import { useAccommodationStore } from '/src/stores/AccommodationsStore';
 import { useActiviteStore } from '/src/stores/ActiviteStore';
 import { useReservationStore } from '/src/stores/ReservationsStore';
 import { useCharactersStore } from "/src/stores/CharactersStore";
 import {useAuthStore} from "/src/stores/authStore";
+import router from "@/router";
 
 const authStore = useAuthStore();
 
 const selectedPlace = ref(null);
+
+const isLoggedIn = computed(() => authStore.isLoggedIn);
+
 const newReservation = ref({
   user_id: authStore.user?.id || null,
   place_id: null,
@@ -122,6 +126,10 @@ const createReservation = async () => {
   } catch (error) {
     console.error("Erreur lors de la création de la réservation", error);
   }
+};
+
+const goToLogin = () => {
+  router.push('/Login');
 };
 
 </script>
