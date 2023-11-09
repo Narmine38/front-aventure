@@ -30,8 +30,8 @@ const router = createRouter({
             component: () => import('../views/Place.vue')
         },
         {
-            path: '/heberements',
-            name: 'heberements',
+            path: '/hebergements',
+            name: 'heberegments',
             component: () => import('../views/Accommodation.vue')
         },
         {
