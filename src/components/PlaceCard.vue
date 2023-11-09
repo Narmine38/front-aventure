@@ -94,4 +94,29 @@ defineProps({
 .card-travel-advice {
   font-style: italic;
 }
+
+@media (max-width: 768px) {
+
+  .place-card {
+    width: 100%;
+    max-width:400px;
+    margin: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    border-radius: 8px;
+    background: white;
+  }
+
+  .place-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+}
 </style>
