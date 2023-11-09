@@ -24,4 +24,9 @@ onMounted(async () => {
   display: flex;
   justify-content: center
 }
+
+@media (max-width: 768px) {
+  display: flex;
+  flex-direction: column;
+}
 </style>
