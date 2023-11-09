@@ -99,7 +99,7 @@ defineProps({
 
   .place-card {
     width: 100%;
-    max-width:400px;
+    max-width:340px;
     margin: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
