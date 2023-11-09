@@ -7,7 +7,7 @@
       <h2 class="card-name">{{ accommodation.name }}</h2>
       <p class="card-type">{{ accommodation.type }}</p>
       <p class="card-price">{{ accommodation.price }}</p>
-      <p class="card-description">{{ accommodation.description }}</p>
+      <p class="card-description">{{ accommodation.description }} </p>
       <p class="card-story">{{ accommodation.story }}</p>
       <p class="card-place-name">{{ accommodation.place.name }}</p>
     </div>
