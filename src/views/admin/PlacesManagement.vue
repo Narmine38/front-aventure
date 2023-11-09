@@ -94,27 +94,27 @@
         </label>
         <label>
           Description Long:
-          <input v-model="newPlace.longDescription" placeholder="Description long du lieu" required/>
+          <input v-model="selectedPlace.longDescription" placeholder="Description long du lieu" required/>
         </label>
         <label>
           Type:
-          <input v-model="newPlace.locationType" placeholder="Type du lieu" required/>
+          <input v-model="selectedPlace.locationType" placeholder="Type du lieu" required/>
         </label>
         <label>
           Réstriction:
-          <input v-model="newPlace.restrictions" placeholder="Réstriction du lieu" required/>
+          <input v-model="selectedPlace.restrictions" placeholder="Réstriction du lieu" required/>
         </label>
         <label>
           Conseille:
-          <input v-model="newPlace.travelAdvice" placeholder="Conseille de lieu" required/>
+          <input v-model="selectedPlace.travelAdvice" placeholder="Conseille de lieu" required/>
         </label>
         <label>
           Anecdote:
-          <input v-model="newPlace.story" placeholder="Anecdote sur le lieu" required/>
+          <input v-model="selectedPlace.story" placeholder="Anecdote sur le lieu" required/>
         </label>
         <label>
           URL de l'image:
-          <input v-model="newPlace.picture" placeholder="URL de l'image" required/>
+          <input v-model="selectedPlace.picture" placeholder="URL de l'image" required/>
         </label>
         <button type="submit">Mettre à jour</button>
       </form>
