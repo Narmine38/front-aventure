@@ -55,7 +55,7 @@
       </div>
 
       <!-- Bouton de soumission -->
-      <div v-if="isLoggedIn ? newReservation.number_of_people > 0 : goToLogin ">
+      <div v-if="newReservation.number_of_people > 0 ">
         <button type="submit">Créer la réservation</button>
       </div>
 
@@ -121,10 +121,16 @@ const loadAccommodationsAndActivities = async () => {
 };
 
 const createReservation = async () => {
-  try {
-    await reservationStore.addReservation(newReservation.value);
-  } catch (error) {
-    console.error("Erreur lors de la création de la réservation", error);
+  // Vérifiez si l'utilisateur est connecté avant de continuer.
+  if (!isLoggedIn.value) {
+    goToLogin(); // Appelez la fonction qui redirige vers la page de connexion.
+  } else {
+    try {
+      await reservationStore.addReservation(newReservation.value);
+      // Vous pouvez ajouter ici d'autres logiques après la création de la réservation
+    } catch (error) {
+      console.error("Erreur lors de la création de la réservation", error);
+    }
   }
 };
 
