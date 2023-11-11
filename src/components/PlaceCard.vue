@@ -8,7 +8,7 @@
         <p class="card-text flex-grow-1">{{ place.shortDescription }}</p>
         <p class="text-muted">{{ place.longDescription }}</p>
         <!-- Utilisez les badges de Bootstrap pour les restrictions pour une meilleure visibilité -->
-        <p v-if="place.restrictions" class="mt-auto">
+        <p v-if="place.restrictions" class="text-wrap mt-auto">
           <span class="badge bg-danger">{{ place.restrictions }}</span>
         </p>
         <p class="fst-italic mt-auto">{{ place.travelAdvice }}</p>
