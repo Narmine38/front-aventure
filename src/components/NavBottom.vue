@@ -44,7 +44,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .route_link {
     justify-content: space-around;
     flex-wrap: wrap;
