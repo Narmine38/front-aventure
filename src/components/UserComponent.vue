@@ -27,13 +27,4 @@ const emitAction = (action, id) => {
 };
 </script>
 <style scoped>
-/* Styles internes pour UserComponent */
-.card {
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-  padding: 20px;
-}
-/* ... autres styles ... */
 </style>
