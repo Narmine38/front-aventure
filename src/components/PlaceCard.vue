@@ -1,22 +1,24 @@
 <template>
-  <div class="place-card">
-    <div class="card-image">
-      <img :src="place.picture" :alt="place.name" />
-    </div>
-    <div class="card-content">
-      <h2 class="card-title">{{ place.name }}</h2>
-      <p class="card-type">{{ place.locationType }}</p>
-      <p class="card-description">{{ place.shortDescription }}</p>
-      <p class="card-long-description">{{ place.longDescription }}</p>
-      <p class="card-restrictions">{{ place.restrictions }}</p>
-      <p class="card-travel-advice">{{ place.travelAdvice }}</p>
-      <p class="card-story">{{ place.story }}</p>
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div class="card h-100">
+      <img class="card-img-top" :src="place.picture" :alt="place.name" />
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ place.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ place.locationType }}</h6>
+        <p class="card-text flex-grow-1">{{ place.shortDescription }}</p>
+        <p class="text-muted">{{ place.longDescription }}</p>
+        <!-- Utilisez les badges de Bootstrap pour les restrictions pour une meilleure visibilité -->
+        <p v-if="place.restrictions" class="mt-auto">
+          <span class="badge bg-danger">{{ place.restrictions }}</span>
+        </p>
+        <p class="fst-italic mt-auto">{{ place.travelAdvice }}</p>
+        <p class="border-top pt-3 mt-auto">{{ place.story }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-
 defineProps({
   place: {
     type: Object,
@@ -26,97 +28,9 @@ defineProps({
 </script>
 
 <style scoped>
-.place-card {
-  width: 100%;
-  max-width: 800px;
-  margin: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-  overflow: hidden;
-  border-radius: 8px;
-  background: white;
-}
-
-.place-card:hover {
-  transform: translateY(-10px);
-}
-
-.card-image img {
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
-}
-
-.card-content {
-  padding: 1rem;
-}
-
-.card-title {
-  margin: 0;
-  padding: 0;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-}
-
-.card-type {
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 0.5rem;
-}
-
-.card-description {
-  font-size: 1.5rem;
-  margin-top: 0.5rem;
-  color: #333;
-}
-
-.card-story {
-  font-size: 1.5rem;
-  margin-top: 0.5rem;
-  color: #333;
-  border-top: 1px solid #eee;
-  padding-top: 0.5rem;
-}
-
-.card-long-description,
-.card-restrictions,
-.card-travel-advice {
-  font-size: 1.5rem;
-  margin-top: 0.5rem;
-  color: #333;
-}
-
-.card-restrictions {
-  color: #e3342f;
-}
-
-.card-travel-advice {
-  font-style: italic;
-}
-
-@media (max-width: 768px) {
-
-  .place-card {
-    width: 100%;
-    max-width:340px;
-    margin: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-    overflow: hidden;
-    border-radius: 8px;
-    background: white;
-  }
-
-  .place-card:hover {
-    transform: translateY(-10px);
-  }
-
-  .card-image img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-
+/* Responsive image height adjustment */
+.card-img-top {
+  height: 200px; /* Set a fixed height for consistency */
+  object-fit: cover; /* Ensure images cover the area well */
 }
 </style>
