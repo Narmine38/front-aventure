@@ -2,7 +2,7 @@
   <div class="login-container">
     <h2>Connectez-vous</h2>
     <h3>en utilisant votre e-mail</h3>
-    <form @submit.prevent="handleLogin">
+    <form @submit.prevent="Login">
       <div>
         <label for="email">Email:</label>
         <input id="email" type="email" v-model="email" required>
@@ -34,7 +34,8 @@ const password = ref('');
 const errorMessage = ref('');
 
 
-const handleLogin = async () => {
+
+const Login = async () => {
   try {
     await authStore.login(email.value, password.value);
     await router.push('/');

@@ -6,19 +6,16 @@
       <div>
         <label for="name">Nom:</label>
         <input type="text" id="name" v-model="user.name" required />
-        <div class="error" v-if="errors.name">{{ errors.name[0] }}</div>
       </div>
 
       <div>
         <label for="email">Email:</label>
         <input type="email" id="email" v-model="user.email" required />
-        <div class="error" v-if="errors.email">{{ errors.email[0] }}</div>
       </div>
 
       <div>
         <label for="password">Mot de passe:</label>
         <input type="password" id="password" v-model="user.password" required />
-        <div class="error" v-if="errors.password">{{ errors.password[0] }}</div>
       </div>
 
       <div class="password-rules">
@@ -39,7 +36,6 @@
       </div>
     </form>
 
-    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
   </div>
 </template>
 

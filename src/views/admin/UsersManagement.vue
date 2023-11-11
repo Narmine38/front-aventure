@@ -3,55 +3,32 @@
     <!-- Liste des utilisateurs -->
     <div class="users-list">
       <h3>Utilisateurs</h3>
-      <table>
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Email</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="user in adminUsersStore.users" :key="user.id">
-          <td data-label="ID">{{ user.id }}</td>
-          <td data-label="Nom">{{ user.name }}</td>
-          <td data-label="Email">{{ user.email }}</td>
-          <td>
-            <button @click="archiveUser(user.id)">Archiver</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="card" v-for="user in adminUsersStore.users" :key="user.id">
+        <div class="card-header">
+          <div class="user-id">ID: {{ user.id }}</div>
+          <div class="user-name">Nom: {{ user.name }}</div>
+          <div class="user-email">Email: {{ user.email }}</div>
+        </div>
+        <div class="card-actions">
+          <button @click="archiveUser(user.id)">Archiver</button>
+        </div>
+      </div>
     </div>
 
     <!-- Liste des utilisateurs archivés -->
     <div class="archived-users-list" v-if="adminUsersStore.archivedUsers.length">
       <h3>Utilisateurs archivés</h3>
-      <table>
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Email</th>
-          <th>Actions</th>
-          <th>Actions Définitive</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="user in adminUsersStore.archivedUsers" :key="user.id">
-          <td data-label="ID">{{ user.id }}</td>
-          <td data-label="Nom">{{ user.name }}</td>
-          <td data-label="Email">{{ user.email }}</td>
-          <td>
-            <button @click="restoreUser(user.id)">Restaurer</button>
-          </td>
-          <td>
-            <button @click="destroyUser(user.id)">Supprimer</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="card" v-for="user in adminUsersStore.archivedUsers" :key="user.id">
+        <div class="card-header">
+          <div class="user-id">ID: {{ user.id }}</div>
+          <div class="user-name">Nom: {{ user.name }}</div>
+          <div class="user-email">Email: {{ user.email }}</div>
+        </div>
+        <div class="card-actions">
+          <button @click="restoreUser(user.id)">Restaurer</button>
+          <button @click="destroyUser(user.id)">Supprimer</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -90,67 +67,43 @@ const destroyUser = async (id) => {
 .user-management-section {
   padding: 20px;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 8px 12px;
-  border: 1px solid #e0e0e0;
-}
-.users-list, .archived-users-list {
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #e0e0e0;
+.card {
+  background: #fff;
   border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  padding: 20px;
 }
-label {
-  display: block;
+.card-header {
+  margin-bottom: 15px;
+}
+.card-actions {
+  text-align: right;
+}
+button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.8;
+}
+.user-id,
+.user-name,
+.user-email {
   margin-bottom: 10px;
-}
-input {
-  padding: 8px;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
-  .user-management-section table {
-    width: 100%;
-    border: 0;
+  .card-actions {
+    text-align: center;
   }
-
-  .user-management-section thead {
-    display: none;
-  }
-
-  .user-management-section tr {
+  button {
     margin-bottom: 10px;
-    display: block;
-    border-bottom: 2px solid #e0e0e0;
-  }
-
-  .user-management-section td {
-    display: block;
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-  }
-
-  .user-management-section td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    width: 50%;
-    padding-left: 15px;
-    font-weight: bold;
-    text-align: left;
-  }
-
-  .users-list, .archived-users-list {
-    overflow-x: auto;
   }
 }
 </style>
