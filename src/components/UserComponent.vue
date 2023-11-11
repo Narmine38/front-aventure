@@ -6,7 +6,6 @@
       <div class="user-email">Email: {{ user.email }}</div>
     </div>
     <div class="card-actions">
-      <!-- Les actions sont émises à la vue parente via des événements -->
       <button @click="emitAction('archive', user.id)">Archiver</button>
       <button @click="emitAction('restore', user.id)" v-if="user.archived">Restaurer</button>
       <button @click="emitAction('delete', user.id)" v-if="user.archived">Supprimer</button>
@@ -15,20 +14,18 @@
 </template>
 
 <script setup>
-// props et emit sont importés depuis Vue
-import { defineProps, emit } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
-// Définir les props attendues par ce composant
 const props = defineProps({
-  user: Object,
+  user: Object
 });
 
-// Émettre une action basée sur le type et l'ID de l'utilisateur
-const emitAction = (actionType, userId) => {
-  emit(actionType, userId);
+const emit = defineEmits(['archive', 'restore', 'delete']);
+
+const emitAction = (action, id) => {
+  emit(action, id);
 };
 </script>
-
 <style scoped>
 /* Styles internes pour UserComponent */
 .card {
