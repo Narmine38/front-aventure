@@ -30,7 +30,7 @@ defineProps({
 <style scoped>
 .accommodation-card {
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
   margin: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
@@ -45,7 +45,7 @@ defineProps({
 
 .card-image img {
   width: 100%;
-  height: 600px;
+  height: 400px;
   object-fit: cover;
 }
 
@@ -54,7 +54,7 @@ defineProps({
 }
 
 .card-name {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 0.5rem;
@@ -66,7 +66,7 @@ defineProps({
 .card-story,
 .card-place-name {
   color: #666;
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin-top: 0.25rem;
 }
 
@@ -83,5 +83,25 @@ defineProps({
 .card-story {
   font-style: italic;
   margin-top: 1rem;
+}
+
+@media (max-width: 400px) {
+  .accommodation-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    border-radius: 8px;
+    background: white;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
 }
 </style>

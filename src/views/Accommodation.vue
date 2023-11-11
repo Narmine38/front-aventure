@@ -21,6 +21,8 @@ onMounted(async () => {
 <style scoped>
 .content {
   display: flex;
-  justify-content: center
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 </style>
