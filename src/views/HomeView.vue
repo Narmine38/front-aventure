@@ -7,6 +7,14 @@
       <button class="explore-button">Explorez maintenant</button>
     </section>
 
+    <!-- Nouvelle Section : À propos du Projet -->
+    <section class="about-project-section">
+      <p>Ce site, Adra Voyages, est un projet personnel que j'ai développé dans le cadre de mon diplôme de développeur web. Son but est de simuler une plateforme de voyage complète pour démontrer une gamme de compétences en matière de design et de développement web.</p>
+      <p>Toutes les informations présentes, y compris les destinations, les hébergements et les activités, sont fictives et ont été conçues pour illustrer comment un véritable site de voyage pourrait fonctionner. Ce projet représente ma passion pour le développement web et mon engagement à créer des expériences utilisateur engageantes et intuitives.</p>
+      <p>En naviguant sur ce site, vous découvrirez différentes fonctionnalités et concepts de design que j'ai intégrés, allant de l'interface utilisateur réactive à l'interaction dynamique avec des composants Vue.js. C'est une vitrine de mes compétences techniques et de ma créativité en tant que développeur web.</p>
+      <p>Je vous invite à explorer ce site et à apprécier l'effort et la créativité mis dans sa conception. Vos retours et commentaires sont toujours les bienvenus et appréciés, car ils contribuent à ma croissance professionnelle continue.</p>
+    </section>
+
 
     <!-- Section des fonctionnalités -->
     <section class="features-section">
@@ -32,7 +40,7 @@
       <p>- Nom du voyageur</p>
     </section>
 
-    <!-- Pied de page -->
+    <!-- Footer -->
     <footer class="footer">
       <p>© 2023 Adra Voyages. Tous droits réservés.</p>
     </footer>
@@ -120,6 +128,22 @@ a{
   margin: 0;
 }
 
+.about-project-section {
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+
+.about-project-section p {
+  font-size: 1.2rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
 @media (max-width: 768px) {
   .hero-section h1 {
     font-size: 2rem;
@@ -129,6 +153,15 @@ a{
   }
   .hero-section {
     padding: 2rem 1rem;
+  }
+
+  .about-project-section {
+    padding: 1.5rem;
+  }
+
+
+  .about-project-section p {
+    font-size: 1rem;
   }
 
   .features-section {

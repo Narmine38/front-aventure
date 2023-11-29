@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="nav-logo">
-      <IconCommunity />
+      <IconAdra />
     </div>
     <div class="nav-items">
       <button @click="isLoggedIn ? toggleDropdown() : goToLogin()" class="dropdown-button">
@@ -19,7 +19,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useAuthStore } from '/src/stores/authStore';
-import IconCommunity from "@/components/icons/IconCommunity.vue";
+import IconAdra from "@/components/icons/IconAdra.vue";
 import router from "@/router";
 
 const authStore = useAuthStore();
